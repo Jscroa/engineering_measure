@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">Measure</string>
+    <string name="action_settings">设置</string>
+    <string name="init">初始化</string>
+    <string name="measure">测量</string>
+    <string name="measure_with_explain">测量，点击扫描RFID</string>
+    <string name="title_activity_init">初始化</string>
+    <string name="title_activity_measure">测量</string>
+    <string name="previous_step">上一步</string>
+    <string name="next_step">下一步</string>
+    <string name="finish">完　成</string>
+    <string name="init_step1">基坑设置 1/3</string>
+    <string name="init_step2">工位设置 2/3</string>
+    <string name="init_step3">点位设置 3/3</string>
+    <string name="measure_step1">1/3</string>
+    <string name="measure_step2">2/3</string>
+    <string name="measure_step3">3/3</string>
+    <string name="pit_name">基坑名</string>
+    <string name="confirm_back">确定退出？</string>
+    <string name="back_explain">退出后将不保存刚录入的内容！</string>
+    <string name="confirm">确定</string>
+    <string name="cancel">取消</string>
+    <string name="workbench_name">工位名</string>
+    <string name="rfid">RFID</string>
+    <string name="latitude_and_longitude">经纬度</string>
+    <string name="longitude">经度</string>
+    <string name="latitude">纬度</string>
+    <string name="edit_work_point">编辑点位</string>
+</resources>
