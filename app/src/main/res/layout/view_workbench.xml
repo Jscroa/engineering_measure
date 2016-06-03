@@ -6,12 +6,13 @@
     android:layout_marginLeft="@dimen/half_margin"
     android:layout_marginRight="@dimen/half_margin"
     android:layout_marginTop="@dimen/half_margin"
-    android:background="@drawable/panel_bg"
     android:orientation="vertical"
     android:paddingBottom="@dimen/half_margin"
     android:paddingLeft="@dimen/half_margin"
     android:paddingRight="@dimen/half_margin"
     android:paddingTop="@dimen/half_margin">
+
+
 
 
     <LinearLayout
