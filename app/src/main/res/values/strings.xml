@@ -26,4 +26,5 @@
     <string name="longitude">经度</string>
     <string name="latitude">纬度</string>
     <string name="edit_work_point">编辑点位</string>
+    <string name="add_workbench">添加工位</string>
 </resources>

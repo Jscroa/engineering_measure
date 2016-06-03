@@ -9,11 +9,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 
+import com.cx.measure.adapter.WorkbenchesAdapter;
+import com.cx.measure.bean.Workbench;
 import com.cx.measure.mvp.presenter.InitActivityPresenter;
 import com.cx.measure.mvp.presenter.InitFragment2Presenter;
 import com.cx.measure.mvp.view.InitActivityView;
 import com.cx.measure.mvp.view.InitFragment2View;
+
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -31,7 +36,9 @@ public class InitFragment2 extends Fragment implements InitFragment2View {
     /** 下一步按钮 */
     private Button btnNext;
 
-    private EditText etWorkbench;
+    private ListView lvWorkbenches;
+    private WorkbenchesAdapter workbenchesAdapter;
+    private Button btnAddWorkbench;
 
     View.OnClickListener btnClickListener = new View.OnClickListener() {
         @Override
@@ -42,6 +49,9 @@ public class InitFragment2 extends Fragment implements InitFragment2View {
                     break;
                 case R.id.btn_next:
                     toStep3();
+                    break;
+                case R.id.btn_add_workbench:
+                    presenter.addBlankWorkbench(getContext());
                     break;
                 default:
                     break;
@@ -67,12 +77,23 @@ public class InitFragment2 extends Fragment implements InitFragment2View {
         return contentView;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        presenter.restore();
+    }
+
     private void initViews(View view) {
         btnPrevious = (Button) view.findViewById(R.id.btn_previous);
         btnNext = (Button) view.findViewById(R.id.btn_next);
-        etWorkbench = (EditText) view.findViewById(R.id.et_workbench);
+        lvWorkbenches = (ListView) view.findViewById(R.id.lv_workbenches);
+        workbenchesAdapter = new WorkbenchesAdapter(getContext());
+        lvWorkbenches.setAdapter(workbenchesAdapter);
+        btnAddWorkbench = (Button) view.findViewById(R.id.btn_add_workbench);
+
         btnPrevious.setOnClickListener(btnClickListener);
         btnNext.setOnClickListener(btnClickListener);
+        btnAddWorkbench.setOnClickListener(btnClickListener);
     }
 
     @Override
@@ -94,16 +115,6 @@ public class InitFragment2 extends Fragment implements InitFragment2View {
     }
 
     @Override
-    public void setWorkbenchName(String name) {
-        etWorkbench.setText(name);
-    }
-
-    @Override
-    public String getWorkbenchName() {
-        return etWorkbench.getText().toString().trim();
-    }
-
-    @Override
     public InitActivityPresenter getActivityPresenter(){
         if (getActivity() instanceof InitActivityView){
             InitActivityView v = (InitActivityView) getActivity();
@@ -112,5 +123,15 @@ public class InitFragment2 extends Fragment implements InitFragment2View {
             throw new RuntimeException("未找到对应的Activity");
         }
 
+    }
+
+    @Override
+    public WorkbenchesAdapter getWorkbenchesAdapter() {
+        return workbenchesAdapter;
+    }
+
+    @Override
+    public void setAddWorkbenchButtonText(String text) {
+        btnAddWorkbench.setText(text);
     }
 }
