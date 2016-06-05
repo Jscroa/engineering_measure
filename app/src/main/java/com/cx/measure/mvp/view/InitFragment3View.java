@@ -7,6 +7,5 @@ import com.cx.measure.mvp.presenter.InitActivityPresenter;
  */
 public interface InitFragment3View {
     void backToStep2();
-    void finishStep();
     InitActivityPresenter getActivityPresenter();
 }

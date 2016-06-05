@@ -19,6 +19,8 @@ public interface InitFragment2View {
 
     List<Workbench> addBlankWorkbench(Workbench workbench);
 
+    List<Workbench> removeWorkbench(int position);
+
     /**
      * 更新添加工位按钮的text
      */

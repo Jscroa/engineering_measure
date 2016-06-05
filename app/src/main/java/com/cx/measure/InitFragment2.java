@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -53,6 +54,29 @@ public class InitFragment2 extends Fragment implements InitFragment2View {
                 default:
                     break;
             }
+        }
+    };
+
+    AdapterView.OnItemLongClickListener itemLongClickListener = new AdapterView.OnItemLongClickListener() {
+
+        @Override
+        public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+            AlertDialog dialog = new AlertDialog.Builder(getContext()).create();
+            dialog.setTitle(R.string.confirm_remove);
+            dialog.setButton(DialogInterface.BUTTON_POSITIVE, getResources().getString(R.string.confirm), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                   presenter.removeWorkbench(position);
+                }
+            });
+            dialog.setButton(DialogInterface.BUTTON_NEGATIVE, getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                }
+            });
+            dialog.show();
+            return true;
         }
     };
 
@@ -152,6 +176,7 @@ public class InitFragment2 extends Fragment implements InitFragment2View {
         btnAddWorkbench = (Button) view.findViewById(R.id.btn_add_workbench);
 
         btnPrevious.setOnClickListener(btnClickListener);
+        lvWorkbenches.setOnItemLongClickListener(itemLongClickListener);
         btnAddWorkbench.setOnClickListener(btnClickListener);
     }
 
@@ -199,6 +224,15 @@ public class InitFragment2 extends Fragment implements InitFragment2View {
     public List<Workbench> addBlankWorkbench(Workbench workbench) {
         List<Workbench> workbenches = workbenchAdapter.getWorkbenches();
         workbenches.add(workbench);
+        workbenchAdapter.setWorkbenches(workbenches);
+        workbenchAdapter.notifyDataSetChanged();
+        return workbenches;
+    }
+
+    @Override
+    public List<Workbench> removeWorkbench(int position) {
+        List<Workbench> workbenches = workbenchAdapter.getWorkbenches();
+        workbenches.remove(position);
         workbenchAdapter.setWorkbenches(workbenches);
         workbenchAdapter.notifyDataSetChanged();
         return workbenches;

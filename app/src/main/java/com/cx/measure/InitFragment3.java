@@ -27,8 +27,6 @@ public class InitFragment3 extends Fragment implements InitFragment3View {
 
     /** 上一步按钮 */
     private Button btnPrevious;
-    /** 完成按钮 */
-    private Button btnFinish;
 
     View.OnClickListener btnClickListener = new View.OnClickListener() {
         @Override
@@ -36,9 +34,6 @@ public class InitFragment3 extends Fragment implements InitFragment3View {
             switch (v.getId()){
                 case R.id.btn_previous:
                     backToStep2();
-                    break;
-                case R.id.btn_finish:
-                    finishStep();
                     break;
                 default:
                     break;
@@ -63,9 +58,7 @@ public class InitFragment3 extends Fragment implements InitFragment3View {
 
     private void initViews(View view) {
         btnPrevious = (Button) view.findViewById(R.id.btn_previous);
-        btnFinish = (Button) view.findViewById(R.id.btn_finish);
         btnPrevious.setOnClickListener(btnClickListener);
-        btnFinish.setOnClickListener(btnClickListener);
     }
 
     @Override
@@ -74,15 +67,6 @@ public class InitFragment3 extends Fragment implements InitFragment3View {
             Log.i(TAG,"toStep2");
             InitActivityView v = (InitActivityView) getActivity();
             v.step3To2();
-        }
-    }
-
-    @Override
-    public void finishStep() {
-        if (getActivity() instanceof InitActivityView){
-            Log.i(TAG,"toStep2");
-            InitActivityView v = (InitActivityView) getActivity();
-            v.finishStep();
         }
     }
 

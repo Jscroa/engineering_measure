@@ -17,6 +17,7 @@
     <string name="measure_step3">3/3</string>
     <string name="pit_name">基坑名</string>
     <string name="confirm_back">确定退出？</string>
+    <string name="confirm_remove">确定删除？</string>
     <string name="back_explain">退出后将不保存刚录入的内容！</string>
     <string name="confirm">确定</string>
     <string name="cancel">取消</string>

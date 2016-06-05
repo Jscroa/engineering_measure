@@ -47,6 +47,11 @@ public class InitFragment2Presenter {
         view.refreshAddWorkbenchButtonText();
     }
 
+    public void removeWorkbench(int position){
+        this.workbenches = view.removeWorkbench(position);
+        view.refreshAddWorkbenchButtonText();
+    }
+
     public void setWorkbenches(List<Workbench> workbenches) {
         this.workbenches = workbenches;
     }
@@ -54,6 +59,7 @@ public class InitFragment2Presenter {
     public void setWorkbench(int index, Workbench workbench) {
         this.workbenches.set(index, workbench);
     }
+
 
     public void setWorkbench(int index, String name, String rfid, double longitude, double latitude) {
         Workbench workbench = workbenches.get(index);
