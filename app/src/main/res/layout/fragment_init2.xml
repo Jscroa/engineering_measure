@@ -24,21 +24,14 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:text="@string/previous_step" />
-
-        <Button
-            android:id="@+id/btn_next"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:text="@string/next_step" />
     </RelativeLayout>
 
     <ListView
         android:id="@+id/lv_workbenches"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:descendantFocusability="beforeDescendants" />
 
     <Button
         android:id="@+id/btn_add_workbench"

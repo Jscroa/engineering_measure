@@ -1,5 +1,7 @@
 package com.cx.measure;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -11,7 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
-import com.cx.measure.adapter.WorkbenchesAdapter;
+import com.cx.measure.adapter.WorkbenchAdapter;
 import com.cx.measure.bean.Workbench;
 import com.cx.measure.mvp.presenter.InitActivityPresenter;
 import com.cx.measure.mvp.presenter.InitFragment2Presenter;
@@ -33,11 +35,9 @@ public class InitFragment2 extends Fragment implements InitFragment2View {
 
     /** 上一步按钮 */
     private Button btnPrevious;
-    /** 下一步按钮 */
-    private Button btnNext;
 
     private ListView lvWorkbenches;
-    private WorkbenchesAdapter workbenchesAdapter;
+    private WorkbenchAdapter workbenchAdapter;
     private Button btnAddWorkbench;
 
     View.OnClickListener btnClickListener = new View.OnClickListener() {
@@ -47,15 +47,67 @@ public class InitFragment2 extends Fragment implements InitFragment2View {
                 case R.id.btn_previous:
                     backToStep1();
                     break;
-                case R.id.btn_next:
-                    toStep3();
-                    break;
                 case R.id.btn_add_workbench:
-                    presenter.addBlankWorkbench(getContext());
+                    presenter.addBlankWorkbench();
                     break;
                 default:
                     break;
             }
+        }
+    };
+
+    WorkbenchAdapter.WorkbenchAdapterCallback workbenchAdapterCallback = new WorkbenchAdapter.WorkbenchAdapterCallback(){
+
+        @Override
+        public void onEditWorkbenchClick(final int position) {
+            AlertDialog dialog = new AlertDialog.Builder(getContext()).create();
+            dialog.setTitle(R.string.workbench);
+            View dialogView = View.inflate(getContext(),R.layout.view_workbench,null);
+            final EditText etName = (EditText) dialogView.findViewById(R.id.et_name);
+            final EditText etRfid = (EditText) dialogView.findViewById(R.id.et_rfid);
+            final EditText etLongitude = (EditText) dialogView.findViewById(R.id.et_longitude);
+            final EditText etLatitude = (EditText) dialogView.findViewById(R.id.et_latitude);
+
+            Workbench workbench = workbenchAdapter.getWorkbenches().get(position);
+            etName.setText(workbench.getName());
+            etRfid.setText(workbench.getRFID());
+            String longitude = "";
+            if(workbench.getLongitude()!=0.0){
+                longitude = String.valueOf(workbench.getLongitude());
+            }
+            String latitude = "";
+            if(workbench.getLatitude()!=0.0){
+                latitude = String.valueOf(workbench.getLatitude());
+            }
+            etLongitude.setText(longitude);
+            etLatitude.setText(latitude);
+
+            dialog.setView(dialogView);
+            dialog.setButton(DialogInterface.BUTTON_POSITIVE, getContext().getResources().getString(R.string.confirm), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    String name = etName.getText().toString().trim();
+                    String rfid = etRfid.getText().toString().trim();
+                    String longitudeStr = etLongitude.getText().toString().trim();
+                    String latitudeStr = etLatitude.getText().toString().trim();
+                    double longitude =("".equals(longitudeStr)) ? 0.0 : Double.valueOf(longitudeStr);
+                    double latitude = ("".equals(latitudeStr)) ? 0.0 : Double.valueOf(latitudeStr);
+                    presenter.setWorkbench(position,name,rfid,longitude,latitude);
+                }
+            });
+            dialog.setButton(DialogInterface.BUTTON_NEGATIVE, getContext().getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
+
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                }
+            });
+            dialog.show();
+        }
+
+        @Override
+        public void onEditPointClick(int position) {
+            toStep3();
         }
     };
 
@@ -81,18 +133,25 @@ public class InitFragment2 extends Fragment implements InitFragment2View {
     public void onResume() {
         super.onResume();
         presenter.restore();
+        Log.i(TAG,"onResume");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        presenter.save();
+        Log.i(TAG,"onPause");
     }
 
     private void initViews(View view) {
         btnPrevious = (Button) view.findViewById(R.id.btn_previous);
-        btnNext = (Button) view.findViewById(R.id.btn_next);
         lvWorkbenches = (ListView) view.findViewById(R.id.lv_workbenches);
-        workbenchesAdapter = new WorkbenchesAdapter(getContext());
-        lvWorkbenches.setAdapter(workbenchesAdapter);
+        workbenchAdapter = new WorkbenchAdapter(getContext());
+        workbenchAdapter.setWorkbenchAdapterCallback(workbenchAdapterCallback);
+        lvWorkbenches.setAdapter(workbenchAdapter);
         btnAddWorkbench = (Button) view.findViewById(R.id.btn_add_workbench);
 
         btnPrevious.setOnClickListener(btnClickListener);
-        btnNext.setOnClickListener(btnClickListener);
         btnAddWorkbench.setOnClickListener(btnClickListener);
     }
 
@@ -126,12 +185,30 @@ public class InitFragment2 extends Fragment implements InitFragment2View {
     }
 
     @Override
-    public WorkbenchesAdapter getWorkbenchesAdapter() {
-        return workbenchesAdapter;
+    public void setWorkbenches(List<Workbench> workbenches) {
+        workbenchAdapter.setWorkbenches(workbenches);
+        workbenchAdapter.notifyDataSetChanged();
     }
 
     @Override
-    public void setAddWorkbenchButtonText(String text) {
+    public List<Workbench> getWorkbenches() {
+        return workbenchAdapter.getWorkbenches();
+    }
+
+    @Override
+    public List<Workbench> addBlankWorkbench(Workbench workbench) {
+        List<Workbench> workbenches = workbenchAdapter.getWorkbenches();
+        workbenches.add(workbench);
+        workbenchAdapter.setWorkbenches(workbenches);
+        workbenchAdapter.notifyDataSetChanged();
+        return workbenches;
+    }
+
+    @Override
+    public void refreshAddWorkbenchButtonText() {
+        String text = getResources().getString(R.string.add_workbench);
+        text = text + " (" + workbenchAdapter.getCount() + ")";
         btnAddWorkbench.setText(text);
+
     }
 }

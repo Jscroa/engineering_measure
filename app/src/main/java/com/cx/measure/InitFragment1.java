@@ -39,7 +39,6 @@ public class InitFragment1 extends Fragment implements InitFragment1View {
         public void onClick(View v) {
             switch (v.getId()){
                 case R.id.btn_next:
-                    presenter.savePitName();
                     toStep2();
                     break;
                 default:
@@ -87,9 +86,17 @@ public class InitFragment1 extends Fragment implements InitFragment1View {
 
     @Override
     public void onResume() {
+        Log.i(TAG,"onResume");
         super.onResume();
         // 恢复数据
         presenter.restore();
+    }
+
+    @Override
+    public void onPause() {
+        Log.i(TAG,"onPause");
+        super.onPause();
+        presenter.save();
     }
 
     private void initViews(View view){
@@ -103,7 +110,6 @@ public class InitFragment1 extends Fragment implements InitFragment1View {
     @Override
     public void toStep2() {
         if (getActivity() instanceof InitActivityView){
-            Log.i(TAG,"toStep2");
             InitActivityView v = (InitActivityView) getActivity();
             v.step1To2();
         }

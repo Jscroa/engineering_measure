@@ -21,10 +21,13 @@
     <string name="confirm">确定</string>
     <string name="cancel">取消</string>
     <string name="workbench_name">工位名</string>
+    <string name="workbench">工位</string>
     <string name="rfid">RFID</string>
     <string name="latitude_and_longitude">经纬度</string>
     <string name="longitude">经度</string>
     <string name="latitude">纬度</string>
     <string name="edit_work_point">编辑点位</string>
     <string name="add_workbench">添加工位</string>
+    <string name="edit_this_workbench">编辑此工位</string>
+    <string name="n_a">N/A</string>
 </resources>

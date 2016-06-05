@@ -2,12 +2,16 @@ package com.cx.measure;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -24,6 +28,27 @@ public class InitActivity extends AppCompatActivity implements InitActivityView 
     private InitFragment1 initFragment1;
     private InitFragment2 initFragment2;
     private InitFragment3 initFragment3;
+
+    private static final int MSG_SAVE_SUCCESS = 100;
+    private static final int MSG_SAVE_FAIL = 200;
+
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what){
+                case MSG_SAVE_SUCCESS:
+                    Toast.makeText(InitActivity.this,"保存成功",Toast.LENGTH_SHORT).show();
+                    break;
+                case MSG_SAVE_FAIL:
+                    Toast.makeText(InitActivity.this,"保存失败",Toast.LENGTH_SHORT).show();
+                    break;
+                default:
+                    break;
+            }
+
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,16 +93,40 @@ public class InitActivity extends AppCompatActivity implements InitActivityView 
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_init,menu);
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
                 confirmBack();
+                return true;
+            case R.id.menu_finish:
+                new Thread(savePitRunnable).start();
                 return true;
             default:
                 break;
         }
         return super.onOptionsItemSelected(item);
     }
+
+    Runnable savePitRunnable = new Runnable() {
+        @Override
+        public void run() {
+            Message msg = new Message();
+            if(presenter.save()){
+                msg.what = MSG_SAVE_SUCCESS;
+
+            }else{
+                msg.what = MSG_SAVE_FAIL;
+            }
+            handler.sendMessage(msg);
+        }
+    };
 
     @Override
     public void back() {

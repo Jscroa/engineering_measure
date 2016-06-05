@@ -33,6 +33,7 @@ public class InitActivityPresenter implements HomeAsUpEnabledPresenter {
         view.back();
     }
 
-
-
+    public boolean save() {
+        return true;
+    }
 }

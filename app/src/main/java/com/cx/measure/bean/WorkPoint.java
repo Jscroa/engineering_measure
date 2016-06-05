@@ -18,8 +18,8 @@ public class WorkPoint {
     private MeasureType type;
     /** 测量次数 */
     private int measureCount;
-    /** 误差范围 */
-    private int deviationPercent;
+    /** 误差范围 默认±10% */
+    private int deviationPercent = 10;
 
     public int getId() {
         return id;

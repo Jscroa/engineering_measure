@@ -6,12 +6,12 @@
     android:layout_marginLeft="@dimen/half_margin"
     android:layout_marginRight="@dimen/half_margin"
     android:layout_marginTop="@dimen/half_margin"
+    android:descendantFocusability="blocksDescendants"
     android:orientation="vertical"
     android:paddingBottom="@dimen/half_margin"
     android:paddingLeft="@dimen/half_margin"
     android:paddingRight="@dimen/half_margin"
     android:paddingTop="@dimen/half_margin">
-
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -24,19 +24,20 @@
             android:gravity="center_vertical"
             android:text="@string/workbench_name" />
 
-        <EditText
-            android:id="@+id/et_name"
-            android:layout_width="0dp"
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_weight="1"
             android:gravity="center_vertical"
-            android:singleLine="true" />
+            android:hint="N/A"
+            android:textColor="@android:color/black" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/half_margin"
         android:orientation="horizontal">
 
         <TextView
@@ -45,27 +46,20 @@
             android:gravity="center_vertical"
             android:text="@string/rfid" />
 
-        <EditText
-            android:id="@+id/et_rfid"
-            android:layout_width="0dp"
+        <TextView
+            android:id="@+id/tv_rfid"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_weight="1"
             android:gravity="center_vertical"
-            android:singleLine="true" />
-
-        <ImageView
-            android:id="@+id/iv_rfid_scan"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:src="@android:drawable/ic_menu_send" />
+            android:hint="N/A"
+            android:textColor="@android:color/black" />
     </LinearLayout>
-
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/half_margin"
         android:orientation="horizontal">
 
         <TextView
@@ -74,34 +68,41 @@
             android:gravity="center_vertical"
             android:text="@string/latitude_and_longitude" />
 
-        <EditText
-            android:id="@+id/et_longitude"
-            android:layout_width="0dp"
+        <TextView
+            android:id="@+id/tv_latitude_and_longitude"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_weight="1"
             android:gravity="center_vertical"
-            android:hint="@string/longitude"
-            android:inputType="numberDecimal"
-            android:singleLine="true" />
+            android:hint="N/A"
+            android:textColor="@android:color/black" />
+    </LinearLayout>
 
-        <EditText
-            android:id="@+id/et_latitude"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/half_margin"
+        android:orientation="horizontal">
+
+        <View
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:hint="@string/latitude"
-            android:inputType="numberDecimal"
-            android:singleLine="true" />
+            android:layout_height="0dp"
+            android:layout_weight="1" />
 
-        <ImageView
-            android:id="@+id/iv_location"
+        <Button
+            android:id="@+id/btn_edit_workbench"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:src="@android:drawable/ic_menu_send" />
+            android:focusable="false"
+            android:text="@string/edit_this_workbench" />
+
+        <Button
+            android:id="@+id/btn_edit_point"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:focusable="false"
+            android:text="@string/edit_work_point" />
+
     </LinearLayout>
 
 </LinearLayout>

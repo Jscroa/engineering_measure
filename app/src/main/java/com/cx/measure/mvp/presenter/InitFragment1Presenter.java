@@ -9,22 +9,27 @@ import com.cx.measure.mvp.view.InitFragment1View;
 public class InitFragment1Presenter {
     private InitFragment1View view;
 
+    private String pitName;
+
+    InitActivityPresenter activityPresenter;
+
     public InitFragment1Presenter(InitFragment1View view) {
         this.view = view;
+        this.activityPresenter = view.getActivityPresenter();
+        this.pitName = activityPresenter.getPit().getName();
     }
 
-    public void savePitName(){
-        InitActivityPresenter presenter = view.getActivityPresenter();
-        Pit pit = presenter.getPit();
-        pit.setName(view.getPitName());
-        presenter.setPit(pit);
+    public void save(){
+        this.pitName = view.getPitName();
+        Pit pit = activityPresenter.getPit();
+        pit.setName(pitName);
+        activityPresenter.setPit(pit);
     }
 
     /**
      * 恢复数据
      */
     public void restore(){
-        InitActivityPresenter presenter = view.getActivityPresenter();
-        view.setPitName(presenter.getPit().getName());
+        view.setPitName(pitName);
     }
 }
