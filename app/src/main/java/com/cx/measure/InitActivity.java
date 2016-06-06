@@ -39,9 +39,11 @@ public class InitActivity extends AppCompatActivity implements InitActivityView 
             switch (msg.what) {
                 case MSG_SAVE_SUCCESS:
                     Toast.makeText(InitActivity.this, "保存成功", Toast.LENGTH_SHORT).show();
+                    finish();
                     break;
                 case MSG_SAVE_FAIL:
                     Toast.makeText(InitActivity.this, "保存失败", Toast.LENGTH_SHORT).show();
+                    finish();
                     break;
                 default:
                     break;

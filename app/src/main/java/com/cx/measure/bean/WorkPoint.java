@@ -3,8 +3,6 @@ package com.cx.measure.bean;
 import org.xutils.db.annotation.Column;
 import org.xutils.db.annotation.Table;
 
-import java.sql.Timestamp;
-
 /**
  * Created by yyao on 2016/6/1.
  * 点位
@@ -46,11 +44,11 @@ public class WorkPoint {
 
     /** 创建时间 */
     @Column(name = "create_time")
-    private Timestamp createTime;
+    private long createTime;
 
     /** 更新时间 */
     @Column(name = "update_time")
-    private Timestamp updateTime;
+    private long updateTime;
 
     public int getId() {
         return id;
@@ -116,19 +114,19 @@ public class WorkPoint {
         this.deviationPercent = deviationPercent;
     }
 
-    public Timestamp getCreateTime() {
+    public long getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Timestamp createTime) {
+    public void setCreateTime(long createTime) {
         this.createTime = createTime;
     }
 
-    public Timestamp getUpdateTime() {
+    public long getUpdateTime() {
         return updateTime;
     }
 
-    public void setUpdateTime(Timestamp updateTime) {
+    public void setUpdateTime(long updateTime) {
         this.updateTime = updateTime;
     }
 }

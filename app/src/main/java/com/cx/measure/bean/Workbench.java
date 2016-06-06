@@ -3,7 +3,6 @@ package com.cx.measure.bean;
 import org.xutils.db.annotation.Column;
 import org.xutils.db.annotation.Table;
 
-import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -46,11 +45,11 @@ public class Workbench {
 
     /** 创建时间 */
     @Column(name = "create_time")
-    private Timestamp createTime;
+    private long createTime;
 
     /** 更新时间 */
     @Column(name = "update_time")
-    private Timestamp updateTime;
+    private long updateTime;
 
     /** 包含的点位 */
     private List<WorkPoint> workPoints;
@@ -119,19 +118,19 @@ public class Workbench {
         this.latitude = latitude;
     }
 
-    public Timestamp getCreateTime() {
+    public long getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Timestamp createTime) {
+    public void setCreateTime(long createTime) {
         this.createTime = createTime;
     }
 
-    public Timestamp getUpdateTime() {
+    public long getUpdateTime() {
         return updateTime;
     }
 
-    public void setUpdateTime(Timestamp updateTime) {
+    public void setUpdateTime(long updateTime) {
         this.updateTime = updateTime;
     }
 
