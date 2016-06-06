@@ -101,7 +101,7 @@ public class InitFragment3 extends Fragment implements InitFragment3View {
             spinnerMeasureType.setAdapter(measureTypeAdapter);
             WorkPoint workPoint = workPointAdapter.getWorkPoints().get(position);
             etName.setText(workPoint.getName());
-            MeasureType measureType = workPoint.getType();
+            MeasureType measureType = MeasureType.getType(workPoint.getMeasureType());
             if (measureType != null) {
                 spinnerMeasureType.setSelection(measureType.getPositioon(measureType.getCode()));
             }

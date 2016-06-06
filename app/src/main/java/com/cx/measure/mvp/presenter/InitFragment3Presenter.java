@@ -67,7 +67,7 @@ public class InitFragment3Presenter {
     public void setWorkPoint(int position, String name, MeasureType type, int measureCount, int deviationPercent) {
         WorkPoint workPoint = workPoints.get(position);
         workPoint.setName(name);
-        workPoint.setType(type);
+        workPoint.setMeasureType(type.getCode());
         workPoint.setMeasureCount(measureCount);
         workPoint.setDeviationPercent(deviationPercent);
         workPoints.set(position, workPoint);

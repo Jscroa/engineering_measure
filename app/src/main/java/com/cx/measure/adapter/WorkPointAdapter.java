@@ -69,7 +69,7 @@ public class WorkPointAdapter extends BaseAdapter {
 
         WorkPoint workPoint = workPoints.get(position);
         viewHolder.tvName.setText(workPoint.getName());
-        MeasureType type = workPoint.getType();
+        MeasureType type = MeasureType.getType(workPoint.getMeasureType());
         if (type == null) {
             viewHolder.tvType.setText("");
         } else {

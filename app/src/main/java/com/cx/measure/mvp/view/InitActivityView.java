@@ -14,8 +14,6 @@ public interface InitActivityView extends HomeAsUpEnabledView {
 
     void step3To2();
 
-    void finishStep();
-
     void confirmBack();
 
     InitActivityPresenter getPresenter();

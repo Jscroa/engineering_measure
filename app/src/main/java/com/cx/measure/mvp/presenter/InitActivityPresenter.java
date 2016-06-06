@@ -1,7 +1,10 @@
 package com.cx.measure.mvp.presenter;
 
 import com.cx.measure.bean.Pit;
+import com.cx.measure.dao.PitDao;
 import com.cx.measure.mvp.view.InitActivityView;
+
+import org.xutils.ex.DbException;
 
 /**
  * Created by yyao on 2016/5/31.
@@ -34,6 +37,13 @@ public class InitActivityPresenter implements HomeAsUpEnabledPresenter {
     }
 
     public boolean save() {
-        return true;
+        PitDao pitDao = new PitDao();
+        try {
+            pitDao.add(pit);
+            return true;
+        } catch (DbException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 }

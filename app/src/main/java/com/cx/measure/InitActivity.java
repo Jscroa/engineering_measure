@@ -162,13 +162,6 @@ public class InitActivity extends AppCompatActivity implements InitActivityView 
     }
 
     @Override
-    public void finishStep() {
-        Log.i(TAG, "finishStep");
-        Toast.makeText(this, "添加完成", Toast.LENGTH_SHORT).show();
-        finish();
-    }
-
-    @Override
     public void confirmBack() {
         AlertDialog dialog = new AlertDialog.Builder(this).create();
         dialog.setTitle(R.string.confirm_back);
