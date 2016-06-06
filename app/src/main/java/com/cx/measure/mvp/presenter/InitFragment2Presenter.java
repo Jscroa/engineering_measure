@@ -23,7 +23,7 @@ public class InitFragment2Presenter {
         this.workbenches = activityPresenter.getPit().getWorkbenches();
     }
 
-    public void save() {
+    private void save() {
         Pit pit = activityPresenter.getPit();
         pit.setWorkbenches(workbenches);
         activityPresenter.setPit(pit);
@@ -33,7 +33,7 @@ public class InitFragment2Presenter {
      * 恢复数据
      */
     public void restore() {
-        List<Workbench> workbenches = activityPresenter.getPit().getWorkbenches();
+        /*List<Workbench> */workbenches = activityPresenter.getPit().getWorkbenches();
         if (workbenches == null) {
             workbenches = new ArrayList<>();
         }
@@ -45,29 +45,23 @@ public class InitFragment2Presenter {
     public void addBlankWorkbench() {
         this.workbenches = view.addBlankWorkbench(new Workbench());
         view.refreshAddWorkbenchButtonText();
+        save();
     }
 
     public void removeWorkbench(int position){
         this.workbenches = view.removeWorkbench(position);
         view.refreshAddWorkbenchButtonText();
+        save();
     }
 
-    public void setWorkbenches(List<Workbench> workbenches) {
-        this.workbenches = workbenches;
-    }
-
-    public void setWorkbench(int index, Workbench workbench) {
-        this.workbenches.set(index, workbench);
-    }
-
-
-    public void setWorkbench(int index, String name, String rfid, double longitude, double latitude) {
-        Workbench workbench = workbenches.get(index);
+    public void setWorkbench(int position, String name, String rfid, double longitude, double latitude) {
+        Workbench workbench = workbenches.get(position);
         workbench.setName(name);
         workbench.setRFID(rfid);
         workbench.setLongitude(longitude);
         workbench.setLatitude(latitude);
-        workbenches.set(index, workbench);
+        workbenches.set(position, workbench);
         view.setWorkbenches(workbenches);
+        save();
     }
 }

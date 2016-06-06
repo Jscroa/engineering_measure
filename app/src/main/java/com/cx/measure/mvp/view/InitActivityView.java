@@ -8,7 +8,7 @@ import com.cx.measure.mvp.presenter.InitActivityPresenter;
 public interface InitActivityView extends HomeAsUpEnabledView {
     void step1To2();
     void step2To1();
-    void step2To3();
+    void step2To3(int position);
     void step3To2();
     void finishStep();
     void confirmBack();

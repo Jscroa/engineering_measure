@@ -1,9 +1,32 @@
 package com.cx.measure;
 
-import android.app.AlertDialog;
+//import android.support.v7.app.AlertDialog;
+//import android.content.DialogInterface;
+//import android.os.Bundle;
+//import android.support.v4.app.Fragment;
+//import android.util.Log;
+//import android.view.LayoutInflater;
+//import android.view.MotionEvent;
+//import android.view.View;
+//import android.view.ViewGroup;
+//import android.widget.AdapterView;
+//import android.widget.Button;
+//import android.widget.EditText;
+//import android.widget.ListView;
+//
+//import com.cx.measure.adapter.WorkbenchAdapter;
+//import com.cx.measure.bean.Workbench;
+//import com.cx.measure.mvp.presenter.InitActivityPresenter;
+//import com.cx.measure.mvp.presenter.InitFragment2Presenter;
+//import com.cx.measure.mvp.view.InitActivityView;
+//import com.cx.measure.mvp.view.InitFragment2View;
+//
+//import java.util.List;
+
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -34,7 +57,9 @@ public class InitFragment2 extends Fragment implements InitFragment2View {
 
     private View contentView;
 
-    /** 上一步按钮 */
+    /**
+     * 上一步按钮
+     */
     private Button btnPrevious;
 
     private ListView lvWorkbenches;
@@ -66,7 +91,7 @@ public class InitFragment2 extends Fragment implements InitFragment2View {
             dialog.setButton(DialogInterface.BUTTON_POSITIVE, getResources().getString(R.string.confirm), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                   presenter.removeWorkbench(position);
+                    presenter.removeWorkbench(position);
                 }
             });
             dialog.setButton(DialogInterface.BUTTON_NEGATIVE, getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
@@ -80,13 +105,13 @@ public class InitFragment2 extends Fragment implements InitFragment2View {
         }
     };
 
-    WorkbenchAdapter.WorkbenchAdapterCallback workbenchAdapterCallback = new WorkbenchAdapter.WorkbenchAdapterCallback(){
+    WorkbenchAdapter.WorkbenchAdapterCallback workbenchAdapterCallback = new WorkbenchAdapter.WorkbenchAdapterCallback() {
 
         @Override
         public void onEditWorkbenchClick(final int position) {
             AlertDialog dialog = new AlertDialog.Builder(getContext()).create();
             dialog.setTitle(R.string.workbench);
-            View dialogView = View.inflate(getContext(),R.layout.view_workbench,null);
+            View dialogView = View.inflate(getContext(), R.layout.view_workbench, null);
             final EditText etName = (EditText) dialogView.findViewById(R.id.et_name);
             final EditText etRfid = (EditText) dialogView.findViewById(R.id.et_rfid);
             final EditText etLongitude = (EditText) dialogView.findViewById(R.id.et_longitude);
@@ -96,11 +121,11 @@ public class InitFragment2 extends Fragment implements InitFragment2View {
             etName.setText(workbench.getName());
             etRfid.setText(workbench.getRFID());
             String longitude = "";
-            if(workbench.getLongitude()!=0.0){
+            if (workbench.getLongitude() != 0.0) {
                 longitude = String.valueOf(workbench.getLongitude());
             }
             String latitude = "";
-            if(workbench.getLatitude()!=0.0){
+            if (workbench.getLatitude() != 0.0) {
                 latitude = String.valueOf(workbench.getLatitude());
             }
             etLongitude.setText(longitude);
@@ -114,9 +139,9 @@ public class InitFragment2 extends Fragment implements InitFragment2View {
                     String rfid = etRfid.getText().toString().trim();
                     String longitudeStr = etLongitude.getText().toString().trim();
                     String latitudeStr = etLatitude.getText().toString().trim();
-                    double longitude =("".equals(longitudeStr)) ? 0.0 : Double.valueOf(longitudeStr);
-                    double latitude = ("".equals(latitudeStr)) ? 0.0 : Double.valueOf(latitudeStr);
-                    presenter.setWorkbench(position,name,rfid,longitude,latitude);
+                    double longitude = ("".equals(longitudeStr)) ? 0.0 : Double.parseDouble(longitudeStr);
+                    double latitude = ("".equals(latitudeStr)) ? 0.0 : Double.parseDouble(latitudeStr);
+                    presenter.setWorkbench(position, name, rfid, longitude, latitude);
                 }
             });
             dialog.setButton(DialogInterface.BUTTON_NEGATIVE, getContext().getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
@@ -131,7 +156,7 @@ public class InitFragment2 extends Fragment implements InitFragment2View {
 
         @Override
         public void onEditPointClick(int position) {
-            toStep3();
+            toStep3(position);
         }
     };
 
@@ -157,14 +182,7 @@ public class InitFragment2 extends Fragment implements InitFragment2View {
     public void onResume() {
         super.onResume();
         presenter.restore();
-        Log.i(TAG,"onResume");
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        presenter.save();
-        Log.i(TAG,"onPause");
+        Log.i(TAG, "onResume");
     }
 
     private void initViews(View view) {
@@ -182,28 +200,28 @@ public class InitFragment2 extends Fragment implements InitFragment2View {
 
     @Override
     public void backToStep1() {
-        if (getActivity() instanceof InitActivityView){
-            Log.i(TAG,"toStep1");
+        if (getActivity() instanceof InitActivityView) {
+            Log.i(TAG, "toStep1");
             InitActivityView v = (InitActivityView) getActivity();
             v.step2To1();
         }
     }
 
     @Override
-    public void toStep3() {
-        if (getActivity() instanceof InitActivityView){
-            Log.i(TAG,"toStep3");
+    public void toStep3(int position) {
+        if (getActivity() instanceof InitActivityView) {
+            Log.i(TAG, "toStep3");
             InitActivityView v = (InitActivityView) getActivity();
-            v.step2To3();
+            v.step2To3(position);
         }
     }
 
     @Override
-    public InitActivityPresenter getActivityPresenter(){
-        if (getActivity() instanceof InitActivityView){
+    public InitActivityPresenter getActivityPresenter() {
+        if (getActivity() instanceof InitActivityView) {
             InitActivityView v = (InitActivityView) getActivity();
             return v.getPresenter();
-        }else{
+        } else {
             throw new RuntimeException("未找到对应的Activity");
         }
 
@@ -213,11 +231,6 @@ public class InitFragment2 extends Fragment implements InitFragment2View {
     public void setWorkbenches(List<Workbench> workbenches) {
         workbenchAdapter.setWorkbenches(workbenches);
         workbenchAdapter.notifyDataSetChanged();
-    }
-
-    @Override
-    public List<Workbench> getWorkbenches() {
-        return workbenchAdapter.getWorkbenches();
     }
 
     @Override
@@ -243,6 +256,5 @@ public class InitFragment2 extends Fragment implements InitFragment2View {
         String text = getResources().getString(R.string.add_workbench);
         text = text + " (" + workbenchAdapter.getCount() + ")";
         btnAddWorkbench.setText(text);
-
     }
 }

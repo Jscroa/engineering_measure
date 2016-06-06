@@ -96,7 +96,7 @@ public class InitFragment1 extends Fragment implements InitFragment1View {
     public void onPause() {
         Log.i(TAG,"onPause");
         super.onPause();
-        presenter.save();
+
     }
 
     private void initViews(View view){
@@ -111,6 +111,7 @@ public class InitFragment1 extends Fragment implements InitFragment1View {
     public void toStep2() {
         if (getActivity() instanceof InitActivityView){
             InitActivityView v = (InitActivityView) getActivity();
+            presenter.save();
             v.step1To2();
         }
     }

@@ -27,8 +27,15 @@
     <string name="latitude_and_longitude">经纬度</string>
     <string name="longitude">经度</string>
     <string name="latitude">纬度</string>
-    <string name="edit_work_point">编辑点位</string>
+    <string name="enter_workpoint">编辑点位</string>
     <string name="add_workbench">添加工位</string>
+    <string name="add_workpoint">添加点位</string>
     <string name="edit_this_workbench">编辑此工位</string>
+    <string name="edit_this_workpoint">编辑此点位</string>
     <string name="n_a">N/A</string>
+    <string name="workpoint_name">点位名</string>
+    <string name="workpoint">点位</string>
+    <string name="measure_type">测量方法</string>
+    <string name="measure_count">测量次数</string>
+    <string name="allowable_deviation">允许误差</string>
 </resources>

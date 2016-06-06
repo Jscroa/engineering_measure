@@ -1,5 +1,9 @@
 package com.cx.measure.comments;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * Created by yyao on 2016/5/31.
  */
@@ -26,15 +30,45 @@ public enum MeasureType {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public int getCode() {
         return code;
     }
 
-    public void setCode(int code) {
-        this.code = code;
+    public static List<MeasureType> allTypes = Arrays.asList(MeasureType.values());
+
+    public static MeasureType getType(int code){
+        for (MeasureType type:allTypes) {
+            if (type.getCode() == code){
+                return type;
+            }
+        }
+        return null;
     }
+
+    public static int getPositioon(int code){
+        for (int i = 0; i < allTypes.size(); i++) {
+            MeasureType type = allTypes.get(i);
+            if(type.getCode() == code){
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public static MeasureType getByPosition(int position){
+        if(position >=0 || position<allTypes.size()){
+            return allTypes.get(position);
+        }
+        return null;
+    }
+
+    public static List<String> getNameList(){
+        List<String> list = new ArrayList<>();
+        for (int i = 0; i < allTypes.size(); i++) {
+            MeasureType type = allTypes.get(i);
+            list.add(type.getName());
+        }
+        return list;
+    }
+
 }

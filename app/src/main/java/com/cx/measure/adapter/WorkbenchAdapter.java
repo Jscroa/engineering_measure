@@ -76,7 +76,7 @@ public class WorkbenchAdapter extends BaseAdapter {
 
         BtnClickListener btnClickListener = new BtnClickListener(position);
         viewHolder.btnEditWorkbench.setOnClickListener(btnClickListener);
-        viewHolder.btnEditPoint.setOnClickListener(btnClickListener);
+        viewHolder.btnEnterPoint.setOnClickListener(btnClickListener);
 
         return convertView;
     }
@@ -87,7 +87,7 @@ public class WorkbenchAdapter extends BaseAdapter {
         viewHolder.tvRfid = (TextView) convertView.findViewById(R.id.tv_rfid);
         viewHolder.tv_latitude_and_longitude = (TextView) convertView.findViewById(R.id.tv_latitude_and_longitude);
         viewHolder.btnEditWorkbench = (Button) convertView.findViewById(R.id.btn_edit_workbench);
-        viewHolder.btnEditPoint = (Button) convertView.findViewById(R.id.btn_edit_point);
+        viewHolder.btnEnterPoint = (Button) convertView.findViewById(R.id.btn_enter_point);
         return viewHolder;
     }
 
@@ -109,9 +109,9 @@ public class WorkbenchAdapter extends BaseAdapter {
          */
         Button btnEditWorkbench;
         /**
-         * 编辑点位
+         * 进入点位
          */
-        Button btnEditPoint;
+        Button btnEnterPoint;
     }
 
     private class BtnClickListener implements View.OnClickListener {
@@ -124,11 +124,14 @@ public class WorkbenchAdapter extends BaseAdapter {
 
         @Override
         public void onClick(View v) {
+            if(callback==null){
+                return;
+            }
             switch (v.getId()) {
                 case R.id.btn_edit_workbench:
                     callback.onEditWorkbenchClick(position);
                     break;
-                case R.id.btn_edit_point:
+                case R.id.btn_enter_point:
                     callback.onEditPointClick(position);
                     break;
                 default:

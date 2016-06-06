@@ -22,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:text="@string/workbench_name" />
+            android:text="@string/workpoint_name" />
 
         <TextView
             android:id="@+id/tv_name"
@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:gravity="center_vertical"
-            android:hint="@string/n_a"
+            android:hint="N/A"
             android:textColor="@android:color/black" />
     </LinearLayout>
 
@@ -44,10 +44,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:text="@string/rfid" />
+            android:text="@string/measure_type" />
 
         <TextView
-            android:id="@+id/tv_rfid"
+            android:id="@+id/tv_type"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
@@ -66,10 +66,32 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:text="@string/latitude_and_longitude" />
+            android:text="@string/measure_count" />
 
         <TextView
-            android:id="@+id/tv_latitude_and_longitude"
+            android:id="@+id/tv_count"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:gravity="center_vertical"
+            android:hint="@string/n_a"
+            android:textColor="@android:color/black" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/half_margin"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:text="@string/allowable_deviation" />
+
+        <TextView
+            android:id="@+id/tv_deviation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
@@ -90,18 +112,12 @@
             android:layout_weight="1" />
 
         <Button
-            android:id="@+id/btn_edit_workbench"
+            android:id="@+id/btn_edit_workpoint"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:focusable="false"
-            android:text="@string/edit_this_workbench" />
+            android:text="@string/edit_this_workpoint" />
 
-        <Button
-            android:id="@+id/btn_enter_point"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:focusable="false"
-            android:text="@string/enter_workpoint" />
 
     </LinearLayout>
 

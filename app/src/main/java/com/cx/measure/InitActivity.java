@@ -147,8 +147,11 @@ public class InitActivity extends AppCompatActivity implements InitActivityView 
     }
 
     @Override
-    public void step2To3() {
+    public void step2To3(int position) {
         Log.i(TAG, "step2 -> step3");
+        Bundle bundle = new Bundle();
+        bundle.putInt(InitFragment3.ARG_WORKBENCH_POSITION,position);
+        initFragment3.setArguments(bundle);
         fm.beginTransaction().setCustomAnimations(R.anim.slide_in_right, 0).replace(R.id.frame_init_step, initFragment3).addToBackStack("step3").commit();
     }
 
