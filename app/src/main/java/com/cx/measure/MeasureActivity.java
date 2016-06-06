@@ -26,7 +26,7 @@ public class MeasureActivity extends AppCompatActivity implements MeasureActivit
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case android.R.id.home:
                 presenter.back();
                 return true;
@@ -38,7 +38,7 @@ public class MeasureActivity extends AppCompatActivity implements MeasureActivit
 
     @Override
     public void back() {
-        Log.i(TAG,"back");
+        Log.i(TAG, "back");
         finish();
     }
 }

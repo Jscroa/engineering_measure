@@ -28,16 +28,20 @@ public class InitFragment1 extends Fragment implements InitFragment1View {
 
     private View contentView;
 
-    /** 下一步按钮 */
+    /**
+     * 下一步按钮
+     */
     private Button btnNext;
-    /** 基坑名 */
+    /**
+     * 基坑名
+     */
     private EditText etPit;
 
 
     View.OnClickListener btnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            switch (v.getId()){
+            switch (v.getId()) {
                 case R.id.btn_next:
                     toStep2();
                     break;
@@ -51,15 +55,17 @@ public class InitFragment1 extends Fragment implements InitFragment1View {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
         }
+
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
         }
+
         @Override
         public void afterTextChanged(Editable s) {
             String pitName = etPit.getText().toString();
-            if(pitName==null || "".equals(pitName)){
+            if (pitName == null || "".equals(pitName)) {
                 btnNext.setEnabled(false);
-            }else{
+            } else {
                 btnNext.setEnabled(true);
             }
         }
@@ -71,7 +77,7 @@ public class InitFragment1 extends Fragment implements InitFragment1View {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Log.i(TAG,"onCreateView()");
+        Log.i(TAG, "onCreateView()");
         contentView = inflater.inflate(R.layout.fragment_init1, container, false);
         contentView.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -86,7 +92,7 @@ public class InitFragment1 extends Fragment implements InitFragment1View {
 
     @Override
     public void onResume() {
-        Log.i(TAG,"onResume");
+        Log.i(TAG, "onResume");
         super.onResume();
         // 恢复数据
         presenter.restore();
@@ -94,12 +100,12 @@ public class InitFragment1 extends Fragment implements InitFragment1View {
 
     @Override
     public void onPause() {
-        Log.i(TAG,"onPause");
+        Log.i(TAG, "onPause");
         super.onPause();
 
     }
 
-    private void initViews(View view){
+    private void initViews(View view) {
         btnNext = (Button) view.findViewById(R.id.btn_next);
         etPit = (EditText) view.findViewById(R.id.et_pit);
         btnNext.setEnabled(false);
@@ -109,7 +115,7 @@ public class InitFragment1 extends Fragment implements InitFragment1View {
 
     @Override
     public void toStep2() {
-        if (getActivity() instanceof InitActivityView){
+        if (getActivity() instanceof InitActivityView) {
             InitActivityView v = (InitActivityView) getActivity();
             presenter.save();
             v.step1To2();
@@ -127,11 +133,11 @@ public class InitFragment1 extends Fragment implements InitFragment1View {
     }
 
     @Override
-    public InitActivityPresenter getActivityPresenter(){
-        if (getActivity() instanceof InitActivityView){
+    public InitActivityPresenter getActivityPresenter() {
+        if (getActivity() instanceof InitActivityView) {
             InitActivityView v = (InitActivityView) getActivity();
             return v.getPresenter();
-        }else{
+        } else {
             throw new RuntimeException("未找到对应的Activity");
         }
     }

@@ -7,7 +7,10 @@ import com.cx.measure.mvp.presenter.InitActivityPresenter;
  */
 public interface InitFragment1View {
     void toStep2();
+
     void setPitName(String name);
+
     String getPitName();
+
     InitActivityPresenter getActivityPresenter();
 }

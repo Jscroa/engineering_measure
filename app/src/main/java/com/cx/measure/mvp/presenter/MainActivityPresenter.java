@@ -12,11 +12,11 @@ public class MainActivityPresenter {
         this.view = view;
     }
 
-    public void clickToInit(){
+    public void clickToInit() {
         view.toInit();
     }
 
-    public void clickToMeasure(){
+    public void clickToMeasure() {
         view.toMeasure();
     }
 }

@@ -39,7 +39,9 @@ public class InitFragment3 extends Fragment implements InitFragment3View {
 
     private View contentView;
 
-    /** 上一步按钮 */
+    /**
+     * 上一步按钮
+     */
     private Button btnPrevious;
     private ListView lvWorkPoints;
     private WorkPointAdapter workPointAdapter;
@@ -50,7 +52,7 @@ public class InitFragment3 extends Fragment implements InitFragment3View {
     View.OnClickListener btnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            switch (v.getId()){
+            switch (v.getId()) {
                 case R.id.btn_previous:
                     backToStep2();
                     break;
@@ -90,7 +92,7 @@ public class InitFragment3 extends Fragment implements InitFragment3View {
         public void onEditPointClick(final int position) {
             AlertDialog dialog = new AlertDialog.Builder(getContext()).create();
             dialog.setTitle(R.string.workpoint);
-            View dialogView = View.inflate(getContext(),R.layout.view_workpoint,null);
+            View dialogView = View.inflate(getContext(), R.layout.view_workpoint, null);
             final EditText etName = (EditText) dialogView.findViewById(R.id.et_name);
             final Spinner spinnerMeasureType = (Spinner) dialogView.findViewById(R.id.spinner_measure_type);
             final EditText etMeasureCount = (EditText) dialogView.findViewById(R.id.et_measure_count);
@@ -100,7 +102,7 @@ public class InitFragment3 extends Fragment implements InitFragment3View {
             WorkPoint workPoint = workPointAdapter.getWorkPoints().get(position);
             etName.setText(workPoint.getName());
             MeasureType measureType = workPoint.getType();
-            if(measureType!=null){
+            if (measureType != null) {
                 spinnerMeasureType.setSelection(measureType.getPositioon(measureType.getCode()));
             }
             etMeasureCount.setText(String.valueOf(workPoint.getMeasureCount()));
@@ -108,16 +110,16 @@ public class InitFragment3 extends Fragment implements InitFragment3View {
 
 
             dialog.setView(dialogView);
-            dialog.setButton(DialogInterface.BUTTON_POSITIVE, getContext().getResources().getString(R.string.confirm),new DialogInterface.OnClickListener(){
+            dialog.setButton(DialogInterface.BUTTON_POSITIVE, getContext().getResources().getString(R.string.confirm), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     String name = etName.getText().toString().trim();
                     MeasureType type = MeasureType.getByPosition(spinnerMeasureType.getSelectedItemPosition());
                     String measureCountStr = etMeasureCount.getText().toString().trim();
                     String deviationStr = etDeviation.getText().toString().trim();
-                    int measureCount = ("".equals(measureCountStr))?0:Integer.parseInt(measureCountStr);
-                    int deviation = ("".equals(deviationStr))?0:Integer.parseInt(deviationStr);
-                    presenter.setWorkPoint(position,name,type,measureCount,deviation);
+                    int measureCount = ("".equals(measureCountStr)) ? 0 : Integer.parseInt(measureCountStr);
+                    int deviation = ("".equals(deviationStr)) ? 0 : Integer.parseInt(deviationStr);
+                    presenter.setWorkPoint(position, name, type, measureCount, deviation);
                 }
             });
             dialog.setButton(DialogInterface.BUTTON_NEGATIVE, getContext().getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
@@ -142,7 +144,7 @@ public class InitFragment3 extends Fragment implements InitFragment3View {
         });
         // 获取启动参数
         int workbenchPosition = getArguments().getInt(ARG_WORKBENCH_POSITION);
-        presenter = new InitFragment3Presenter(this,workbenchPosition);
+        presenter = new InitFragment3Presenter(this, workbenchPosition);
         initViews(contentView);
         return contentView;
     }
@@ -151,7 +153,7 @@ public class InitFragment3 extends Fragment implements InitFragment3View {
     public void onResume() {
         super.onResume();
         presenter.restore();
-        Log.i(TAG,"onResume");
+        Log.i(TAG, "onResume");
     }
 
     private void initViews(View view) {
@@ -166,24 +168,24 @@ public class InitFragment3 extends Fragment implements InitFragment3View {
         lvWorkPoints.setOnItemLongClickListener(itemLongClickListener);
         btnAddWorkPoint.setOnClickListener(btnClickListener);
 
-        measureTypeAdapter = new ArrayAdapter<>(getContext(),android.R.layout.simple_list_item_1,MeasureType.getNameList());
+        measureTypeAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, MeasureType.getNameList());
     }
 
     @Override
     public void backToStep2() {
-        if (getActivity() instanceof InitActivityView){
-            Log.i(TAG,"toStep2");
+        if (getActivity() instanceof InitActivityView) {
+            Log.i(TAG, "toStep2");
             InitActivityView v = (InitActivityView) getActivity();
             v.step3To2();
         }
     }
 
     @Override
-    public InitActivityPresenter getActivityPresenter(){
-        if (getActivity() instanceof InitActivityView){
+    public InitActivityPresenter getActivityPresenter() {
+        if (getActivity() instanceof InitActivityView) {
             InitActivityView v = (InitActivityView) getActivity();
             return v.getPresenter();
-        }else{
+        } else {
             throw new RuntimeException("未找到对应的Activity");
         }
     }

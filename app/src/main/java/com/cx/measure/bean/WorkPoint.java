@@ -11,14 +11,21 @@ public class WorkPoint {
     private int id;
     private int workbenchId;
 
-    /** 点位名称 */
+    /**
+     * 点位名称
+     */
     private String name;
-
-    /** 测量方法 */
+    /**
+     * 测量方法
+     */
     private MeasureType type;
-    /** 测量次数 */
+    /**
+     * 测量次数
+     */
     private int measureCount;
-    /** 误差范围 默认±10% */
+    /**
+     * 误差范围 默认±10%
+     */
     private int deviationPercent = 10;
 
     public int getId() {

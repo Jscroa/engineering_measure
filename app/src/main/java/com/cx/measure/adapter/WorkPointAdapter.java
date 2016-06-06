@@ -70,13 +70,13 @@ public class WorkPointAdapter extends BaseAdapter {
         WorkPoint workPoint = workPoints.get(position);
         viewHolder.tvName.setText(workPoint.getName());
         MeasureType type = workPoint.getType();
-        if(type==null){
+        if (type == null) {
             viewHolder.tvType.setText("");
-        }else{
+        } else {
             viewHolder.tvType.setText(type.getName());
         }
         viewHolder.tvCount.setText(String.valueOf(workPoint.getMeasureCount()));
-        viewHolder.tvDeviation.setText("±"+workPoint.getDeviationPercent()+"%");
+        viewHolder.tvDeviation.setText("±" + workPoint.getDeviationPercent() + "%");
 
         BtnClickListener btnClickListener = new BtnClickListener(position);
         viewHolder.btnEditWorkPoint.setOnClickListener(btnClickListener);
@@ -95,15 +95,25 @@ public class WorkPointAdapter extends BaseAdapter {
     }
 
     private class ViewHolder {
-        /** 点位名 */
+        /**
+         * 点位名
+         */
         private TextView tvName;
-        /** 测量方法 */
+        /**
+         * 测量方法
+         */
         private TextView tvType;
-        /** 测量次数 */
+        /**
+         * 测量次数
+         */
         private TextView tvCount;
-        /** 误差范围 */
+        /**
+         * 误差范围
+         */
         private TextView tvDeviation;
-        /** 编辑点位 */
+        /**
+         * 编辑点位
+         */
         private Button btnEditWorkPoint;
     }
 
@@ -116,10 +126,10 @@ public class WorkPointAdapter extends BaseAdapter {
 
         @Override
         public void onClick(View v) {
-            if(callback==null){
+            if (callback == null) {
                 return;
             }
-            switch (v.getId()){
+            switch (v.getId()) {
                 case R.id.btn_edit_workpoint:
                     callback.onEditPointClick(position);
                     break;
@@ -129,7 +139,7 @@ public class WorkPointAdapter extends BaseAdapter {
         }
     }
 
-    public interface WorkPointAdapterCallback{
+    public interface WorkPointAdapterCallback {
         void onEditPointClick(int position);
     }
 

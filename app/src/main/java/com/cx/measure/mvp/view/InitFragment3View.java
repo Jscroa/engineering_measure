@@ -10,6 +10,7 @@ import java.util.List;
  */
 public interface InitFragment3View {
     void backToStep2();
+
     InitActivityPresenter getActivityPresenter();
 
     void setWorkPoints(List<WorkPoint> workPoints);

@@ -13,12 +13,17 @@ public class Workbench {
 
     private String name;
     private String RFID;
-    /** 经度 */
+    /**
+     * 经度
+     */
     private double longitude;
-    /** 纬度 */
+    /**
+     * 纬度
+     */
     private double latitude;
-
-    /** 包含的点位 */
+    /**
+     * 包含的点位
+     */
     private List<WorkPoint> workPoints;
 
     public int getId() {

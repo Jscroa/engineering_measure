@@ -10,7 +10,9 @@ import java.util.List;
  */
 public interface InitFragment2View {
     void backToStep1();
+
     void toStep3(int position);
+
     InitActivityPresenter getActivityPresenter();
 
     void setWorkbenches(List<Workbench> workbenches);

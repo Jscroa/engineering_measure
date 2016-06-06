@@ -32,16 +32,16 @@ public class InitActivity extends AppCompatActivity implements InitActivityView 
     private static final int MSG_SAVE_SUCCESS = 100;
     private static final int MSG_SAVE_FAIL = 200;
 
-    private Handler handler = new Handler(){
+    private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            switch (msg.what){
+            switch (msg.what) {
                 case MSG_SAVE_SUCCESS:
-                    Toast.makeText(InitActivity.this,"保存成功",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(InitActivity.this, "保存成功", Toast.LENGTH_SHORT).show();
                     break;
                 case MSG_SAVE_FAIL:
-                    Toast.makeText(InitActivity.this,"保存失败",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(InitActivity.this, "保存失败", Toast.LENGTH_SHORT).show();
                     break;
                 default:
                     break;
@@ -95,7 +95,7 @@ public class InitActivity extends AppCompatActivity implements InitActivityView 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_init,menu);
+        inflater.inflate(R.menu.menu_init, menu);
         return true;
     }
 
@@ -118,10 +118,10 @@ public class InitActivity extends AppCompatActivity implements InitActivityView 
         @Override
         public void run() {
             Message msg = new Message();
-            if(presenter.save()){
+            if (presenter.save()) {
                 msg.what = MSG_SAVE_SUCCESS;
 
-            }else{
+            } else {
                 msg.what = MSG_SAVE_FAIL;
             }
             handler.sendMessage(msg);
@@ -150,7 +150,7 @@ public class InitActivity extends AppCompatActivity implements InitActivityView 
     public void step2To3(int position) {
         Log.i(TAG, "step2 -> step3");
         Bundle bundle = new Bundle();
-        bundle.putInt(InitFragment3.ARG_WORKBENCH_POSITION,position);
+        bundle.putInt(InitFragment3.ARG_WORKBENCH_POSITION, position);
         initFragment3.setArguments(bundle);
         fm.beginTransaction().setCustomAnimations(R.anim.slide_in_right, 0).replace(R.id.frame_init_step, initFragment3).addToBackStack("step3").commit();
     }

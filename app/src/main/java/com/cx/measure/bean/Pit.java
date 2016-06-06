@@ -12,7 +12,9 @@ public class Pit {
 
     private String name;
 
-    /** 包含的工位 */
+    /**
+     * 包含的工位
+     */
     private List<Workbench> workbenches;
 
     public int getId() {

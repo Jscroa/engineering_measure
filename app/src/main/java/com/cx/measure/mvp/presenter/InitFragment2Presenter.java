@@ -33,7 +33,8 @@ public class InitFragment2Presenter {
      * 恢复数据
      */
     public void restore() {
-        /*List<Workbench> */workbenches = activityPresenter.getPit().getWorkbenches();
+        /*List<Workbench> */
+        workbenches = activityPresenter.getPit().getWorkbenches();
         if (workbenches == null) {
             workbenches = new ArrayList<>();
         }
@@ -48,7 +49,7 @@ public class InitFragment2Presenter {
         save();
     }
 
-    public void removeWorkbench(int position){
+    public void removeWorkbench(int position) {
         this.workbenches = view.removeWorkbench(position);
         view.refreshAddWorkbenchButtonText();
         save();

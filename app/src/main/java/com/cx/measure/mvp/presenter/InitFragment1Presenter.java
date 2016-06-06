@@ -19,7 +19,7 @@ public class InitFragment1Presenter {
         this.pitName = activityPresenter.getPit().getName();
     }
 
-    public void save(){
+    public void save() {
         this.pitName = view.getPitName();
         Pit pit = activityPresenter.getPit();
         pit.setName(pitName);
@@ -29,7 +29,7 @@ public class InitFragment1Presenter {
     /**
      * 恢复数据
      */
-    public void restore(){
+    public void restore() {
         view.setPitName(pitName);
     }
 }
