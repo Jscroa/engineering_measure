@@ -4,14 +4,12 @@ import org.xutils.db.annotation.Column;
 import org.xutils.db.annotation.Table;
 
 import java.io.Serializable;
-import java.util.List;
 
 /**
- * Created by yyao on 2016/6/1.
- * 基坑
+ * Created by yyao on 2016/6/7.
  */
-@Table(name = "t_pit")
-public class Pit implements Serializable{
+@Table(name = "t_measure_data")
+public class MeasureData implements Serializable {
 
     /** 本地数据库id */
     @Column(name = "id",isId = true)
@@ -25,9 +23,13 @@ public class Pit implements Serializable{
     @Column(name = "has_upload")
     private boolean hasUpload;
 
-    /** 工位名 */
-    @Column(name = "name")
-    private String name;
+    /** 点位ID */
+    @Column(name = "point_id")
+    private int pointId;
+
+    /** 测量数据 */
+    @Column(name = "data")
+    private double data;
 
     /** 创建时间 */
     @Column(name = "create_time")
@@ -36,9 +38,6 @@ public class Pit implements Serializable{
     /** 更新时间 */
     @Column(name = "update_time")
     private long updateTime;
-
-    /** 包含的工位 */
-    private List<Workbench> workbenches;
 
     public int getId() {
         return id;
@@ -64,12 +63,20 @@ public class Pit implements Serializable{
         this.hasUpload = hasUpload;
     }
 
-    public String getName() {
-        return name;
+    public int getPointId() {
+        return pointId;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setPointId(int pointId) {
+        this.pointId = pointId;
+    }
+
+    public double getData() {
+        return data;
+    }
+
+    public void setData(double data) {
+        this.data = data;
     }
 
     public long getCreateTime() {
@@ -87,13 +94,4 @@ public class Pit implements Serializable{
     public void setUpdateTime(long updateTime) {
         this.updateTime = updateTime;
     }
-
-    public List<Workbench> getWorkbenches() {
-        return workbenches;
-    }
-
-    public void setWorkbenches(List<Workbench> workbenches) {
-        this.workbenches = workbenches;
-    }
-
 }

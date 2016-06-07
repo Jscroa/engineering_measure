@@ -3,15 +3,15 @@
     <string name="action_settings">设置</string>
     <string name="init">初始化</string>
     <string name="measure">测量</string>
-    <string name="measure_with_explain">测量，点击扫描RFID</string>
+    <string name="measure_with_explain">测量(通过扫描RFID)</string>
     <string name="title_activity_init">初始化</string>
     <string name="title_activity_measure">测量</string>
     <string name="previous_step">上一步</string>
     <string name="next_step">下一步</string>
     <string name="finish">完　成</string>
-    <string name="init_step1">基坑设置 1/3</string>
-    <string name="init_step2">工位设置 2/3</string>
-    <string name="init_step3">点位设置 3/3</string>
+    <string name="init_step1">(1/3)基坑设置</string>
+    <string name="init_step2">(2/3)工位设置</string>
+    <string name="init_step3">(3/3)点位设置</string>
     <string name="measure_step1">1/3</string>
     <string name="measure_step2">2/3</string>
     <string name="measure_step3">3/3</string>
@@ -38,4 +38,10 @@
     <string name="measure_type">测量方法</string>
     <string name="measure_count">测量次数</string>
     <string name="allowable_deviation">允许误差</string>
+    <string name="measure_with_select">测量(通过选择一个工位)</string>
+    <string name="select_workbench">选择工位</string>
+    <string name="title_activity_measure_by_select">MeasureBySelectActivity</string>
+    <string name="select_a_workbench">请选择一个工位</string>
+    <string name="select_a_work_point">请选择一个点位</string>
+    <string name="title_activity_basic">BasicActivity</string>
 </resources>

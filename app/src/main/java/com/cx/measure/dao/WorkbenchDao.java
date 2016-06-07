@@ -7,6 +7,8 @@ import org.xutils.DbManager;
 import org.xutils.ex.DbException;
 import org.xutils.x;
 
+import java.util.List;
+
 /**
  * Created by yyao on 2016/6/6.
  */
@@ -27,5 +29,11 @@ public class WorkbenchDao extends BaseDao {
             workPoint.setWorkbenchId(workbench.getId());
             workPointDao.add(workPoint);
         }
+    }
+
+    public List<Workbench> getWorkbenches(int pitId) throws DbException {
+        DbManager db = x.getDb(daoConfig);
+        List<Workbench> workbenches = db.selector(Workbench.class).where("pit_id","=",pitId).findAll();
+        return workbenches;
     }
 }

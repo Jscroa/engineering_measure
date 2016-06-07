@@ -8,4 +8,6 @@ public interface MainActivityView {
     void toInit();
 
     void toMeasure();
+
+    void toSelect();
 }

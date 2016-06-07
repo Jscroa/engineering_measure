@@ -3,6 +3,7 @@ package com.cx.measure.bean;
 import org.xutils.db.annotation.Column;
 import org.xutils.db.annotation.Table;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -10,7 +11,7 @@ import java.util.List;
  * 工位
  */
 @Table(name = "t_workbench")
-public class Workbench {
+public class Workbench implements Serializable {
 
     /** 本地数据库id */
     @Column(name = "id",isId = true)
@@ -141,4 +142,5 @@ public class Workbench {
     public void setWorkPoints(List<WorkPoint> workPoints) {
         this.workPoints = workPoints;
     }
+
 }

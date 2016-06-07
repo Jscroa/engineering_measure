@@ -6,7 +6,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -79,14 +78,8 @@ public class InitFragment1 extends Fragment implements InitFragment1View {
                              Bundle savedInstanceState) {
         Log.i(TAG, "onCreateView()");
         contentView = inflater.inflate(R.layout.fragment_init1, container, false);
-        contentView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                return true;
-            }
-        });
         presenter = new InitFragment1Presenter(this);
-        initViews(contentView);
+        initViews();
         return contentView;
     }
 
@@ -105,9 +98,9 @@ public class InitFragment1 extends Fragment implements InitFragment1View {
 
     }
 
-    private void initViews(View view) {
-        btnNext = (Button) view.findViewById(R.id.btn_next);
-        etPit = (EditText) view.findViewById(R.id.et_pit);
+    private void initViews() {
+        btnNext = (Button) contentView.findViewById(R.id.btn_next);
+        etPit = (EditText) contentView.findViewById(R.id.et_pit);
         btnNext.setEnabled(false);
         btnNext.setOnClickListener(btnClickListener);
         etPit.addTextChangedListener(textWatcher);

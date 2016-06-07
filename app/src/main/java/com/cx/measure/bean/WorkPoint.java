@@ -3,12 +3,14 @@ package com.cx.measure.bean;
 import org.xutils.db.annotation.Column;
 import org.xutils.db.annotation.Table;
 
+import java.io.Serializable;
+
 /**
  * Created by yyao on 2016/6/1.
  * 点位
  */
 @Table(name = "t_work_point")
-public class WorkPoint {
+public class WorkPoint implements Serializable {
 
     /** 本地数据库id */
     @Column(name = "id",isId = true)
@@ -129,4 +131,5 @@ public class WorkPoint {
     public void setUpdateTime(long updateTime) {
         this.updateTime = updateTime;
     }
+
 }

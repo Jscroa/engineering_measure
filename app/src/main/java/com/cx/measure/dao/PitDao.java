@@ -7,6 +7,8 @@ import org.xutils.DbManager;
 import org.xutils.ex.DbException;
 import org.xutils.x;
 
+import java.util.List;
+
 /**
  * Created by yyao on 2016/6/6.
  */
@@ -28,4 +30,39 @@ public class PitDao extends BaseDao {
             workbenchDao.add(workbench);
         }
     }
+
+    public int getAllCount() throws DbException {
+        DbManager db = x.getDb(daoConfig);
+        long count = db.selector(Pit.class).count();
+        return (int) count;
+    }
+
+    public int getUploadedCount() throws DbException {
+        DbManager db = x.getDb(daoConfig);
+        long count = db.selector(Pit.class).where("has_upload","=",true).count();
+        return (int) count;
+    }
+
+    public int getUnuploadCount() throws DbException {
+        DbManager db = x.getDb(daoConfig);
+        long count = db.selector(Pit.class).where("has_upload","=",false).count();
+        return (int) count;
+    }
+
+    public List<Pit> getAll() throws DbException {
+        DbManager db = x.getDb(daoConfig);
+        List<Pit> pits = db.selector(Pit.class).findAll();
+        return pits;
+    }
+
+    /**
+     * 获取未上传的pit
+     * @return
+     */
+    public List<Pit> getUnupload() throws DbException {
+        DbManager db = x.getDb(daoConfig);
+        List<Pit> pits = db.selector(Pit.class).where("has_upload","=",false).findAll();
+        return pits;
+    }
+
 }

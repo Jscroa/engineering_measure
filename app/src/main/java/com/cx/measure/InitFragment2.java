@@ -82,6 +82,13 @@ public class InitFragment2 extends Fragment implements InitFragment2View {
         }
     };
 
+    AdapterView.OnItemClickListener itemClickListener = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            toStep3(position);
+        }
+    };
+
     AdapterView.OnItemLongClickListener itemLongClickListener = new AdapterView.OnItemLongClickListener() {
 
         @Override
@@ -154,10 +161,6 @@ public class InitFragment2 extends Fragment implements InitFragment2View {
             dialog.show();
         }
 
-        @Override
-        public void onEditPointClick(int position) {
-            toStep3(position);
-        }
     };
 
     public InitFragment2() {
@@ -194,6 +197,7 @@ public class InitFragment2 extends Fragment implements InitFragment2View {
         btnAddWorkbench = (Button) view.findViewById(R.id.btn_add_workbench);
 
         btnPrevious.setOnClickListener(btnClickListener);
+        lvWorkbenches.setOnItemClickListener(itemClickListener);
         lvWorkbenches.setOnItemLongClickListener(itemLongClickListener);
         btnAddWorkbench.setOnClickListener(btnClickListener);
     }

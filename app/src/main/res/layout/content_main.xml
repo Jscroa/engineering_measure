@@ -18,8 +18,13 @@
         android:layout_height="wrap_content"
         android:text="@string/init"/>
     <Button
-        android:id="@+id/main_btn_measure"
+        android:id="@+id/main_btn_measure_with_explain"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/measure_with_explain"/>
+    <Button
+        android:id="@+id/main_btn_measure_with_select"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/measure_with_select"/>
 </LinearLayout>

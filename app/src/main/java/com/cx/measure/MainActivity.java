@@ -2,6 +2,7 @@ package com.cx.measure;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -22,9 +23,32 @@ public class MainActivity extends AppCompatActivity implements MainActivityView 
      */
     Button btnInit;
     /**
-     * 测量按钮
+     * 测量按钮，扫描RFID
      */
-    Button btnMeasure;
+    Button btnMeasureWithExplain;
+    /**
+     * 测量按钮，选择工位
+     */
+    Button mainBtnMeasureWithSelect;
+
+    private View.OnClickListener btnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.main_btn_init:
+                    presenter.clickToInit();
+                    break;
+                case R.id.main_btn_measure_with_explain:
+                    presenter.clickToMeasure();
+                    break;
+                case R.id.main_btn_measure_with_select:
+                    presenter.clickToSelect();
+                    break;
+                default:
+                    break;
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,28 +60,23 @@ public class MainActivity extends AppCompatActivity implements MainActivityView 
         initViews();
     }
 
-    private View.OnClickListener btnClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            switch (v.getId()) {
-                case R.id.main_btn_init:
-                    presenter.clickToInit();
-                    break;
-                case R.id.main_btn_measure:
-                    presenter.clickToMeasure();
-                    break;
-                default:
-                    break;
-            }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode){
+            default:
+                break;
         }
-    };
+    }
 
     private void initViews() {
         btnInit = (Button) findViewById(R.id.main_btn_init);
-        btnMeasure = (Button) findViewById(R.id.main_btn_measure);
+        btnMeasureWithExplain = (Button) findViewById(R.id.main_btn_measure_with_explain);
+        mainBtnMeasureWithSelect = (Button) findViewById(R.id.main_btn_measure_with_select);
 
         btnInit.setOnClickListener(btnClickListener);
-        btnMeasure.setOnClickListener(btnClickListener);
+        btnMeasureWithExplain.setOnClickListener(btnClickListener);
+        mainBtnMeasureWithSelect.setOnClickListener(btnClickListener);
     }
 
     @Override
@@ -69,6 +88,14 @@ public class MainActivity extends AppCompatActivity implements MainActivityView 
     @Override
     public void toMeasure() {
         Log.i(TAG, "toMeasure");
-        startActivity(new Intent(MainActivity.this, MeasureActivity.class));
+//        startActivity(new Intent(MainActivity.this, MeasureActivity.class));
+        Snackbar.make(btnMeasureWithExplain,"未安装此模块",Snackbar.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void toSelect() {
+        Log.i(TAG, "toSelect");
+        startActivity(new Intent(MainActivity.this,MeasureBySelectActivity.class));
+//        startActivityForResult(new Intent(MainActivity.this,SelectWorkbenchActivity.class),SelectWorkbenchActivity.REQ_CODE_REQUEST_WORKBENCH);
     }
 }
