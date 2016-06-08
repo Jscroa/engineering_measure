@@ -15,6 +15,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.cx.measure.comments.LocationTask;
 import com.cx.measure.mvp.presenter.InitActivityPresenter;
 import com.cx.measure.mvp.view.InitActivityView;
 
@@ -23,6 +24,8 @@ public class InitActivity extends AppCompatActivity implements InitActivityView 
     private static final String TAG = "InitActivity";
 
     private InitActivityPresenter presenter;
+
+    private LocationTask locationTask;
 
     private FragmentManager fm;
     private InitFragment1 initFragment1;
@@ -61,6 +64,31 @@ public class InitActivity extends AppCompatActivity implements InitActivityView 
 
         presenter = new InitActivityPresenter(this);
         initViews();
+        locationTask = new LocationTask(this);
+        locationTask.setCallBack(new LocationTask.OnLocationCallBack() {
+            @Override
+            public void onLocationProvider(String provider) {
+                Log.i(TAG,"provider:"+provider);
+            }
+
+            @Override
+            public void onGetLocation(double longitude, double latitude) {
+                presenter.setLongitude(longitude);
+                presenter.setLatitude(latitude);
+            }
+
+            @Override
+            public void onFailure(String msg) {
+                Log.i(TAG,"msg:"+msg);
+            }
+        });
+        locationTask.startLocation();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        locationTask.stopLocation();
     }
 
     @Override

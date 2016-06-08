@@ -17,7 +17,8 @@ public class InitActivityPresenter implements HomeAsUpEnabledPresenter {
      * 基坑初始化数据
      */
     private Pit pit;
-
+    private double longitude;
+    private double latitude;
     public InitActivityPresenter(InitActivityView view) {
         this.view = view;
         pit = new Pit();
@@ -29,6 +30,22 @@ public class InitActivityPresenter implements HomeAsUpEnabledPresenter {
 
     public void setPit(Pit pit) {
         this.pit = pit;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
     }
 
     @Override

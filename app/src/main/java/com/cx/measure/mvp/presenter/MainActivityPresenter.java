@@ -19,6 +19,9 @@ public class MainActivityPresenter {
     public void clickToMeasure() {
         view.toMeasure();
     }
+    public void clickToLocation() {
+        view.toLocation();
+    }
 
     public void clickToSelect(){
         view.toSelect();

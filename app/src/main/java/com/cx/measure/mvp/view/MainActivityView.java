@@ -9,5 +9,7 @@ public interface MainActivityView {
 
     void toMeasure();
 
+    void toLocation();
+
     void toSelect();
 }

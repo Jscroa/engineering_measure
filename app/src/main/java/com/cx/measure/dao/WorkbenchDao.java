@@ -36,4 +36,10 @@ public class WorkbenchDao extends BaseDao {
         List<Workbench> workbenches = db.selector(Workbench.class).where("pit_id","=",pitId).findAll();
         return workbenches;
     }
+
+    public List<Workbench> getNearWorkbenches(double longitude,double latitude) throws DbException {
+        DbManager db = x.getDb(daoConfig);
+        List<Workbench> workbenches = db.selector(Workbench.class).limit(10).findAll();
+        return workbenches;
+    }
 }

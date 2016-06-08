@@ -23,6 +23,11 @@
         android:layout_height="wrap_content"
         android:text="@string/measure_with_explain"/>
     <Button
+        android:id="@+id/main_btn_measure_with_location"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/measure_with_location"/>
+    <Button
         android:id="@+id/main_btn_measure_with_select"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -25,6 +25,9 @@ public class SelectWorkbenchPresenter {
         PitDao dao = new PitDao();
         try {
             pits = dao.getAll();
+            if(pits==null){
+                pits = new ArrayList<>();
+            }
         } catch (DbException e) {
             e.printStackTrace();
             pits = new ArrayList<>();
