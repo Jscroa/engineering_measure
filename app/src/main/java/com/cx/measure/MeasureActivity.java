@@ -107,7 +107,7 @@ public class MeasureActivity extends AppCompatActivity implements MeasureActivit
                 et.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
                 llContent.addView(et);
                 ets.add(et);
-            }   
+            }
         }
     }
 
