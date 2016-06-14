@@ -2,7 +2,7 @@
 > mysql create脚本
 ```sql
 CREATE DATABASE `measure` DEFAULT CHARACTER SET utf8;
-```sql
+
 CREATE TABLE `t_pit` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(200) DEFAULT NULL,
@@ -10,7 +10,7 @@ CREATE TABLE `t_pit` (
   `update_time` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-```sql
+
 CREATE TABLE `t_workbench` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `pit_id` int(11) DEFAULT NULL,
@@ -22,7 +22,7 @@ CREATE TABLE `t_workbench` (
   `update_time` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-```sql
+
 CREATE TABLE `t_work_point` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `workbench_id` int(11) DEFAULT NULL,
@@ -34,7 +34,7 @@ CREATE TABLE `t_work_point` (
   `update_time` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-```sql
+
 CREATE TABLE `t_measure_data` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `point_id` int(11) DEFAULT NULL,
