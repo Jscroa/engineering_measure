@@ -110,7 +110,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityView 
     @Override
     public void toMeasure() {
         Log.i(TAG, "toMeasure");
-//        startActivity(new Intent(MainActivity.this, MeasureActivity.class));
         Snackbar.make(btnMeasureWithExplain, "未安装此模块", Snackbar.LENGTH_SHORT).show();
     }
 
