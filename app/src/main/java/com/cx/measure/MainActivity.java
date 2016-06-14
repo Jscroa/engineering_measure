@@ -6,6 +6,9 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
@@ -68,12 +71,22 @@ public class MainActivity extends AppCompatActivity implements MainActivityView 
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode){
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_setting:
+                startActivity(new Intent(MainActivity.this, SettingActivity.class));
+                break;
             default:
                 break;
         }
+        return super.onOptionsItemSelected(item);
     }
 
     private void initViews() {
@@ -98,18 +111,18 @@ public class MainActivity extends AppCompatActivity implements MainActivityView 
     public void toMeasure() {
         Log.i(TAG, "toMeasure");
 //        startActivity(new Intent(MainActivity.this, MeasureActivity.class));
-        Snackbar.make(btnMeasureWithExplain,"未安装此模块",Snackbar.LENGTH_SHORT).show();
+        Snackbar.make(btnMeasureWithExplain, "未安装此模块", Snackbar.LENGTH_SHORT).show();
     }
 
     @Override
     public void toLocation() {
         Log.i(TAG, "toLocation");
-        startActivity(new Intent(MainActivity.this,MeasureByLocationActivity.class));
+        startActivity(new Intent(MainActivity.this, MeasureByLocationActivity.class));
     }
 
     @Override
     public void toSelect() {
         Log.i(TAG, "toSelect");
-        startActivity(new Intent(MainActivity.this,MeasureBySelectActivity.class));
+        startActivity(new Intent(MainActivity.this, MeasureBySelectActivity.class));
     }
 }

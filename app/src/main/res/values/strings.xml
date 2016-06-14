@@ -46,4 +46,8 @@
     <string name="select_a_work_point">请选择一个点位</string>
     <string name="title_activity_basic">BasicActivity</string>
     <string name="title_activity_measure_by_location">MeasureByLocationActivity</string>
+    <string name="title_activity_setting">设置</string>
+    <string name="host_setting">host设置</string>
+    <string name="host_example">例：192.168.1.123</string>
+    <string name="clear_host">清除host</string>
 </resources>

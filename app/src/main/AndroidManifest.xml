@@ -48,6 +48,10 @@
             android:name=".MeasureByLocationActivity"
             android:label="@string/measure"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".SettingActivity"
+            android:label="@string/title_activity_setting"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
