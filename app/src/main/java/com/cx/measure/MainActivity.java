@@ -27,6 +27,10 @@ public class MainActivity extends AppCompatActivity implements MainActivityView 
      */
     Button btnMeasureWithExplain;
     /**
+     * 测量按钮，定位
+     */
+    Button btnMeasureWithLocation;
+    /**
      * 测量按钮，选择工位
      */
     Button mainBtnMeasureWithSelect;
@@ -40,6 +44,9 @@ public class MainActivity extends AppCompatActivity implements MainActivityView 
                     break;
                 case R.id.main_btn_measure_with_explain:
                     presenter.clickToMeasure();
+                    break;
+                case R.id.main_btn_measure_with_location:
+                    presenter.clickToLocation();
                     break;
                 case R.id.main_btn_measure_with_select:
                     presenter.clickToSelect();
@@ -72,10 +79,12 @@ public class MainActivity extends AppCompatActivity implements MainActivityView 
     private void initViews() {
         btnInit = (Button) findViewById(R.id.main_btn_init);
         btnMeasureWithExplain = (Button) findViewById(R.id.main_btn_measure_with_explain);
+        btnMeasureWithLocation = (Button) findViewById(R.id.main_btn_measure_with_location);
         mainBtnMeasureWithSelect = (Button) findViewById(R.id.main_btn_measure_with_select);
 
         btnInit.setOnClickListener(btnClickListener);
         btnMeasureWithExplain.setOnClickListener(btnClickListener);
+        btnMeasureWithLocation.setOnClickListener(btnClickListener);
         mainBtnMeasureWithSelect.setOnClickListener(btnClickListener);
     }
 
@@ -93,9 +102,14 @@ public class MainActivity extends AppCompatActivity implements MainActivityView 
     }
 
     @Override
+    public void toLocation() {
+        Log.i(TAG, "toLocation");
+        startActivity(new Intent(MainActivity.this,MeasureByLocationActivity.class));
+    }
+
+    @Override
     public void toSelect() {
         Log.i(TAG, "toSelect");
         startActivity(new Intent(MainActivity.this,MeasureBySelectActivity.class));
-//        startActivityForResult(new Intent(MainActivity.this,SelectWorkbenchActivity.class),SelectWorkbenchActivity.REQ_CODE_REQUEST_WORKBENCH);
     }
 }

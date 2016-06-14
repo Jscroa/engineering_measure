@@ -4,6 +4,7 @@
     <string name="init">初始化</string>
     <string name="measure">测量</string>
     <string name="measure_with_explain">测量(通过扫描RFID)</string>
+    <string name="measure_with_location">测量(通过定位)</string>
     <string name="title_activity_init">初始化</string>
     <string name="title_activity_measure">测量</string>
     <string name="previous_step">上一步</string>
@@ -44,4 +45,5 @@
     <string name="select_a_workbench">请选择一个工位</string>
     <string name="select_a_work_point">请选择一个点位</string>
     <string name="title_activity_basic">BasicActivity</string>
+    <string name="title_activity_measure_by_location">MeasureByLocationActivity</string>
 </resources>

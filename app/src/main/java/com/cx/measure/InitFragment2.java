@@ -35,6 +35,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.cx.measure.adapter.WorkbenchAdapter;
@@ -123,6 +124,16 @@ public class InitFragment2 extends Fragment implements InitFragment2View {
             final EditText etRfid = (EditText) dialogView.findViewById(R.id.et_rfid);
             final EditText etLongitude = (EditText) dialogView.findViewById(R.id.et_longitude);
             final EditText etLatitude = (EditText) dialogView.findViewById(R.id.et_latitude);
+            final ImageView ivLocation = (ImageView) dialogView.findViewById(R.id.iv_location);
+            ivLocation.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (getActivity() instanceof InitActivity){
+                        etLongitude.setText(getActivityPresenter().getLongitude()+"");
+                        etLatitude.setText(getActivityPresenter().getLatitude()+"");
+                    }
+                }
+            });
 
             Workbench workbench = workbenchAdapter.getWorkbenches().get(position);
             etName.setText(workbench.getName());
