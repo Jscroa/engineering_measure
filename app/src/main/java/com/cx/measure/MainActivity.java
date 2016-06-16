@@ -5,21 +5,26 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.cx.measure.mvp.presenter.MainActivityPresenter;
 import com.cx.measure.mvp.view.MainActivityView;
+import com.cx.measure.view.MyProgressDialog;
 
 public class MainActivity extends AppCompatActivity implements MainActivityView {
 
     private static final String TAG = "MainActivity";
 
     MainActivityPresenter presenter;
+
+    MyProgressDialog myProgressDialog;
 
     /**
      * 初始化按钮
@@ -37,6 +42,11 @@ public class MainActivity extends AppCompatActivity implements MainActivityView 
      * 测量按钮，选择工位
      */
     Button mainBtnMeasureWithSelect;
+
+    /**
+     * 基本信息文本（富文本）
+     */
+    TextView tvComment;
 
     private View.OnClickListener btnClickListener = new View.OnClickListener() {
         @Override
@@ -71,6 +81,13 @@ public class MainActivity extends AppCompatActivity implements MainActivityView 
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        tvComment.setText(presenter.getComment(this,myProgressDialog));
+        tvComment.setMovementMethod(LinkMovementMethod.getInstance());
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_main, menu);
@@ -90,15 +107,19 @@ public class MainActivity extends AppCompatActivity implements MainActivityView 
     }
 
     private void initViews() {
+        myProgressDialog = new MyProgressDialog(this);
+
         btnInit = (Button) findViewById(R.id.main_btn_init);
         btnMeasureWithExplain = (Button) findViewById(R.id.main_btn_measure_with_explain);
         btnMeasureWithLocation = (Button) findViewById(R.id.main_btn_measure_with_location);
         mainBtnMeasureWithSelect = (Button) findViewById(R.id.main_btn_measure_with_select);
+        tvComment = (TextView) findViewById(R.id.tv_comment);
 
         btnInit.setOnClickListener(btnClickListener);
         btnMeasureWithExplain.setOnClickListener(btnClickListener);
         btnMeasureWithLocation.setOnClickListener(btnClickListener);
         mainBtnMeasureWithSelect.setOnClickListener(btnClickListener);
+
     }
 
     @Override

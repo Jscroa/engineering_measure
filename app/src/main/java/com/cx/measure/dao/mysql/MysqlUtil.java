@@ -1,6 +1,7 @@
 package com.cx.measure.dao.mysql;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.cx.measure.comments.SharedPreferencesUtil;
 
@@ -22,6 +23,7 @@ public class MysqlUtil {
             String userName = "root";
             String password = "";
             Class.forName("com.mysql.jdbc.Driver");
+            Log.i("TAG",url);
             con = DriverManager.getConnection(url,userName,password);
             if(con == null){
                 throw new Exception("未能获取数据库连接");

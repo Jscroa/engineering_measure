@@ -32,4 +32,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/measure_with_select"/>
+    <TextView
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:id="@+id/tv_comment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 </LinearLayout>
