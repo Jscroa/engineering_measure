@@ -6,6 +6,7 @@ CREATE DATABASE `measure` DEFAULT CHARACTER SET utf8;
 
 CREATE TABLE `t_pit` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uuid` varchar(200) NOT NULL,
   `name` varchar(200) DEFAULT NULL,
   `create_time` bigint(20) DEFAULT NULL,
   `update_time` bigint(20) DEFAULT NULL,
@@ -14,6 +15,7 @@ CREATE TABLE `t_pit` (
 
 CREATE TABLE `t_workbench` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uuid` varchar(200) NOT NULL,
   `pit_id` int(11) DEFAULT NULL,
   `name` varchar(200) DEFAULT NULL,
   `rfid` varchar(200) DEFAULT NULL,
@@ -26,6 +28,7 @@ CREATE TABLE `t_workbench` (
 
 CREATE TABLE `t_work_point` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uuid` varchar(200) NOT NULL,
   `workbench_id` int(11) DEFAULT NULL,
   `name` varchar(200) DEFAULT NULL,
   `measure_type` int(11) DEFAULT NULL,
@@ -38,6 +41,7 @@ CREATE TABLE `t_work_point` (
 
 CREATE TABLE `t_measure_data` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uuid` varchar(200) NOT NULL,
   `point_id` int(11) DEFAULT NULL,
   `data` decimal(10,0) DEFAULT NULL,
   `create_time` bigint(20) DEFAULT NULL,
