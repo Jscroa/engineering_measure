@@ -2,6 +2,7 @@ package com.cx.measure.dao;
 
 import com.cx.measure.bean.WorkPoint;
 import com.cx.measure.bean.Workbench;
+import com.cx.measure.comments.UUIDUtil;
 
 import org.xutils.DbManager;
 import org.xutils.ex.DbException;
@@ -17,6 +18,7 @@ public class WorkbenchDao extends BaseDao {
     public void add(Workbench workbench) throws DbException {
         long now = System.currentTimeMillis();
         DbManager db = x.getDb(daoConfig);
+        workbench.setUuid(UUIDUtil.createUUID());
         workbench.setCreateTime(now);
         workbench.setUpdateTime(now);
         db.saveBindingId(workbench);

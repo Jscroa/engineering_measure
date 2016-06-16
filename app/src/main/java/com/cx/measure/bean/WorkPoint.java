@@ -16,6 +16,10 @@ public class WorkPoint implements Serializable {
     @Column(name = "id",isId = true)
     private int id;
 
+    /** 唯一标识 */
+    @Column(name = "uuid")
+    private String uuid;
+
     /** 服务器表id */
     @Column(name = "server_id")
     private int serverId;
@@ -58,6 +62,14 @@ public class WorkPoint implements Serializable {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 
     public int getServerId() {

@@ -15,6 +15,10 @@ public class MeasureData implements Serializable {
     @Column(name = "id",isId = true)
     private int id;
 
+    /** 唯一标识 */
+    @Column(name = "uuid")
+    private String uuid;
+
     /** 服务器表id */
     @Column(name = "server_id")
     private int serverId;
@@ -49,6 +53,14 @@ public class MeasureData implements Serializable {
 
     public int getServerId() {
         return serverId;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 
     public void setServerId(int serverId) {

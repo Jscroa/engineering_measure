@@ -1,6 +1,7 @@
 package com.cx.measure.dao;
 
 import com.cx.measure.bean.MeasureData;
+import com.cx.measure.comments.UUIDUtil;
 
 import org.xutils.DbManager;
 import org.xutils.db.sqlite.WhereBuilder;
@@ -17,6 +18,7 @@ public class MeasureDataDao extends BaseDao {
     public void add(MeasureData measureData) throws DbException {
         long now = System.currentTimeMillis();
         DbManager db = x.getDb(daoConfig);
+        measureData.setUuid(UUIDUtil.createUUID());
         measureData.setCreateTime(now);
         measureData.setUpdateTime(now);
         db.save(measureData);

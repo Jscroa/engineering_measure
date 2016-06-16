@@ -2,6 +2,7 @@ package com.cx.measure.dao;
 
 import com.cx.measure.bean.Pit;
 import com.cx.measure.bean.Workbench;
+import com.cx.measure.comments.UUIDUtil;
 
 import org.xutils.DbManager;
 import org.xutils.ex.DbException;
@@ -17,6 +18,7 @@ public class PitDao extends BaseDao {
     public void add(Pit pit) throws DbException {
         long now = System.currentTimeMillis();
         DbManager db = x.getDb(daoConfig);
+        pit.setUuid(UUIDUtil.createUUID());
         pit.setCreateTime(now);
         pit.setUpdateTime(now);
         db.saveBindingId(pit);

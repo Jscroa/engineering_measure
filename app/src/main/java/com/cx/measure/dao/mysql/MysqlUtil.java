@@ -23,11 +23,14 @@ public class MysqlUtil {
             String password = "";
             Class.forName("com.mysql.jdbc.Driver");
             con = DriverManager.getConnection(url,userName,password);
+            if(con == null){
+                throw new Exception("未能获取数据库连接");
+            }
+            return con;
         } catch (Exception e) {
             e.printStackTrace();
             throw new Exception("未能加载驱动",e);
         }
-        return con;
     }
 
     public static void close(Connection con, Statement stat, ResultSet rs){

@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/measure.iml" filepath="$PROJECT_DIR$/measure.iml" />
+      <module fileurl="file://$PROJECT_DIR$/measure_cfg/measure_cfg.iml" filepath="$PROJECT_DIR$/measure_cfg/measure_cfg.iml" />
     </modules>
   </component>
 </project>
