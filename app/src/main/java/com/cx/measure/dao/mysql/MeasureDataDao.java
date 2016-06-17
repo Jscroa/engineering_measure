@@ -17,35 +17,41 @@ public class MeasureDataDao {
 
     /**
      * 添加测量数据，带事务
+     *
      * @param context
      * @param measureDatas
      * @throws Exception
      */
     public void add(Context context, List<MeasureData> measureDatas) throws Exception {
         Connection conn = null;
-        try{
+        try {
             conn = MysqlUtil.getConnection(context);
             conn.setAutoCommit(false);
-            for(MeasureData measureData:measureDatas){
-                add(conn,measureData);
+            for (MeasureData measureData : measureDatas) {
+                add(conn, measureData);
             }
             conn.commit();
-        }catch (Exception e){
-            conn.rollback();
+        } catch (Exception e) {
+            if (conn != null) {
+                conn.rollback();
+            }
+
             e.printStackTrace();
             throw new Exception("数据库错误", e);
-        }finally {
-            MysqlUtil.close(conn);
+        } finally {
+            if (conn != null) {
+                MysqlUtil.close(conn);
+            }
         }
     }
 
     public void add(Connection conn, MeasureData measureData) throws Exception {
         long now = System.currentTimeMillis();
 
-        if(measureData.getUuid() ==null || "".equals(measureData.getUuid())){
+        if (measureData.getUuid() == null || "".equals(measureData.getUuid())) {
             measureData.setUuid(UUIDUtil.createUUID());
         }
-        if(measureData.getCreateTime() == 0l){
+        if (measureData.getCreateTime() == 0l) {
             measureData.setCreateTime(now);
         }
         measureData.setUpdateTime(now);
@@ -55,20 +61,20 @@ public class MeasureDataDao {
         try {
             String sql = "insert into t_measure_data(uuid,point_id,data,create_time,update_time) values(?,?,?,?,?)";
             pst = conn.prepareStatement(sql);
-            pst.setString(1,measureData.getUuid());
-            pst.setInt(2,measureData.getPointId());
-            pst.setDouble(3,measureData.getData());
-            pst.setLong(4,measureData.getCreateTime());
-            pst.setLong(5,measureData.getUpdateTime());
+            pst.setString(1, measureData.getUuid());
+            pst.setInt(2, measureData.getPointId());
+            pst.setDouble(3, measureData.getData());
+            pst.setLong(4, measureData.getCreateTime());
+            pst.setLong(5, measureData.getUpdateTime());
             pst.executeUpdate();
 
             rs = pst.getGeneratedKeys();
             rs.next();
             int id = rs.getInt(1);
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             throw new Exception("数据库错误", e);
-        }finally {
+        } finally {
             MysqlUtil.close(rs);
             MysqlUtil.close(pst);
         }

@@ -8,15 +8,13 @@ import org.xutils.x;
  * Created by yyao on 2016/6/6.
  */
 public class MyApplication extends Application {
-    /**
-     * Called when the application is starting, before any activity, service,
-     * or receiver objects (excluding content providers) have been created.
-     * Implementations should be as quick as possible (for example using
-     * lazy initialization of state) since the time spent in this function
-     * directly impacts the performance of starting the first activity,
-     * service, or receiver in a process.
-     * If you override this method, be sure to call super.onCreate().
-     */
+    static {
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
     @Override
     public void onCreate() {
         super.onCreate();

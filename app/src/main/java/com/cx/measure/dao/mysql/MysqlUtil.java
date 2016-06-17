@@ -19,11 +19,11 @@ public class MysqlUtil {
         Connection con = null;
         try{
             String host = SharedPreferencesUtil.getHost(context);
-            String url = "jdbc:mysql://"+host+":3306/measure";
-            String userName = "root";
-            String password = "";
-            Class.forName("com.mysql.jdbc.Driver");
-            Log.i("TAG",url);
+            String url = "jdbc:mysql://"+host+":3306/measure?useUnicode=true&characterEncoding=UTF-8";
+            String userName = "measure";
+            String password = "123456";
+
+            Log.i("TAG","------------- "+url);
             con = DriverManager.getConnection(url,userName,password);
             if(con == null){
                 throw new Exception("未能获取数据库连接");

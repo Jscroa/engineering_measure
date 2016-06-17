@@ -31,11 +31,16 @@ public class PitDao {
             add(conn,pit);
             conn.commit();
         }catch (Exception e){
-            conn.rollback();
+            if(conn!=null){
+                conn.rollback();
+            }
             e.printStackTrace();
             throw new Exception("数据库错误", e);
         }finally {
-            MysqlUtil.close(conn);
+            if(conn!=null){
+                MysqlUtil.close(conn);
+            }
+
         }
 
     }
