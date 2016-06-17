@@ -125,11 +125,11 @@ public class MainActivity extends AppCompatActivity implements MainActivityView 
 
     }
 
-    private void check(){
+    private void check() {
         // 检查定位权限
         if ((ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) && (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)) {
             ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION},1);
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
         }
     }
 
@@ -159,7 +159,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityView 
 
     @Override
     public void updateComment() {
-        tvComment.setText(presenter.getComment(this,myProgressDialog));
+        tvComment.setText(presenter.getComment(this, myProgressDialog));
         tvComment.setMovementMethod(LinkMovementMethod.getInstance());
     }
 }

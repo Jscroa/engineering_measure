@@ -1,1 +1,2 @@
 include ':app', ':measure_cfg'
+include ':stSdkDemo_StSdkDemoUhf'
