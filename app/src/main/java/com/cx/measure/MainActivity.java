@@ -87,8 +87,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityView 
     @Override
     protected void onResume() {
         super.onResume();
-        tvComment.setText(presenter.getComment(this,myProgressDialog));
-        tvComment.setMovementMethod(LinkMovementMethod.getInstance());
+        updateComment();
     }
 
     @Override
@@ -156,5 +155,11 @@ public class MainActivity extends AppCompatActivity implements MainActivityView 
     public void toSelect() {
         Log.i(TAG, "toSelect");
         startActivity(new Intent(MainActivity.this, MeasureBySelectActivity.class));
+    }
+
+    @Override
+    public void updateComment() {
+        tvComment.setText(presenter.getComment(this,myProgressDialog));
+        tvComment.setMovementMethod(LinkMovementMethod.getInstance());
     }
 }

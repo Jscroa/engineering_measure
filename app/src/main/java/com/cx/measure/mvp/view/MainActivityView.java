@@ -12,4 +12,6 @@ public interface MainActivityView {
     void toLocation();
 
     void toSelect();
+
+    void updateComment();
 }

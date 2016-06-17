@@ -41,18 +41,30 @@ public class MainActivityPresenter {
     public SpannableString getComment(final Context context, final UploadPitSettingTask.IProgressView iProgressView){
         PitDao pitDao = new PitDao();
         try {
+            SpannableString str = null;
             int count = pitDao.getUnuploadCount();
-            SpannableString str =  new SpannableString("本地有"+count+"个初始化设置未上传，点我上传");
-            int end = str.length();
-            int start = end-4;
-            str.setSpan(new ClickableSpan() {
-                @Override
-                public void onClick(View widget) {
-                    Toast.makeText(context,"aasdas",Toast.LENGTH_SHORT).show();
-                    new UploadPitSettingTask(context, iProgressView).execute();
-                    iProgressView.show();
-                }
-            },start,end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            if(count > 0){
+                str =  new SpannableString("本地有"+count+"个初始化设置未上传，点我上传");
+                int end = str.length();
+                int start = end-4;
+                str.setSpan(new ClickableSpan() {
+                    @Override
+                    public void onClick(View widget) {
+                        new UploadPitSettingTask(context, iProgressView, new UploadPitSettingTask.IFinishedCallback() {
+                            @Override
+                            public void finish(String s) {
+                                Toast.makeText(context,s,Toast.LENGTH_SHORT).show();
+                                iProgressView.dismiss();
+                                view.updateComment();
+                            }
+                        }).execute();
+                        iProgressView.show();
+                    }
+                },start,end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            }else{
+                str = new SpannableString("没有未上传的初始化设置");
+            }
+
             return str;
         } catch (DbException e) {
             e.printStackTrace();

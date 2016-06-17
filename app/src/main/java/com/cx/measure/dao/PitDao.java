@@ -5,6 +5,8 @@ import com.cx.measure.bean.Workbench;
 import com.cx.measure.comments.UUIDUtil;
 
 import org.xutils.DbManager;
+import org.xutils.common.util.KeyValue;
+import org.xutils.db.sqlite.WhereBuilder;
 import org.xutils.ex.DbException;
 import org.xutils.x;
 
@@ -67,4 +69,10 @@ public class PitDao extends BaseDao {
         return pits;
     }
 
+    public void updateSuccess(int pitId) throws DbException {
+        DbManager db = x.getDb(daoConfig);
+        WhereBuilder whereBuilder = WhereBuilder.b("id","=",pitId);
+        KeyValue keyValue = new KeyValue("has_upload",true);
+        db.update(Pit.class,whereBuilder,keyValue);
+    }
 }

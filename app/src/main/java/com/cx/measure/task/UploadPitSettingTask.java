@@ -2,7 +2,6 @@ package com.cx.measure.task;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.cx.measure.bean.Pit;
 import com.cx.measure.bean.WorkPoint;
@@ -24,10 +23,12 @@ public class UploadPitSettingTask extends AsyncTask<Void, String, String> {
 
     private Context context;
     private IProgressView iProgressView;
+    private IFinishedCallback finishedCallback;
 
-    public UploadPitSettingTask(Context context,IProgressView iProgressView) {
+    public UploadPitSettingTask(Context context,IProgressView iProgressView,IFinishedCallback finishedCallback) {
         this.context = context;
         this.iProgressView = iProgressView;
+        this.finishedCallback = finishedCallback;
     }
 
     @Override
@@ -84,13 +85,15 @@ public class UploadPitSettingTask extends AsyncTask<Void, String, String> {
                 // 修改本地
                 String progress3 = String.format("(%d/%d)-3 正在上传",i+1,totalsize);
                 publishProgress(progress2);
-                Log.i("TAG","成功"+success+",失败"+failure);
+
+                pitDao.updateSuccess(pit.getId());
+
             }
         } catch (DbException e) {
             e.printStackTrace();
             return "上传失败";
         }
-        return "上传成功";
+        return "上传完成：成功"+success+",失败"+failure;
     }
 
     @Override
@@ -105,7 +108,14 @@ public class UploadPitSettingTask extends AsyncTask<Void, String, String> {
     @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
-        iProgressView.dismiss();
+        if(finishedCallback!=null){
+            finishedCallback.finish(s);
+        }
+
+    }
+
+    public interface IFinishedCallback{
+        void finish(String s);
     }
 
     public interface IProgressView{
