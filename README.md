@@ -4,6 +4,8 @@
 ```sql
 CREATE DATABASE `measure` DEFAULT CHARACTER SET utf8;
 
+use measure;
+
 CREATE TABLE `t_pit` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `uuid` varchar(200) NOT NULL,
