@@ -159,7 +159,7 @@ public class InitFragment2 extends Fragment implements InitFragment2View {
                     try {
                         Intent intent = new Intent(Intent.ACTION_MAIN);
                         intent.addCategory(Intent.CATEGORY_LAUNCHER);
-                        ComponentName cn = new ComponentName("com.senter.demo.uhf", "com.senter.demo.uhf.Activity0ModuleSelection");
+                        ComponentName cn = new ComponentName("com.senter.demo.uhf2", "com.senter.demo.uhf.Activity0ModuleSelection");
                         intent.setComponent(cn);
                         startActivity(intent);
                         intentFilter = new IntentFilter();
