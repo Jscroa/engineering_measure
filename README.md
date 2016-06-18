@@ -2,6 +2,12 @@
 > mysql create脚本
 
 ```sql
+CREATE USER 'measure'@'%' IDENTIFIED BY '123456';
+
+GRANT all ON measure.* TO 'measure'@'%';
+
+flush privileges;
+
 CREATE DATABASE `measure` DEFAULT CHARACTER SET utf8;
 
 use measure;
