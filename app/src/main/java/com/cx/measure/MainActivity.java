@@ -1,7 +1,12 @@
 package com.cx.measure;
 
 import android.Manifest;
+import android.app.ActivityManager;
+import android.content.BroadcastReceiver;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -20,6 +25,8 @@ import android.widget.TextView;
 import com.cx.measure.mvp.presenter.MainActivityPresenter;
 import com.cx.measure.mvp.view.MainActivityView;
 import com.cx.measure.view.MyProgressDialog;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements MainActivityView {
 
@@ -51,6 +58,8 @@ public class MainActivity extends AppCompatActivity implements MainActivityView 
      */
     TextView tvComment;
 
+    IntentFilter intentFilter;
+
     private View.OnClickListener btnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -73,6 +82,14 @@ public class MainActivity extends AppCompatActivity implements MainActivityView 
         }
     };
 
+    BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            unregisterReceiver(this);
+
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,12 +99,21 @@ public class MainActivity extends AppCompatActivity implements MainActivityView 
         presenter = new MainActivityPresenter(this);
         initViews();
         check();
+
+        intentFilter = new IntentFilter();
+        intentFilter.hasAction("ACTION_READ_CODE");
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         updateComment();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(broadcastReceiver);
     }
 
     @Override
@@ -133,6 +159,15 @@ public class MainActivity extends AppCompatActivity implements MainActivityView 
         }
     }
 
+    private String getTopActivityName(){
+        ActivityManager am = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
+        List<ActivityManager.RunningTaskInfo> runningTaskInfos = am.getRunningTasks(1);
+        if(runningTaskInfos != null)
+            return (runningTaskInfos.get(0).topActivity).toString() ;
+        else
+            return null ;
+    }
+
     @Override
     public void toInit() {
         Log.i(TAG, "toInit");
@@ -142,7 +177,18 @@ public class MainActivity extends AppCompatActivity implements MainActivityView 
     @Override
     public void toMeasure() {
         Log.i(TAG, "toMeasure");
-        Snackbar.make(btnMeasureWithExplain, "未安装此模块", Snackbar.LENGTH_SHORT).show();
+        try {
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_LAUNCHER);
+            ComponentName cn = new ComponentName("com.senter.demo.uhf", "com.senter.demo.uhf.Activity0ModuleSelection");
+            intent.setComponent(cn);
+            startActivity(intent);
+            registerReceiver(broadcastReceiver,intentFilter);
+        }catch (Exception e){
+            e.printStackTrace();
+            Snackbar.make(btnMeasureWithExplain, "未安装此模块", Snackbar.LENGTH_SHORT).show();
+        }
+
     }
 
     @Override
@@ -162,4 +208,5 @@ public class MainActivity extends AppCompatActivity implements MainActivityView 
         tvComment.setText(presenter.getComment(this, myProgressDialog));
         tvComment.setMovementMethod(LinkMovementMethod.getInstance());
     }
+
 }

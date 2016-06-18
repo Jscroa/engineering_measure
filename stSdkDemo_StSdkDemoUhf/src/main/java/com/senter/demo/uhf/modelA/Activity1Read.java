@@ -41,9 +41,11 @@ public final class Activity1Read extends com.senter.demo.uhf.common.Activity1Rea
 				if (rr == null || rr.isSucceeded() == false)
 				{
 					showToast(getString(R.string.ReadDataFailure), Toast.LENGTH_SHORT);
+					sendResultBroadCast(null);
 				} else
 				{
 					addNewMassageToListview(rr.getUii(), rr.getData());
+					sendResultBroadCast(rr.getData());
 				}
 				enableBtnRead(true);
 			};

@@ -22,7 +22,7 @@ public class Activity1Read extends Activity1ReadCommonAbstract
 		return new TargetTagType[]{TargetTagType.SingleTag,TargetTagType.SpecifiedTag};
 	}
 	;
-	
+
 
 	@Override
 	protected void onRead(	Bank bank, int ptr, int cnt)
@@ -34,11 +34,12 @@ public class Activity1Read extends Activity1ReadCommonAbstract
 		}else {
 			mask=UmeMask.newMaskAsAny();
 		}
-		
+
 		byte[] data=App.uhfInterfaceAsModelE().read(getDestinationTagSpecifics().getAccessPassword(),mask, bank, ptr, cnt);
 		if (data!=null)
 		{
 			addNewMassageToListview(getDestinationTagSpecifics().getDstTagUiiIfOrdered(), data);
+			sendResultBroadCast(data);
 		}else {
 			showToast("failed");
 		}

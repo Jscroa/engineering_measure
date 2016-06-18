@@ -26,7 +26,7 @@ public class Activity1Read extends Activity1ReadCommonAbstract
 		return new TargetTagType[]{TargetTagType.SingleTag,TargetTagType.SpecifiedTag};
 	}
 	;
-	
+
 
 	@Override
 	protected void onRead(	Bank bank, int ptr, int cnt)
@@ -34,19 +34,19 @@ public class Activity1Read extends Activity1ReadCommonAbstract
 		if (getDestinationTagSpecifics().isOrderedUii())
 		{
 			UII uii=getDestinationTagSpecifics().getDstTagUiiIfOrdered();
-			
+
 			Boolean boolean1=App.uhfInterfaceAsModelD2().iso18k6cSetAccessEpcMatch(UmdEpcMatchSetting.newInstanceOfMatchingEpcFieldInUii(uii.getEpc().getBytes()));
-			
+
 			if (boolean1==null||boolean1==false)
 			{
 				showToast("failed");
 				return;
 			}
 		}
-		
+
 		App.uhfInterfaceAsModelD2().iso18k6cRead( getDestinationTagSpecifics().getAccessPassword(),bank, ptr, cnt, new UmdOnIso18k6cRead()
 		{
-			
+
 			@Override
 			public void onFailed(	UmdErrorCode error)
 			{
@@ -57,6 +57,7 @@ public class Activity1Read extends Activity1ReadCommonAbstract
 			public void onTagRead(	int tagCount, UII uii, byte[] data, UmdFrequencyPoint frequencyPoint, Integer antennaId, int readCount)
 			{
 				addNewMassageToListview(uii, data);
+				sendResultBroadCast(data);
 			}
 		});
 	}

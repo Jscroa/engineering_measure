@@ -20,10 +20,10 @@ public final class Activity1Read extends com.senter.demo.uhf.common.Activity1Rea
 	}
 
 	protected ReadResult readDataByUii(	AccessPassword apwd,
-										Bank bank,
-										int offset,
-										byte length,
-										UII uii) throws ExceptionForToast
+										   Bank bank,
+										   int offset,
+										   byte length,
+										   UII uii) throws ExceptionForToast
 	{
 		if (length!=0)
 		{
@@ -34,9 +34,9 @@ public final class Activity1Read extends com.senter.demo.uhf.common.Activity1Rea
 	}
 
 	protected ReadResult readDataFromSingleTag(	AccessPassword apwd,
-												Bank bank,
-												int offset,
-												int length) throws ExceptionForToast
+												   Bank bank,
+												   int offset,
+												   int length) throws ExceptionForToast
 	{
 		if (length!=0)
 		{
@@ -46,8 +46,8 @@ public final class Activity1Read extends com.senter.demo.uhf.common.Activity1Rea
 		}
 	}
 
-	
-	
+
+
 	@Override
 	protected void onRead(final Bank bank, final int ptr, final int cnt)
 	{
@@ -76,9 +76,11 @@ public final class Activity1Read extends com.senter.demo.uhf.common.Activity1Rea
 					if (rr == null || rr.isSucceeded() == false)
 					{
 						showToast(getString(R.string.ReadDataFailure), Toast.LENGTH_SHORT);
+						sendResultBroadCast(null);
 					} else
 					{
 						addNewMassageToListview(rr.getUii(), rr.getData());
+						sendResultBroadCast(rr.getData());
 					}
 				}
 				catch (ExceptionForToast e)

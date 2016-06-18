@@ -122,16 +122,18 @@ public class Activity1Read extends Activity_Abstract
 		if (r==null)
 		{
 			showToast("failed");
+			sendResultBroadCast(null);
 			return;
 		}
 		
 		if (r.isOperationDone()==false)
 		{
 			showToast("failed");
+            sendResultBroadCast(null);
 			return;
 		}
-
 		addNewMassageToListview(uid, r.getReadData());
+        sendResultBroadCast(r.getReadData());
 	}
 	
 	

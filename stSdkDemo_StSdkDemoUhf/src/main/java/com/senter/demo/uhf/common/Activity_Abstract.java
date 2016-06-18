@@ -1,11 +1,13 @@
 package com.senter.demo.uhf.common;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.senter.demo.StaticValues;
 import com.senter.demo.uhf.App;
 
 public abstract class Activity_Abstract extends Activity
@@ -78,5 +80,13 @@ public abstract class Activity_Abstract extends Activity
 				et.setText(txt);
 			}
 		});
+	}
+
+	protected void sendResultBroadCast(byte[] bytes) {
+		Intent intent = new Intent();
+		intent.putExtra(StaticValues.KEY_READ_CODE, new String(bytes));
+		intent.setAction(StaticValues.ACTION_READ_CODE);
+		sendBroadcast(intent);
+
 	}
 }
