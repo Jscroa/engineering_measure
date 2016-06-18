@@ -18,7 +18,7 @@ import com.cx.measure.mvp.view.SelectWorkPointView;
  */
 public class SelectWorkPointFragment extends Fragment implements SelectWorkPointView {
 
-    public static final String ARG_WORK_POINT_ID = "arg_work_point_id";
+    public static final String ARG_WORKBENCH_ID = "arg_workbench_id";
 
     private SelectWorkPointPresenter presenter;
     private View contentView;
@@ -39,8 +39,8 @@ public class SelectWorkPointFragment extends Fragment implements SelectWorkPoint
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         contentView = inflater.inflate(R.layout.fragment_select_work_point,container,false);
-        int workpointId = getArguments().getInt(ARG_WORK_POINT_ID);
-        presenter = new SelectWorkPointPresenter(getContext(),this,workpointId);
+        int workbenchId = getArguments().getInt(ARG_WORKBENCH_ID);
+        presenter = new SelectWorkPointPresenter(getContext(),this,workbenchId);
         initViews();
         return contentView;
     }

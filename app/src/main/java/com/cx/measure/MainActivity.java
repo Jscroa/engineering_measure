@@ -85,10 +85,13 @@ public class MainActivity extends AppCompatActivity implements MainActivityView 
     BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            try{
-                String rfid = intent.getStringExtra("KEY_READ_CODE");
+            String rfid = intent.getStringExtra("KEY_READ_CODE");
+            Intent intent1 = new Intent(MainActivity.this,SelectWorkPointActivity.class);
+            intent1.putExtra(SelectWorkPointActivity.ARG_RFID,rfid);
+            startActivity(intent1);
+            try {
                 unregisterReceiver(this);
-            }catch (IllegalArgumentException e){
+            } catch (IllegalArgumentException e) {
                 e.printStackTrace();
             }
 
@@ -118,9 +121,9 @@ public class MainActivity extends AppCompatActivity implements MainActivityView 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        try{
+        try {
             unregisterReceiver(broadcastReceiver);
-        }catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             e.printStackTrace();
         }
 
@@ -169,13 +172,13 @@ public class MainActivity extends AppCompatActivity implements MainActivityView 
         }
     }
 
-    private String getTopActivityName(){
+    private String getTopActivityName() {
         ActivityManager am = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
         List<ActivityManager.RunningTaskInfo> runningTaskInfos = am.getRunningTasks(1);
-        if(runningTaskInfos != null)
-            return (runningTaskInfos.get(0).topActivity).toString() ;
+        if (runningTaskInfos != null)
+            return (runningTaskInfos.get(0).topActivity).toString();
         else
-            return null ;
+            return null;
     }
 
     @Override
@@ -193,8 +196,8 @@ public class MainActivity extends AppCompatActivity implements MainActivityView 
             ComponentName cn = new ComponentName("com.senter.demo.uhf", "com.senter.demo.uhf.Activity0ModuleSelection");
             intent.setComponent(cn);
             startActivity(intent);
-            registerReceiver(broadcastReceiver,intentFilter);
-        }catch (Exception e){
+            registerReceiver(broadcastReceiver, intentFilter);
+        } catch (Exception e) {
             e.printStackTrace();
             Snackbar.make(btnMeasureWithExplain, "未安装此模块", Snackbar.LENGTH_SHORT).show();
         }

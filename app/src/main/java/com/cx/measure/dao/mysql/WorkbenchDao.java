@@ -102,6 +102,42 @@ public class WorkbenchDao {
         return workbenches;
     }
 
+    public Workbench getByRfid(Context context, String rfid) throws Exception {
+        Connection conn = null;
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        try {
+            conn = MysqlUtil.getConnection(context);
+            String sql = "select id,uuid,pit_id,name,rfid,longitude,latitude,create_time,update_time from t_workbench where rfid=?";
+            pst = conn.prepareStatement(sql);
+            pst.setString(1,rfid);
+            rs = pst.executeQuery();
+            if (rs == null) {
+                return null;
+            }
+
+            while (rs.next()) {
+                Workbench workbench = new Workbench();
+                workbench.setId(rs.getInt("id"));
+                workbench.setUuid(rs.getString("uuid"));
+                workbench.setPitId(rs.getInt("pit_id"));
+                workbench.setName(rs.getString("name"));
+                workbench.setRFID(rs.getString("rfid"));
+                workbench.setLongitude(rs.getDouble("longitude"));
+                workbench.setLatitude(rs.getDouble("latitude"));
+                workbench.setCreateTime(rs.getLong("create_time"));
+                workbench.setUpdateTime(rs.getLong("update_time"));
+                return workbench;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new Exception("数据库错误", e);
+        } finally {
+            MysqlUtil.close(conn, pst, rs);
+        }
+        return null;
+    }
+
     public List<Workbench> getNearWorkbenches(Context context, double longitude, double latitude) throws Exception {
         Connection conn = null;
         PreparedStatement pst = null;

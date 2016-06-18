@@ -48,10 +48,10 @@ public class SelectWorkbenchFragment extends Fragment implements SelectWorkbench
     }
 
     @Override
-    public void toSelectWorkPoint(int workPointId) {
+    public void toSelectWorkPoint(int workbenchId) {
         if(getActivity() instanceof MeasureBySelectActivityView){
             MeasureBySelectActivityView v = (MeasureBySelectActivityView) getActivity();
-            v.step1To2(workPointId);
+            v.step1To2(workbenchId);
         }
     }
 

@@ -69,10 +69,10 @@ public class MeasureBySelectActivity extends AppCompatActivity implements Measur
     }
 
     @Override
-    public void step1To2(int workPointId) {
+    public void step1To2(int workbenchId) {
         Log.i(TAG,"step1To2");
         Bundle bundle = new Bundle();
-        bundle.putInt(SelectWorkPointFragment.ARG_WORK_POINT_ID,workPointId);
+        bundle.putInt(SelectWorkPointFragment.ARG_WORKBENCH_ID,workbenchId);
         selectWorkPointFragment.setArguments(bundle);
         fm.beginTransaction().setCustomAnimations(R.anim.slide_in_right, 0).replace(R.id.frame_measure_step,selectWorkPointFragment).addToBackStack(null).commit();
     }
