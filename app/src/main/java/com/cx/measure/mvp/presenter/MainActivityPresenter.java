@@ -55,7 +55,7 @@ public class MainActivityPresenter {
                             public void finish(String s) {
                                 Toast.makeText(context,s,Toast.LENGTH_SHORT).show();
                                 iProgressView.dismiss();
-                                view.updateComment();
+                                view.updateComment1();
                             }
                         }).execute();
                         iProgressView.show();

@@ -24,8 +24,8 @@ public class MeasureActivityPresenter implements HomeAsUpEnabledPresenter {
     private int workPointId;
 
     private WorkPoint workPoint;
-
-    public MeasureActivityPresenter(Context context,MeasureActivityView view, int workPointId){
+    List<Double> values;
+    public MeasureActivityPresenter(Context context, MeasureActivityView view, int workPointId) {
         this.context = context;
         this.view = view;
         this.workPointId = workPointId;
@@ -35,14 +35,14 @@ public class MeasureActivityPresenter implements HomeAsUpEnabledPresenter {
 
     }
 
-    public void reqPoint(){
-        new AsyncTask<Void,Void,Void>(){
+    public void reqPoint() {
+        new AsyncTask<Void, Void, Void>() {
 
             @Override
             protected Void doInBackground(Void... params) {
                 try {
                     com.cx.measure.dao.mysql.WorkPointDao workPointDao = new com.cx.measure.dao.mysql.WorkPointDao();
-                    workPoint = workPointDao.getWorkPoint(context,workPointId);
+                    workPoint = workPointDao.getWorkPoint(context, workPointId);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -67,50 +67,73 @@ public class MeasureActivityPresenter implements HomeAsUpEnabledPresenter {
         view.back();
     }
 
-    public boolean save(List<Double> values) {
-        cleanValues();
-        long now = System.currentTimeMillis();
-        MeasureDataDao dao = new MeasureDataDao();
+    public boolean save(final List<Double> values) {
+
         try {
+            com.cx.measure.dao.mysql.MeasureDataDao measureDataDao = new com.cx.measure.dao.mysql.MeasureDataDao();
+            measureDataDao.deleteByPoint(context, workPointId);
+            long now = System.currentTimeMillis();
+            List<MeasureData> measureDatas = new ArrayList<>();
             for (double value : values) {
                 MeasureData data = new MeasureData();
                 data.setPointId(workPointId);
                 data.setData(value);
                 data.setCreateTime(now);
                 data.setUpdateTime(now);
-                dao.add(data);
+                measureDatas.add(data);
             }
+            measureDataDao.add(context, measureDatas);
             return true;
-        } catch (DbException e) {
+        } catch (Exception e) {
             e.printStackTrace();
-            return false;
         }
+        return false;
+
     }
 
-    public void cleanValues(){
-        MeasureDataDao dao = new MeasureDataDao();
-        try {
-            dao.deleteByPoint(workPointId);
-        } catch (DbException e) {
-            e.printStackTrace();
-        }
+    public void cleanValues() {
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... params) {
+                try {
+                    com.cx.measure.dao.mysql.MeasureDataDao measureDataDao = new com.cx.measure.dao.mysql.MeasureDataDao();
+                    measureDataDao.deleteByPoint(context, workPointId);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                return null;
+            }
+        }.execute();
+
     }
 
-    public void restore(){
-        MeasureDataDao dao = new MeasureDataDao();
-        List<Double> values = new ArrayList<>();
-        try {
-            List<MeasureData> datas = dao.getByPoint(workPointId);
-            if(datas==null){
-                return;
+    public void restore() {
+        new AsyncTask<Void,Void,Void>(){
+
+            @Override
+            protected Void doInBackground(Void... params) {
+                try{
+                    com.cx.measure.dao.mysql.MeasureDataDao measureDataDao = new com.cx.measure.dao.mysql.MeasureDataDao();
+                    values = new ArrayList<>();
+                    List<MeasureData> datas = measureDataDao.getByPoint(context,workPointId);
+                    if (datas == null) {
+                        return null;
+                    }
+                    for (MeasureData data : datas) {
+                        values.add(data.getData());
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                return null;
             }
-            for (MeasureData data : datas) {
-                values.add(data.getData());
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
+                view.setValues(values);
             }
-            view.setValues(values);
-        } catch (DbException e) {
-            e.printStackTrace();
-        }
-        return;
+        }.execute();
+
     }
 }

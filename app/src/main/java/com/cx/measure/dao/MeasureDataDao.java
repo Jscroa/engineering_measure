@@ -4,6 +4,7 @@ import com.cx.measure.bean.MeasureData;
 import com.cx.measure.comments.UUIDUtil;
 
 import org.xutils.DbManager;
+import org.xutils.common.util.KeyValue;
 import org.xutils.db.sqlite.WhereBuilder;
 import org.xutils.ex.DbException;
 import org.xutils.x;
@@ -33,5 +34,18 @@ public class MeasureDataDao extends BaseDao {
     public List<MeasureData> getByPoint(int pointId) throws DbException {
         DbManager db = x.getDb(daoConfig);
         return db.selector(MeasureData.class).where("point_id","=",pointId).findAll();
+    }
+
+    public List<MeasureData> getUnupload() throws DbException {
+        DbManager db = x.getDb(daoConfig);
+        List<MeasureData> measureDatas = db.selector(MeasureData.class).where("has_upload","=",false).findAll();
+        return measureDatas;
+    }
+
+    public void updateSuccess(int id) throws DbException {
+        DbManager db = x.getDb(daoConfig);
+        WhereBuilder whereBuilder = WhereBuilder.b("id","=",id);
+        KeyValue keyValue = new KeyValue("has_upload",true);
+        db.update(MeasureData.class,whereBuilder,keyValue);
     }
 }

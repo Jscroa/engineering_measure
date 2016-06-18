@@ -23,8 +23,14 @@ package com.cx.measure;
 //
 //import java.util.List;
 
+import android.content.BroadcastReceiver;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
@@ -55,7 +61,7 @@ public class InitFragment2 extends Fragment implements InitFragment2View {
     private static final String TAG = "InitFragment2";
 
     private InitFragment2Presenter presenter;
-
+    IntentFilter intentFilter;
     private View contentView;
 
     /**
@@ -112,6 +118,26 @@ public class InitFragment2 extends Fragment implements InitFragment2View {
             return true;
         }
     };
+    BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String rfid = intent.getStringExtra("KEY_READ_CODE");
+
+            try {
+                getContext().unregisterReceiver(this);
+            } catch (IllegalArgumentException e) {
+                e.printStackTrace();
+            }
+
+        }
+    };
+
+    EditText etNameD;
+    EditText etRfidD;
+    ImageView ivRfidD;
+    EditText etLongitudeD;
+    EditText etLatitudeD;
+    ImageView ivLocationD;
 
     WorkbenchAdapter.WorkbenchAdapterCallback workbenchAdapterCallback = new WorkbenchAdapter.WorkbenchAdapterCallback() {
 
@@ -120,24 +146,50 @@ public class InitFragment2 extends Fragment implements InitFragment2View {
             AlertDialog dialog = new AlertDialog.Builder(getContext()).create();
             dialog.setTitle(R.string.workbench);
             View dialogView = View.inflate(getContext(), R.layout.view_workbench, null);
-            final EditText etName = (EditText) dialogView.findViewById(R.id.et_name);
-            final EditText etRfid = (EditText) dialogView.findViewById(R.id.et_rfid);
-            final EditText etLongitude = (EditText) dialogView.findViewById(R.id.et_longitude);
-            final EditText etLatitude = (EditText) dialogView.findViewById(R.id.et_latitude);
-            final ImageView ivLocation = (ImageView) dialogView.findViewById(R.id.iv_location);
-            ivLocation.setOnClickListener(new View.OnClickListener() {
+            etNameD = (EditText) dialogView.findViewById(R.id.et_name);
+            etRfidD = (EditText) dialogView.findViewById(R.id.et_rfid);
+            ivRfidD = (ImageView) dialogView.findViewById(R.id.iv_rfid_scan);
+            etLongitudeD = (EditText) dialogView.findViewById(R.id.et_longitude);
+            etLatitudeD = (EditText) dialogView.findViewById(R.id.et_latitude);
+            ivLocationD = (ImageView) dialogView.findViewById(R.id.iv_location);
+
+            ivRfidD.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    try {
+                        Intent intent = new Intent(Intent.ACTION_MAIN);
+                        intent.addCategory(Intent.CATEGORY_LAUNCHER);
+                        ComponentName cn = new ComponentName("com.senter.demo.uhf", "com.senter.demo.uhf.Activity0ModuleSelection");
+                        intent.setComponent(cn);
+                        startActivity(intent);
+                        intentFilter = new IntentFilter();
+                        intentFilter.hasAction("ACTION_READ_CODE");
+                        try{
+                            getContext().registerReceiver(broadcastReceiver, intentFilter);
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Snackbar.make(ivRfidD, "未安装此模块", Snackbar.LENGTH_SHORT).show();
+                    }
+                }
+            });
+
+            ivLocationD.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (getActivity() instanceof InitActivity){
-                        etLongitude.setText(getActivityPresenter().getLongitude()+"");
-                        etLatitude.setText(getActivityPresenter().getLatitude()+"");
+                        etLongitudeD.setText(getActivityPresenter().getLongitude()+"");
+                        etLatitudeD.setText(getActivityPresenter().getLatitude()+"");
                     }
                 }
             });
 
             Workbench workbench = workbenchAdapter.getWorkbenches().get(position);
-            etName.setText(workbench.getName());
-            etRfid.setText(workbench.getRFID());
+            etNameD.setText(workbench.getName());
+            etRfidD.setText(workbench.getRFID());
             String longitude = "";
             if (workbench.getLongitude() != 0.0) {
                 longitude = String.valueOf(workbench.getLongitude());
@@ -146,17 +198,17 @@ public class InitFragment2 extends Fragment implements InitFragment2View {
             if (workbench.getLatitude() != 0.0) {
                 latitude = String.valueOf(workbench.getLatitude());
             }
-            etLongitude.setText(longitude);
-            etLatitude.setText(latitude);
+            etLongitudeD.setText(longitude);
+            etLatitudeD.setText(latitude);
 
             dialog.setView(dialogView);
             dialog.setButton(DialogInterface.BUTTON_POSITIVE, getContext().getResources().getString(R.string.confirm), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    String name = etName.getText().toString().trim();
-                    String rfid = etRfid.getText().toString().trim();
-                    String longitudeStr = etLongitude.getText().toString().trim();
-                    String latitudeStr = etLatitude.getText().toString().trim();
+                    String name = etNameD.getText().toString().trim();
+                    String rfid = etRfidD.getText().toString().trim();
+                    String longitudeStr = etLongitudeD.getText().toString().trim();
+                    String latitudeStr = etLatitudeD.getText().toString().trim();
                     double longitude = ("".equals(longitudeStr)) ? 0.0 : Double.parseDouble(longitudeStr);
                     double latitude = ("".equals(latitudeStr)) ? 0.0 : Double.parseDouble(latitudeStr);
                     presenter.setWorkbench(position, name, rfid, longitude, latitude);
@@ -189,6 +241,7 @@ public class InitFragment2 extends Fragment implements InitFragment2View {
         });
         presenter = new InitFragment2Presenter(this);
         initViews(contentView);
+
         return contentView;
     }
 

@@ -13,5 +13,7 @@ public interface MainActivityView {
 
     void toSelect();
 
-    void updateComment();
+    void updateComment1();
+
+    void updateComment2();
 }

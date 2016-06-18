@@ -3,11 +3,13 @@ package com.cx.measure.dao.mysql;
 import android.content.Context;
 
 import com.cx.measure.bean.MeasureData;
+import com.cx.measure.bean.Pit;
 import com.cx.measure.comments.UUIDUtil;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -78,5 +80,55 @@ public class MeasureDataDao {
             MysqlUtil.close(rs);
             MysqlUtil.close(pst);
         }
+    }
+
+    public void deleteByPoint(Context context, int pointId) throws Exception {
+        Connection conn = null;
+        PreparedStatement pst = null;
+        try{
+            conn = MysqlUtil.getConnection(context);
+            String sql = "delete from t_measure_data where point_id=?";
+            pst = conn.prepareStatement(sql);
+            pst.setInt(1,pointId);
+            pst.executeUpdate();
+        }catch (Exception e) {
+            e.printStackTrace();
+            throw new Exception("数据库错误", e);
+        } finally {
+            MysqlUtil.close(conn,pst);
+        }
+    }
+
+    public List<MeasureData> getByPoint(Context context,int pointId) throws Exception {
+        Connection conn = null;
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        List<MeasureData> measureDatas = new ArrayList<>();
+        try {
+            conn = MysqlUtil.getConnection(context);
+            String sql = "select id,point_id,data,create_time,update_time from t_measure_data where point_id=?";
+            pst = conn.prepareStatement(sql);
+            pst.setInt(1,pointId);
+            rs = pst.executeQuery();
+            if(rs == null){
+                return measureDatas;
+            }
+
+            while (rs.next()){
+                MeasureData measureData = new MeasureData();
+                measureData.setId(rs.getInt("id"));
+                measureData.setPointId(rs.getInt("point_id"));
+                measureData.setData(rs.getDouble("data"));
+                measureData.setCreateTime(rs.getLong("create_time"));
+                measureData.setUpdateTime(rs.getLong("update_time"));
+                measureDatas.add(measureData);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new Exception("数据库错误",e);
+        }finally {
+            MysqlUtil.close(conn,pst,rs);
+        }
+        return measureDatas;
     }
 }

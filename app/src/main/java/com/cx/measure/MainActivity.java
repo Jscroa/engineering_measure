@@ -56,7 +56,8 @@ public class MainActivity extends AppCompatActivity implements MainActivityView 
     /**
      * 基本信息文本（富文本）
      */
-    TextView tvComment;
+    TextView tvComment1;
+    TextView tvComment2;
 
     IntentFilter intentFilter;
 
@@ -115,7 +116,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityView 
     @Override
     protected void onResume() {
         super.onResume();
-        updateComment();
+        updateComment1();
     }
 
     @Override
@@ -155,7 +156,8 @@ public class MainActivity extends AppCompatActivity implements MainActivityView 
         btnMeasureWithExplain = (Button) findViewById(R.id.main_btn_measure_with_explain);
         btnMeasureWithLocation = (Button) findViewById(R.id.main_btn_measure_with_location);
         mainBtnMeasureWithSelect = (Button) findViewById(R.id.main_btn_measure_with_select);
-        tvComment = (TextView) findViewById(R.id.tv_comment);
+        tvComment1 = (TextView) findViewById(R.id.tv_comment1);
+        tvComment2 = (TextView) findViewById(R.id.tv_comment2);
 
         btnInit.setOnClickListener(btnClickListener);
         btnMeasureWithExplain.setOnClickListener(btnClickListener);
@@ -170,15 +172,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityView 
             ActivityCompat.requestPermissions(this,
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
         }
-    }
-
-    private String getTopActivityName() {
-        ActivityManager am = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
-        List<ActivityManager.RunningTaskInfo> runningTaskInfos = am.getRunningTasks(1);
-        if (runningTaskInfos != null)
-            return (runningTaskInfos.get(0).topActivity).toString();
-        else
-            return null;
     }
 
     @Override
@@ -196,7 +189,12 @@ public class MainActivity extends AppCompatActivity implements MainActivityView 
             ComponentName cn = new ComponentName("com.senter.demo.uhf", "com.senter.demo.uhf.Activity0ModuleSelection");
             intent.setComponent(cn);
             startActivity(intent);
-            registerReceiver(broadcastReceiver, intentFilter);
+            try{
+                registerReceiver(broadcastReceiver, intentFilter);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
             Snackbar.make(btnMeasureWithExplain, "未安装此模块", Snackbar.LENGTH_SHORT).show();
@@ -217,9 +215,13 @@ public class MainActivity extends AppCompatActivity implements MainActivityView 
     }
 
     @Override
-    public void updateComment() {
-        tvComment.setText(presenter.getComment(this, myProgressDialog));
-        tvComment.setMovementMethod(LinkMovementMethod.getInstance());
+    public void updateComment1() {
+        tvComment1.setText(presenter.getComment(this, myProgressDialog));
+        tvComment1.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
+    @Override
+    public void updateComment2() {
+
+    }
 }
