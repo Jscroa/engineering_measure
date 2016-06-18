@@ -40,16 +40,21 @@ public class SelectWorkPointFragment extends Fragment implements SelectWorkPoint
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         contentView = inflater.inflate(R.layout.fragment_select_work_point,container,false);
         int workpointId = getArguments().getInt(ARG_WORK_POINT_ID);
-        presenter = new SelectWorkPointPresenter(this,workpointId);
+        presenter = new SelectWorkPointPresenter(getContext(),this,workpointId);
         initViews();
         return contentView;
     }
 
     private void initViews(){
         lvWorkPoints = (ListView) contentView.findViewById(R.id.lv_work_points);
-        workPointsAdapter = new ArrayAdapter<>(getContext(),android.R.layout.simple_list_item_1,presenter.getWorkPointsNames());
-        lvWorkPoints.setAdapter(workPointsAdapter);
+        presenter.reqPoints();
 
         lvWorkPoints.setOnItemClickListener(itemClickListener);
+    }
+
+    @Override
+    public void refresh() {
+        workPointsAdapter = new ArrayAdapter<>(getContext(),android.R.layout.simple_list_item_1,presenter.getWorkPointsNames());
+        lvWorkPoints.setAdapter(workPointsAdapter);
     }
 }

@@ -7,4 +7,5 @@ import java.util.List;
  */
 public interface MeasureActivityView extends HomeAsUpEnabledView {
     void setValues(List<Double> values);
+    void refresh();
 }

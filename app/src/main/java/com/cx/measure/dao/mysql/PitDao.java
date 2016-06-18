@@ -96,7 +96,7 @@ public class PitDao {
         List<Pit> pits = new ArrayList<>();
         try {
             conn = MysqlUtil.getConnection(context);
-            String sql = "select id,uuid,name,create_time,update_id from t_pit";
+            String sql = "select id,uuid,name,create_time,update_time from t_pit";
             pst = conn.prepareStatement(sql);
             rs = pst.executeQuery();
             if(rs == null){
@@ -109,7 +109,7 @@ public class PitDao {
                 pit.setUuid(rs.getString("uuid"));
                 pit.setName(rs.getString("name"));
                 pit.setCreateTime(rs.getLong("create_time"));
-                pit.setUpdateTime(rs.getLong("update_id"));
+                pit.setUpdateTime(rs.getLong("update_time"));
                 pits.add(pit);
             }
         } catch (Exception e) {

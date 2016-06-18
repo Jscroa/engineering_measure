@@ -85,7 +85,12 @@ public class MainActivity extends AppCompatActivity implements MainActivityView 
     BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            unregisterReceiver(this);
+            try{
+                String rfid = intent.getStringExtra("KEY_READ_CODE");
+                unregisterReceiver(this);
+            }catch (IllegalArgumentException e){
+                e.printStackTrace();
+            }
 
         }
     };
@@ -113,7 +118,12 @@ public class MainActivity extends AppCompatActivity implements MainActivityView 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        unregisterReceiver(broadcastReceiver);
+        try{
+            unregisterReceiver(broadcastReceiver);
+        }catch (IllegalArgumentException e){
+            e.printStackTrace();
+        }
+
     }
 
     @Override

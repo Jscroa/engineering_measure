@@ -20,46 +20,46 @@ public class WorkbenchDao {
     public void add(Connection conn, Workbench workbench) throws Exception {
         long now = System.currentTimeMillis();
 
-        if(workbench.getUuid() == null || "".equals(workbench.getUuid())){
+        if (workbench.getUuid() == null || "".equals(workbench.getUuid())) {
             workbench.setUuid(UUIDUtil.createUUID());
         }
-        if(workbench.getCreateTime() == 0l){
+        if (workbench.getCreateTime() == 0l) {
             workbench.setCreateTime(now);
         }
         workbench.setUpdateTime(now);
 
         PreparedStatement pst = null;
         ResultSet rs = null;
-        try{
+        try {
             String sql = "insert into t_workbench(uuid,pit_id,name,rfid,longitude,latitude,create_time,update_time) values(?,?,?,?,?,?,?,?)";
             pst = conn.prepareStatement(sql);
-            pst.setString(1,workbench.getUuid());
-            pst.setInt(2,workbench.getPitId());
-            pst.setString(3,workbench.getName());
-            pst.setString(4,workbench.getRFID());
-            pst.setDouble(5,workbench.getLongitude());
-            pst.setDouble(6,workbench.getLatitude());
-            pst.setLong(7,workbench.getCreateTime());
-            pst.setLong(8,workbench.getUpdateTime());
+            pst.setString(1, workbench.getUuid());
+            pst.setInt(2, workbench.getPitId());
+            pst.setString(3, workbench.getName());
+            pst.setString(4, workbench.getRFID());
+            pst.setDouble(5, workbench.getLongitude());
+            pst.setDouble(6, workbench.getLatitude());
+            pst.setLong(7, workbench.getCreateTime());
+            pst.setLong(8, workbench.getUpdateTime());
             pst.executeUpdate();
 
             rs = pst.getGeneratedKeys();
             rs.next();
             int id = rs.getInt(1);
 
-            if(workbench.getWorkPoints() ==null){
+            if (workbench.getWorkPoints() == null) {
                 return;
             }
             WorkPointDao workPointDao = new WorkPointDao();
-            for(WorkPoint workPoint:workbench.getWorkPoints()){
+            for (WorkPoint workPoint : workbench.getWorkPoints()) {
                 workPoint.setWorkbenchId(id);
-                workPointDao.add(conn,workPoint);
+                workPointDao.add(conn, workPoint);
             }
 
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             throw new Exception("数据库错误", e);
-        }finally {
+        } finally {
             MysqlUtil.close(rs);
             MysqlUtil.close(pst);
         }
@@ -74,13 +74,13 @@ public class WorkbenchDao {
             conn = MysqlUtil.getConnection(context);
             String sql = "select id,uuid,pit_id,name,rfid,longitude,latitude,create_time,update_time from t_workbench where pit_id=?";
             pst = conn.prepareStatement(sql);
-            pst.setInt(1,pitId);
+            pst.setInt(1, pitId);
             rs = pst.executeQuery();
-            if(rs == null){
+            if (rs == null) {
                 return workbenches;
             }
 
-            while (rs.next()){
+            while (rs.next()) {
                 Workbench workbench = new Workbench();
                 workbench.setId(rs.getInt("id"));
                 workbench.setUuid(rs.getString("uuid"));
@@ -93,11 +93,51 @@ public class WorkbenchDao {
                 workbench.setUpdateTime(rs.getLong("update_time"));
                 workbenches.add(workbench);
             }
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
-            throw new Exception("数据库错误",e);
-        }finally {
-            MysqlUtil.close(conn,pst,rs);
+            throw new Exception("数据库错误", e);
+        } finally {
+            MysqlUtil.close(conn, pst, rs);
+        }
+        return workbenches;
+    }
+
+    public List<Workbench> getNearWorkbenches(Context context, double longitude, double latitude) throws Exception {
+        Connection conn = null;
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        List<Workbench> workbenches = new ArrayList<>();
+        try {
+            conn = MysqlUtil.getConnection(context);
+            String sql = "select id,uuid,pit_id,name,rfid,longitude,latitude,create_time,update_time from t_workbench where longitude>? and longitude<? and latitude>? and latitude<?";
+            pst = conn.prepareStatement(sql);
+            pst.setDouble(1,longitude - 0.01);
+            pst.setDouble(2,longitude + 0.01);
+            pst.setDouble(3,latitude - 0.01);
+            pst.setDouble(4,latitude + 0.01);
+            rs = pst.executeQuery();
+            if (rs == null) {
+                return workbenches;
+            }
+
+            while (rs.next()) {
+                Workbench workbench = new Workbench();
+                workbench.setId(rs.getInt("id"));
+                workbench.setUuid(rs.getString("uuid"));
+                workbench.setPitId(rs.getInt("pit_id"));
+                workbench.setName(rs.getString("name"));
+                workbench.setRFID(rs.getString("rfid"));
+                workbench.setLongitude(rs.getDouble("longitude"));
+                workbench.setLatitude(rs.getDouble("latitude"));
+                workbench.setCreateTime(rs.getLong("create_time"));
+                workbench.setUpdateTime(rs.getLong("update_time"));
+                workbenches.add(workbench);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new Exception("数据库错误", e);
+        } finally {
+            MysqlUtil.close(conn, pst, rs);
         }
         return workbenches;
     }

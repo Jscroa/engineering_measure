@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cx.measure.bean.WorkPoint;
 import com.cx.measure.comments.MeasureType;
 import com.cx.measure.mvp.presenter.MeasureActivityPresenter;
 import com.cx.measure.mvp.view.MeasureActivityView;
@@ -69,13 +70,9 @@ public class MeasureActivity extends AppCompatActivity implements MeasureActivit
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         int workPointId = getIntent().getIntExtra(ARG_WORK_POINT_ID, 0);
-        try {
-            presenter = new MeasureActivityPresenter(this, workPointId);
-        } catch (DbException e) {
-            e.printStackTrace();
-            Toast.makeText(this, "获取数据时遇到错误", Toast.LENGTH_SHORT).show();
-            finish();
-        }
+
+            presenter = new MeasureActivityPresenter(this,this, workPointId);
+
         initViews();
     }
 
@@ -88,27 +85,7 @@ public class MeasureActivity extends AppCompatActivity implements MeasureActivit
     private void initViews() {
         llContent = (LinearLayout) findViewById(R.id.ll_content);
         tvComment = (TextView) findViewById(R.id.tv_comment);
-        MeasureType type = MeasureType.getType(presenter.getWorkPoint().getMeasureType());
-        int count = presenter.getWorkPoint().getMeasureCount();
-        if (type == null || count == 0) {
-            Toast.makeText(this, "数据模板错误，测量方式不正确或无测量次数", Toast.LENGTH_SHORT).show();
-            finish();
-            return;
-        } else {
-            String text = "测量方式：" + type.getName() + "<br>测量次数：<span style=\"color:blue\">" + count + "</span>";
-            tvComment.setText(Html.fromHtml(text));
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            params.setMargins(getResources().getDimensionPixelSize(R.dimen.activity_horizontal_margin), getResources().getDimensionPixelSize(R.dimen.half_margin), getResources().getDimensionPixelSize(R.dimen.activity_vertical_margin), 0);
-            for (int i = 0; i < count; i++) {
-                EditText et = new EditText(this);
-                et.setLayoutParams(params);
-                et.setSingleLine(true);
-                et.setHint((i + 1) + "");
-                et.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
-                llContent.addView(et);
-                ets.add(et);
-            }
-        }
+        presenter.reqPoint();
     }
 
     @Override
@@ -183,7 +160,36 @@ public class MeasureActivity extends AppCompatActivity implements MeasureActivit
             EditText et = ets.get(i);
             et.setText(valueStr);
         }
+    }
 
-
+    @Override
+    public void refresh() {
+        WorkPoint workPoint = presenter.getWorkPoint();
+        if(workPoint==null){
+            Toast.makeText(this, "数据模板错误", Toast.LENGTH_SHORT).show();
+            finish();
+            return;
+        }
+        MeasureType type = MeasureType.getType(workPoint.getMeasureType());
+        int count = presenter.getWorkPoint().getMeasureCount();
+        if (type == null || count == 0) {
+            Toast.makeText(this, "数据模板错误，测量方式不正确或无测量次数", Toast.LENGTH_SHORT).show();
+            finish();
+            return;
+        } else {
+            String text = "测量方式：" + type.getName() + "<br>测量次数：<span style=\"color:blue\">" + count + "</span>";
+            tvComment.setText(Html.fromHtml(text));
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            params.setMargins(getResources().getDimensionPixelSize(R.dimen.activity_horizontal_margin), getResources().getDimensionPixelSize(R.dimen.half_margin), getResources().getDimensionPixelSize(R.dimen.activity_vertical_margin), 0);
+            for (int i = 0; i < count; i++) {
+                EditText et = new EditText(this);
+                et.setLayoutParams(params);
+                et.setSingleLine(true);
+                et.setHint((i + 1) + "");
+                et.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+                llContent.addView(et);
+                ets.add(et);
+            }
+        }
     }
 }

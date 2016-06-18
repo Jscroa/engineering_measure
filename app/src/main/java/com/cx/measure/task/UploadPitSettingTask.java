@@ -76,17 +76,20 @@ public class UploadPitSettingTask extends AsyncTask<Void, String, String> {
                 com.cx.measure.dao.mysql.PitDao mysqlPitDao = new com.cx.measure.dao.mysql.PitDao();
                 try {
                     mysqlPitDao.add(context,pit);
+
+                    // 修改本地
+                    String progress3 = String.format("(%d/%d)-3 正在上传",i+1,totalsize);
+                    publishProgress(progress2);
+                    pitDao.updateSuccess(pit.getId());
+
                     success++;
+
                 } catch (Exception e) {
                     e.printStackTrace();
                     failure++;
                 }
 
-                // 修改本地
-                String progress3 = String.format("(%d/%d)-3 正在上传",i+1,totalsize);
-                publishProgress(progress2);
 
-                pitDao.updateSuccess(pit.getId());
 
             }
         } catch (DbException e) {

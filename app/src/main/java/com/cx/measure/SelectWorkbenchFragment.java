@@ -34,7 +34,7 @@ public class SelectWorkbenchFragment extends Fragment implements SelectWorkbench
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         contentView = inflater.inflate(R.layout.fragment_select_workbench,container,false);
-        presenter = new SelectWorkbenchPresenter(this);
+        presenter = new SelectWorkbenchPresenter(getContext(),this);
         initViews();
         return contentView;
     }
@@ -42,19 +42,22 @@ public class SelectWorkbenchFragment extends Fragment implements SelectWorkbench
     private void initViews(){
         lvPitsWorkbenches = (ExpandableListView) contentView.findViewById(R.id.lv_pits_workbenches);
         pitWorkbenchAdapter = new PitWorkbenchAdapter(getContext());
-        pitWorkbenchAdapter.setPits(presenter.getPits());
-        lvPitsWorkbenches.setAdapter(pitWorkbenchAdapter);
+        presenter.reqPits();
 
-        Log.i("TAG","acascaca");
         lvPitsWorkbenches.setOnChildClickListener(childClickListener);
     }
 
     @Override
     public void toSelectWorkPoint(int workPointId) {
-        Log.i("TAG","aaaaaaaaaaaaa");
         if(getActivity() instanceof MeasureBySelectActivityView){
             MeasureBySelectActivityView v = (MeasureBySelectActivityView) getActivity();
             v.step1To2(workPointId);
         }
+    }
+
+    @Override
+    public void refresh() {
+        pitWorkbenchAdapter.setPits(presenter.getPits());
+        lvPitsWorkbenches.setAdapter(pitWorkbenchAdapter);
     }
 }

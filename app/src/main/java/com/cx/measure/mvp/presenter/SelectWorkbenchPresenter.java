@@ -1,5 +1,8 @@
 package com.cx.measure.mvp.presenter;
 
+import android.content.Context;
+import android.os.AsyncTask;
+
 import com.cx.measure.bean.Pit;
 import com.cx.measure.bean.Workbench;
 import com.cx.measure.dao.PitDao;
@@ -15,23 +18,45 @@ import java.util.List;
  * Created by yyao on 2016/6/7.
  */
 public class SelectWorkbenchPresenter {
+    Context context;
     SelectWorkbenchView view;
 
     List<Pit> pits = new ArrayList<>();
     List<Workbench> workbenches = new ArrayList<>();
 
-    public SelectWorkbenchPresenter(SelectWorkbenchView view) {
+    public SelectWorkbenchPresenter(Context context, SelectWorkbenchView view) {
+        this.context = context;
         this.view = view;
-        PitDao dao = new PitDao();
-        try {
-            pits = dao.getAll();
-            if(pits==null){
-                pits = new ArrayList<>();
+//        PitDao dao = new PitDao();
+
+
+    }
+
+    public void reqPits(){
+        new AsyncTask<Void,Void,Void>(){
+
+            @Override
+            protected Void doInBackground(Void... params) {
+                try {
+                    com.cx.measure.dao.mysql.PitDao pitDao = new com.cx.measure.dao.mysql.PitDao();
+                    pits = pitDao.getAll(context);
+                    if(pits==null){
+                        pits = new ArrayList<>();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    pits = new ArrayList<>();
+                }
+                return null;
             }
-        } catch (DbException e) {
-            e.printStackTrace();
-            pits = new ArrayList<>();
-        }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
+                view.refresh();
+
+            }
+        }.execute();
     }
 
     public List<Pit> getPits() {

@@ -1,5 +1,7 @@
 package com.cx.measure.mvp.presenter;
 
+import android.content.Context;
+
 import com.cx.measure.bean.Workbench;
 import com.cx.measure.dao.WorkbenchDao;
 import com.cx.measure.mvp.view.HomeAsUpEnabledView;
@@ -22,10 +24,17 @@ public class MeasureByLocationActivityPresenter implements HomeAsUpEnabledView {
         this.view = view;
     }
 
-    public List<String> getWorkbenchNames(double longitude,double latitude) throws DbException {
+    public List<String> getWorkbenchNames(Context context, double longitude, double latitude) {
 
-        WorkbenchDao dao = new WorkbenchDao();
-        workbenches = dao.getNearWorkbenches(longitude,latitude);
+        com.cx.measure.dao.mysql.WorkbenchDao workbenchDao = new com.cx.measure.dao.mysql.WorkbenchDao();
+        try {
+            workbenches = workbenchDao.getNearWorkbenches(context,longitude,latitude);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
+//        WorkbenchDao dao = new WorkbenchDao();
+//        workbenches = dao.getNearWorkbenches(longitude,latitude);
 
         List<String> names = new ArrayList<>();
         if(workbenches==null){

@@ -1,6 +1,7 @@
 package com.cx.measure;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -41,13 +42,23 @@ public class MeasureByLocationActivity extends AppCompatActivity implements Meas
             }
 
             @Override
-            public void onGetLocation(double longitude, double latitude) {
-                try {
-                    workbenchNamesAdapter = new ArrayAdapter<String>(MeasureByLocationActivity.this,android.R.layout.simple_list_item_1,presenter.getWorkbenchNames(longitude,latitude));
-                    lvWorkbenches.setAdapter(workbenchNamesAdapter);
-                } catch (DbException e) {
-                    e.printStackTrace();
-                }
+            public void onGetLocation(final double longitude,final double latitude) {
+                new AsyncTask<Void,Void,Void>(){
+
+                    @Override
+                    protected Void doInBackground(Void... params) {
+                        workbenchNamesAdapter = new ArrayAdapter<>(MeasureByLocationActivity.this, android.R.layout.simple_list_item_1, presenter.getWorkbenchNames(MeasureByLocationActivity.this, longitude, latitude));
+                        return null;
+                    }
+
+                    @Override
+                    protected void onPostExecute(Void aVoid) {
+                        super.onPostExecute(aVoid);
+                        lvWorkbenches.setAdapter(workbenchNamesAdapter);
+                    }
+                }.execute();
+//                workbenchNamesAdapter = new ArrayAdapter<>(MeasureByLocationActivity.this, android.R.layout.simple_list_item_1, presenter.getWorkbenchNames(MeasureByLocationActivity.this, longitude, latitude));
+//                lvWorkbenches.setAdapter(workbenchNamesAdapter);
             }
 
             @Override

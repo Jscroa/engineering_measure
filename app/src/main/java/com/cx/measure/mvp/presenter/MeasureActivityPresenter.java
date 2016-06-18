@@ -1,5 +1,8 @@
 package com.cx.measure.mvp.presenter;
 
+import android.content.Context;
+import android.os.AsyncTask;
+
 import com.cx.measure.bean.MeasureData;
 import com.cx.measure.bean.WorkPoint;
 import com.cx.measure.dao.MeasureDataDao;
@@ -15,17 +18,43 @@ import java.util.List;
  * Created by yyao on 2016/5/31.
  */
 public class MeasureActivityPresenter implements HomeAsUpEnabledPresenter {
+    Context context;
     MeasureActivityView view;
 
     private int workPointId;
 
     private WorkPoint workPoint;
 
-    public MeasureActivityPresenter(MeasureActivityView view, int workPointId) throws DbException {
+    public MeasureActivityPresenter(Context context,MeasureActivityView view, int workPointId){
+        this.context = context;
         this.view = view;
         this.workPointId = workPointId;
-        WorkPointDao dao = new WorkPointDao();
-        workPoint = dao.getWorkPoint(workPointId);
+
+//        WorkPointDao dao = new WorkPointDao();
+//        workPoint = dao.getWorkPoint(workPointId);
+
+    }
+
+    public void reqPoint(){
+        new AsyncTask<Void,Void,Void>(){
+
+            @Override
+            protected Void doInBackground(Void... params) {
+                try {
+                    com.cx.measure.dao.mysql.WorkPointDao workPointDao = new com.cx.measure.dao.mysql.WorkPointDao();
+                    workPoint = workPointDao.getWorkPoint(context,workPointId);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
+                view.refresh();
+            }
+        }.execute();
 
     }
 

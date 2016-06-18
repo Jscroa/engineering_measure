@@ -54,7 +54,7 @@ public class WorkPointDao {
         }
     }
 
-    public List<WorkPoint> getWorkPoints(Context context,int point_id) throws Exception {
+    public List<WorkPoint> getWorkPoints(Context context,int workbenchId) throws Exception {
         Connection conn = null;
         PreparedStatement pst = null;
         ResultSet rs = null;
@@ -63,7 +63,7 @@ public class WorkPointDao {
             conn = MysqlUtil.getConnection(context);
             String sql = "select id,uuid,workbench_id,name,measure_type,measure_count,deviation_percent,create_time,update_time from t_work_point where workbench_id=?";
             pst = conn.prepareStatement(sql);
-            pst.setInt(1,point_id);
+            pst.setInt(1,workbenchId);
             rs = pst.executeQuery();
             if(rs == null){
                 return workPoints;
@@ -89,5 +89,41 @@ public class WorkPointDao {
             MysqlUtil.close(conn,pst,rs);
         }
         return workPoints;
+    }
+
+    public WorkPoint getWorkPoint(Context context,int workPointId) throws Exception {
+        Connection conn = null;
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        try {
+            conn = MysqlUtil.getConnection(context);
+            String sql = "select id,uuid,workbench_id,name,measure_type,measure_count,deviation_percent,create_time,update_time from t_work_point where id=?";
+            pst = conn.prepareStatement(sql);
+            pst.setInt(1,workPointId);
+            rs = pst.executeQuery();
+            if(rs == null){
+                return null;
+            }
+
+            if (rs.next()){
+                WorkPoint workPoint = new WorkPoint();
+                workPoint.setId(rs.getInt("id"));
+                workPoint.setUuid(rs.getString("uuid"));
+                workPoint.setWorkbenchId(rs.getInt("workbench_id"));
+                workPoint.setName(rs.getString("name"));
+                workPoint.setMeasureType(rs.getInt("measure_type"));
+                workPoint.setMeasureCount(rs.getInt("measure_count"));
+                workPoint.setDeviationPercent(rs.getInt("deviation_percent"));
+                workPoint.setCreateTime(rs.getLong("create_time"));
+                workPoint.setUpdateTime(rs.getLong("update_time"));
+                return workPoint;
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+            throw new Exception("数据库错误",e);
+        }finally {
+            MysqlUtil.close(conn,pst,rs);
+        }
+        return null;
     }
 }
