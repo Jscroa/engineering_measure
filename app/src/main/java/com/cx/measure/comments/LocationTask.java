@@ -1,6 +1,7 @@
 package com.cx.measure.comments;
 
 import android.content.Context;
+import android.widget.Toast;
 
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
@@ -34,9 +35,8 @@ public class LocationTask {
     public void startLocation() {
         try {
             LocationClientOption option = new LocationClientOption();
-            option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy
-            );//可选，默认高精度，设置定位模式，高精度，低功耗，仅设备
-            option.setCoorType("wgs84");//可选，默认gcj02，设置返回的定位结果坐标系
+            option.setLocationMode(LocationClientOption.LocationMode.Battery_Saving);//可选，默认高精度，设置定位模式，高精度，低功耗，仅设备
+//            option.setCoorType("wgs84");//可选，默认gcj02，设置返回的定位结果坐标系
             option.setScanSpan(0);//可选，默认0，即仅定位一次，设置发起定位请求的间隔需要大于等于1000ms才是有效的
             option.setIsNeedAddress(true);//可选，设置是否需要地址信息，默认不需要
             option.setOpenGps(true);//可选，默认false,设置是否使用gps
@@ -51,6 +51,12 @@ public class LocationTask {
             myLocationClient.registerLocationListener(new BDLocationListener() {
                 @Override
                 public void onReceiveLocation(BDLocation bdLocation) {
+                    Toast.makeText(context,"获得定位信息",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context,"经度："+bdLocation.getLongitude()+"，纬度："+bdLocation.getLatitude(),Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context,bdLocation.getCountry()+" "+ bdLocation.getCity()+" "+bdLocation.getDistrict(),Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context,bdLocation.getAddrStr(),Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context,bdLocation.getLocationDescribe(),Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context,bdLocation.getLocationDescribe(),Toast.LENGTH_SHORT).show();
                     if (callBack != null) {
                         callBack.onGetLocation(bdLocation.getLongitude(), bdLocation.getLatitude());
                     }
@@ -60,6 +66,8 @@ public class LocationTask {
         } catch (Exception e) {
             e.printStackTrace();
             if (callBack != null) {
+                Toast.makeText(context,"定位失败",Toast.LENGTH_SHORT).show();
+                Toast.makeText(context,e.getMessage(),Toast.LENGTH_SHORT).show();
                 callBack.onFailure("定位失败");
             }
         }
