@@ -66,10 +66,6 @@ public class InitActivity extends AppCompatActivity implements InitActivityView 
         initViews();
         locationTask = new LocationTask(this);
         locationTask.setCallBack(new LocationTask.OnLocationCallBack() {
-            @Override
-            public void onLocationProvider(String provider) {
-                Log.i(TAG,"provider:"+provider);
-            }
 
             @Override
             public void onGetLocation(double longitude, double latitude) {

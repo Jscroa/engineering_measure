@@ -112,9 +112,11 @@ public abstract class Activity1ReadCommonAbstract extends Activity_Abstract {
                 byte[] dataShow = data;
                 if (data == null) {
                     dataShow = new byte[]{};
+                }else{
+                    sendResultBroadCast(data);
                 }
                 recordsBoard.addMassage(getString(R.string.Label) + (uii != null ? DataTransfer.xGetString(uii.getBytes()) : "unknown") + "\r\n" + getString(R.string.Length) + dataShow.length / 2 + " " + getString(R.string.Data) + DataTransfer.xGetString(dataShow));
-                sendResultBroadCast(data);
+
             }
         });
     }

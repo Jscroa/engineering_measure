@@ -1,22 +1,18 @@
 package com.cx.measure;
 
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.cx.measure.comments.LocationTask;
 import com.cx.measure.mvp.presenter.MeasureByLocationActivityPresenter;
 import com.cx.measure.mvp.view.MeasureByLocationActivityView;
-
-import org.xutils.ex.DbException;
 
 public class MeasureByLocationActivity extends AppCompatActivity implements MeasureByLocationActivityView {
 
@@ -36,10 +32,6 @@ public class MeasureByLocationActivity extends AppCompatActivity implements Meas
         initViews();
         locationTask = new LocationTask(this);
         locationTask.setCallBack(new LocationTask.OnLocationCallBack() {
-            @Override
-            public void onLocationProvider(String provider) {
-
-            }
 
             @Override
             public void onGetLocation(final double longitude,final double latitude) {
@@ -63,7 +55,7 @@ public class MeasureByLocationActivity extends AppCompatActivity implements Meas
 
             @Override
             public void onFailure(String msg) {
-
+                Toast.makeText(MeasureByLocationActivity.this,"获取定位信息失败",Toast.LENGTH_SHORT).show();
             }
         });
         locationTask.startLocation();

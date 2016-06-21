@@ -1,7 +1,6 @@
 package com.cx.measure;
 
 import android.Manifest;
-import android.app.ActivityManager;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
@@ -25,8 +24,6 @@ import android.widget.TextView;
 import com.cx.measure.mvp.presenter.MainActivityPresenter;
 import com.cx.measure.mvp.view.MainActivityView;
 import com.cx.measure.view.MyProgressDialog;
-
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements MainActivityView {
 

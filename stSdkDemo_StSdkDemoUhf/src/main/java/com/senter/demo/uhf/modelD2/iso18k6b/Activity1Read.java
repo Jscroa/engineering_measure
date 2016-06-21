@@ -122,14 +122,12 @@ public class Activity1Read extends Activity_Abstract
 		if (r==null)
 		{
 			showToast("failed");
-			sendResultBroadCast(null);
 			return;
 		}
 		
 		if (r.isOperationDone()==false)
 		{
 			showToast("failed");
-            sendResultBroadCast(null);
 			return;
 		}
 		addNewMassageToListview(uid, r.getReadData());
@@ -169,6 +167,8 @@ public class Activity1Read extends Activity_Abstract
 				if (data==null)
 				{
 					dataShow=new byte[]{};
+				}else{
+					sendResultBroadCast(data);
 				}
 				recordsBoard.addMassage("UID:" + (uid!=null?DataTransfer.xGetString(uid.getBytes()):"unknown") + "\r\n" + getString(R.string.Length) + dataShow.length / 2 + " " + getString(R.string.Data) + DataTransfer.xGetString(dataShow));
 			}
