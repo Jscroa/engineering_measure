@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.senter.demo.uhf"
+    package="com.senter.demo.uhf2"
     android:versionCode="7"
     android:versionName="1.7.1" >
 
@@ -25,7 +25,7 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
-        android:name=".App"
+        android:name="com.senter.demo.uhf.App"
         android:icon="@drawable/rfidicon2"
         android:label="@string/app_name"
         android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
@@ -34,7 +34,7 @@
         <!-- main activity -->
         <!-- ========= android:screenOrientation="portrait" ============ -->
         <activity
-            android:name=".Activity0ModuleSelection"
+            android:name="com.senter.demo.uhf.Activity0ModuleSelection"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
             <intent-filter>
@@ -186,12 +186,12 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Holo.Light" >
         </activity>
-        <activity
+        <!--<activity
             android:name="com.senter.demo.uhf.modelC.Activity3Erase"
             android:label="@string/EraseData"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Holo.Light" >
-        </activity>
+        </activity>-->
         <activity
             android:name="com.senter.demo.uhf.modelC.Activity4Lock"
             android:label="@string/idLockActivity_title"
@@ -367,12 +367,12 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Holo.Light" >
         </activity>
-        <activity
+        <!--<activity
             android:name="com.senter.demo.uhf.modelF.Activity3Erase"
             android:label="@string/EraseData"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Holo.Light" >
-        </activity>
+        </activity>-->
         <activity
             android:name="com.senter.demo.uhf.modelF.Activity4Lock"
             android:label="@string/idLockActivity_title"
@@ -402,13 +402,13 @@
         <!-- Common ui -->
         <!-- ===================== -->
         <activity
-            android:name=".record.ActivityRecordsList"
+            android:name="com.senter.demo.uhf.record.ActivityRecordsList"
             android:label="@string/RecordFind"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Holo.Light" >
         </activity>
         <activity
-            android:name=".record.ActivityRecordDisplayer"
+            android:name="com.senter.demo.uhf.record.ActivityRecordDisplayer"
             android:label="@string/RecordCheck"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Holo.Light" >
