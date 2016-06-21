@@ -122,7 +122,7 @@ public class InitFragment2 extends Fragment implements InitFragment2View {
         @Override
         public void onReceive(Context context, Intent intent) {
             String rfid = intent.getStringExtra("KEY_READ_CODE");
-
+            etRfidD.setText(rfid);
             try {
                 getContext().unregisterReceiver(this);
             } catch (IllegalArgumentException e) {
