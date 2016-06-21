@@ -4,12 +4,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 
 import com.cx.measure.bean.Pit;
-import com.cx.measure.bean.Workbench;
-import com.cx.measure.dao.PitDao;
-import com.cx.measure.dao.WorkbenchDao;
 import com.cx.measure.mvp.view.SelectWorkbenchView;
-
-import org.xutils.ex.DbException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +17,6 @@ public class SelectWorkbenchPresenter {
     SelectWorkbenchView view;
 
     List<Pit> pits = new ArrayList<>();
-    List<Workbench> workbenches = new ArrayList<>();
 
     public SelectWorkbenchPresenter(Context context, SelectWorkbenchView view) {
         this.context = context;
@@ -62,22 +56,23 @@ public class SelectWorkbenchPresenter {
     public List<Pit> getPits() {
         for (int i = 0; i < pits.size(); i++) {
             Pit pit = pits.get(i);
-            pit.setWorkbenches(getWorkbenches(pit.getId()));
+//            pit.setWorkbenches(getWorkbenches(pit.getId()));
             pits.set(i,pit);
         }
         return pits;
     }
 
-    public List<Workbench> getWorkbenches(int pitId) {
-        WorkbenchDao dao = new WorkbenchDao();
-        try {
-            workbenches = dao.getWorkbenches(pitId);
-        } catch (DbException e) {
-            e.printStackTrace();
-            workbenches = new ArrayList<>();
-        }
-        return workbenches;
-    }
+//    public List<Workbench> getWorkbenches(int pitId) {
+//        com.cx.measure.dao.mysql.WorkbenchDao workbenchDao = new com.cx.measure.dao.mysql.WorkbenchDao();
+//        List<Workbench> workbenches;
+//        try {
+//            workbenches = workbenchDao.getWorkbenches(context,pitId);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            workbenches = new ArrayList<>();
+//        }
+//        return workbenches;
+//    }
 
     public Pit getPit(int position) {
         return pits.get(position);

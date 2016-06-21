@@ -1,15 +1,12 @@
 package com.cx.measure;
 
-import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.method.LinkMovementMethod;
@@ -104,8 +101,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityView 
         setSupportActionBar(toolbar);
         presenter = new MainActivityPresenter(this);
         initViews();
-        check();
-
         intentFilter = new IntentFilter();
         intentFilter.hasAction("ACTION_READ_CODE");
     }
@@ -161,14 +156,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityView 
         btnMeasureWithLocation.setOnClickListener(btnClickListener);
         mainBtnMeasureWithSelect.setOnClickListener(btnClickListener);
 
-    }
-
-    private void check() {
-        // 检查定位权限
-        if ((ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) && (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)) {
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
-        }
     }
 
     @Override

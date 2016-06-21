@@ -19,25 +19,26 @@ public class PitDao {
 
     /**
      * 添加基坑初始化项，带子表，带事务
+     *
      * @param context
      * @param pit
      * @throws Exception
      */
-    public void add(Context context,Pit pit) throws Exception {
+    public void add(Context context, Pit pit) throws Exception {
         Connection conn = null;
         try {
             conn = MysqlUtil.getConnection(context);
             conn.setAutoCommit(false);
-            add(conn,pit);
+            add(conn, pit);
             conn.commit();
-        }catch (Exception e){
-            if(conn!=null){
+        } catch (Exception e) {
+            if (conn != null) {
                 conn.rollback();
             }
             e.printStackTrace();
             throw new Exception("数据库错误", e);
-        }finally {
-            if(conn!=null){
+        } finally {
+            if (conn != null) {
                 MysqlUtil.close(conn);
             }
 
@@ -48,10 +49,10 @@ public class PitDao {
     public void add(Connection conn, Pit pit) throws Exception {
         long now = System.currentTimeMillis();
 
-        if(pit.getUuid() == null || "".equals(pit.getUuid())){
+        if (pit.getUuid() == null || "".equals(pit.getUuid())) {
             pit.setUuid(UUIDUtil.createUUID());
         }
-        if(pit.getCreateTime() == 0l){
+        if (pit.getCreateTime() == 0l) {
             pit.setCreateTime(now);
         }
         pit.setUpdateTime(now);
@@ -61,29 +62,29 @@ public class PitDao {
         try {
             String sql = "insert into t_pit(uuid,name,create_time,update_time) values(?,?,?,?)";
             pst = conn.prepareStatement(sql);
-            pst.setString(1,pit.getUuid());
-            pst.setString(2,pit.getName());
-            pst.setLong(3,pit.getCreateTime());
-            pst.setLong(4,pit.getUpdateTime());
+            pst.setString(1, pit.getUuid());
+            pst.setString(2, pit.getName());
+            pst.setLong(3, pit.getCreateTime());
+            pst.setLong(4, pit.getUpdateTime());
             pst.executeUpdate();
 
             rs = pst.getGeneratedKeys();
             rs.next();
             int id = rs.getInt(1);
 
-            if(pit.getWorkbenches() == null){
+            if (pit.getWorkbenches() == null) {
                 return;
             }
             WorkbenchDao workbenchDao = new WorkbenchDao();
-            for(Workbench workbench: pit.getWorkbenches()){
+            for (Workbench workbench : pit.getWorkbenches()) {
                 workbench.setPitId(id);
-                workbenchDao.add(conn,workbench);
+                workbenchDao.add(conn, workbench);
             }
 
         } catch (Exception e) {
             e.printStackTrace();
             throw new Exception("数据库错误", e);
-        }finally {
+        } finally {
             MysqlUtil.close(rs);
             MysqlUtil.close(pst);
         }
@@ -99,24 +100,25 @@ public class PitDao {
             String sql = "select id,uuid,name,create_time,update_time from t_pit";
             pst = conn.prepareStatement(sql);
             rs = pst.executeQuery();
-            if(rs == null){
+            if (rs == null) {
                 return pits;
             }
-
-            while (rs.next()){
+            WorkbenchDao workbenchDao = new WorkbenchDao();
+            while (rs.next()) {
                 Pit pit = new Pit();
                 pit.setId(rs.getInt("id"));
                 pit.setUuid(rs.getString("uuid"));
                 pit.setName(rs.getString("name"));
                 pit.setCreateTime(rs.getLong("create_time"));
                 pit.setUpdateTime(rs.getLong("update_time"));
+                pit.setWorkbenches(workbenchDao.getWorkbenches(context,pit.getId()));
                 pits.add(pit);
             }
         } catch (Exception e) {
             e.printStackTrace();
-            throw new Exception("数据库错误",e);
-        }finally {
-            MysqlUtil.close(conn,pst,rs);
+            throw new Exception("数据库错误", e);
+        } finally {
+            MysqlUtil.close(conn, pst, rs);
         }
         return pits;
     }
