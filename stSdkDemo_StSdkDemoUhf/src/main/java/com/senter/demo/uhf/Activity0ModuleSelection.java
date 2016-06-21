@@ -1,8 +1,5 @@
 package com.senter.demo.uhf;
 
-import com.senter.demo.common.misc.ActivityHelper;
-import com.senter.support.openapi.StUhf.InterrogatorModel;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
@@ -10,13 +7,17 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.CheckBox;
 
+import com.senter.demo.common.misc.ActivityHelper;
+import com.senter.demo.uhf2.R;
+import com.senter.support.openapi.StUhf.InterrogatorModel;
+
 public class Activity0ModuleSelection extends Activity {
 	ActivityHelper<Activity0ModuleSelection> ah=new ActivityHelper<Activity0ModuleSelection>(this);
 	private Views views;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
+
 		if (App.uhf()!=null) {
 			startFunctionSelectionActivity(App.uhf().getInterrogatorModel());
 			finish();

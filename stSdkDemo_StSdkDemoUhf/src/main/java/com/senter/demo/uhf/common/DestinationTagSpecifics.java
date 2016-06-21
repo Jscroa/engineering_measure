@@ -1,8 +1,5 @@
 package com.senter.demo.uhf.common;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -24,9 +21,9 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.senter.demo.uhf.App;
-import com.senter.demo.uhf.R;
 import com.senter.demo.uhf.common.DestinationTagSpecifics.ProtocolType;
 import com.senter.demo.uhf.util.DataTransfer;
+import com.senter.demo.uhf2.R;
 import com.senter.support.openapi.StUhf.AccessPassword;
 import com.senter.support.openapi.StUhf.Bank;
 import com.senter.support.openapi.StUhf.InterrogatorModelB.UmbSelectionRecord.SelectionCommand;
@@ -44,6 +41,9 @@ import com.senter.support.openapi.StUhf.KillPassword;
 import com.senter.support.openapi.StUhf.OnNewUiiInventoried;
 import com.senter.support.openapi.StUhf.UID;
 import com.senter.support.openapi.StUhf.UII;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 
 public class DestinationTagSpecifics

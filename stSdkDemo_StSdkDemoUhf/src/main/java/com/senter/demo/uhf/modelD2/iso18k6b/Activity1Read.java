@@ -9,7 +9,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.senter.demo.uhf.App;
-import com.senter.demo.uhf.R;
+import com.senter.demo.uhf2.R;
 import com.senter.demo.uhf.common.Activity_Abstract;
 import com.senter.demo.uhf.common.DestinationTagSpecifics;
 import com.senter.demo.uhf.common.DestinationTagSpecifics.TargetTagType;
@@ -133,7 +133,6 @@ public class Activity1Read extends Activity_Abstract
 			return;
 		}
 		addNewMassageToListview(uid, r.getReadData());
-        sendResultBroadCast(r.getReadData());
 	}
 	
 	
@@ -155,6 +154,7 @@ public class Activity1Read extends Activity_Abstract
 					dataShow=new byte[]{};
 				}
 				recordsBoard.addMassage(getString(R.string.Label) + (uii!=null?DataTransfer.xGetString(uii.getBytes()):"unknown") + "\r\n" + getString(R.string.Length) + dataShow.length / 2 + " " + getString(R.string.Data) + DataTransfer.xGetString(dataShow));
+				sendResultBroadCast(data);
 			}
 		});
 	}

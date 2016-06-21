@@ -8,7 +8,7 @@ import android.widget.CheckBox;
 import android.widget.Spinner;
 
 import com.senter.demo.uhf.App;
-import com.senter.demo.uhf.R;
+import com.senter.demo.uhf2.R;
 import com.senter.demo.uhf.common.Activity4LockCommonAbstract;
 import com.senter.demo.uhf.common.DestinationTagSpecifics.TargetTagType;
 import com.senter.demo.uhf.util.DataTransfer;

@@ -1,9 +1,5 @@
 package com.senter.demo.uhf.common;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.Locale;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -25,11 +21,15 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.senter.demo.common.misc.Accompaniment;
-import com.senter.demo.uhf.R;
 import com.senter.demo.uhf.record.ActivityRecordsList;
 import com.senter.demo.uhf.record.RecordRWer;
 import com.senter.demo.uhf.util.DataTransfer;
+import com.senter.demo.uhf2.R;
 import com.senter.support.openapi.StUhf.UII;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.Locale;
 
 public abstract class Activity0InventoryCommonAbstract extends Activity_Abstract
 {

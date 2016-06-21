@@ -9,7 +9,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.senter.demo.uhf.App;
-import com.senter.demo.uhf.R;
+import com.senter.demo.uhf2.R;
 import com.senter.demo.uhf.common.Activity_Abstract;
 import com.senter.demo.uhf.common.DestinationTagSpecifics;
 import com.senter.demo.uhf.common.DestinationTagSpecifics.TargetTagType;

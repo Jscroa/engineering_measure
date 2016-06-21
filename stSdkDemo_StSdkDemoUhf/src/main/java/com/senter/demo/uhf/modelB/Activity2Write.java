@@ -3,7 +3,7 @@ package com.senter.demo.uhf.modelB;
 import android.widget.Toast;
 
 import com.senter.demo.uhf.App;
-import com.senter.demo.uhf.R;
+import com.senter.demo.uhf2.R;
 import com.senter.demo.uhf.common.DestinationTagSpecifics;
 import com.senter.demo.uhf.common.DestinationTagSpecifics.TargetTagType;
 import com.senter.support.openapi.StUhf.Bank;

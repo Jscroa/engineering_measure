@@ -1,8 +1,5 @@
 package com.senter.demo.uhf.common;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import android.app.Activity;
 import android.view.View;
 import android.widget.CheckBox;
@@ -10,7 +7,10 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
-import com.senter.demo.uhf.R;
+import com.senter.demo.uhf2.R;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class RecordsBoard
 {

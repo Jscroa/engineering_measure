@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 
 import com.senter.demo.uhf.App;
-import com.senter.demo.uhf.R;
+import com.senter.demo.uhf2.R;
 import com.senter.support.openapi.StUhf.InterrogatorModelDs.UmdErrorCode;
 import com.senter.support.openapi.StUhf.InterrogatorModelDs.UmdFrequencyPoint;
 import com.senter.support.openapi.StUhf.InterrogatorModelDs.UmdOnIso18k6cRealTimeInventory;

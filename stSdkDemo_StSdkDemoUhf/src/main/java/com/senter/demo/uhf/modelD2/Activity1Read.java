@@ -57,7 +57,6 @@ public class Activity1Read extends Activity1ReadCommonAbstract
 			public void onTagRead(	int tagCount, UII uii, byte[] data, UmdFrequencyPoint frequencyPoint, Integer antennaId, int readCount)
 			{
 				addNewMassageToListview(uii, data);
-				sendResultBroadCast(data);
 			}
 		});
 	}

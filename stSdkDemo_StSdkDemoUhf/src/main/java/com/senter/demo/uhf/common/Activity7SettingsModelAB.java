@@ -16,7 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.senter.demo.uhf.App;
-import com.senter.demo.uhf.R;
+import com.senter.demo.uhf2.R;
 import com.senter.support.openapi.StUhf.Frequency;
 import com.senter.support.openapi.StUhf.Frequency.Base;
 import com.senter.support.openapi.StUhf.Frequency.Hop;

@@ -1,12 +1,5 @@
 package com.senter.demo.uhf.modelD2;
 
-import com.senter.demo.common.misc.ActivityHelper;
-import com.senter.demo.uhf.App;
-import com.senter.demo.uhf.R;
-import com.senter.demo.uhf.modelD2.ConfigurationSettingsOfModelD2;
-import com.senter.demo.uhf.modelD2.ConfigurationSettingsOfModelD2.Protocol;
-import com.senter.support.openapi.StUhf;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -15,6 +8,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
+
+import com.senter.demo.common.misc.ActivityHelper;
+import com.senter.demo.uhf.App;
+import com.senter.demo.uhf.modelD2.ConfigurationSettingsOfModelD2.Protocol;
+import com.senter.demo.uhf2.R;
+import com.senter.support.openapi.StUhf;
 
 
 public class Activity_FunctionSelection extends Activity

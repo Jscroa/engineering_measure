@@ -1,7 +1,5 @@
 package org.apmem.tools.layouts;
 
-import com.senter.demo.uhf.R;
-
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -9,6 +7,8 @@ import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.senter.demo.uhf2.R;
 
 public class FlowLayout extends ViewGroup
 {

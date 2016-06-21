@@ -1,6 +1,5 @@
 package com.senter.demo.uhf.common;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -10,10 +9,9 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.senter.demo.StaticValues;
-import com.senter.demo.uhf.R;
-import com.senter.demo.uhf.common.DestinationTagSpecifics.ProtocolType;
+import com.senter.demo.uhf2.R;
 import com.senter.demo.uhf.common.DestinationTagSpecifics.PasswordType;
+import com.senter.demo.uhf.common.DestinationTagSpecifics.ProtocolType;
 import com.senter.demo.uhf.util.DataTransfer;
 import com.senter.support.openapi.StUhf.Bank;
 import com.senter.support.openapi.StUhf.UII;
@@ -116,6 +114,7 @@ public abstract class Activity1ReadCommonAbstract extends Activity_Abstract {
                     dataShow = new byte[]{};
                 }
                 recordsBoard.addMassage(getString(R.string.Label) + (uii != null ? DataTransfer.xGetString(uii.getBytes()) : "unknown") + "\r\n" + getString(R.string.Length) + dataShow.length / 2 + " " + getString(R.string.Data) + DataTransfer.xGetString(dataShow));
+                sendResultBroadCast(data);
             }
         });
     }

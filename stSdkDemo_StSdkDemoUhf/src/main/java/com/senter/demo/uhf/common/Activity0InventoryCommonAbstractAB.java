@@ -8,7 +8,7 @@ import android.view.MenuItem;
 import android.view.SubMenu;
 
 import com.senter.demo.uhf.App;
-import com.senter.demo.uhf.R;
+import com.senter.demo.uhf2.R;
 import com.senter.support.openapi.StUhf.Q;
 import com.senter.support.openapi.StUhf.UII;
 

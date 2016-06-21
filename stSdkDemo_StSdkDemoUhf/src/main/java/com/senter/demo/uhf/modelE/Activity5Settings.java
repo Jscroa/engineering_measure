@@ -8,7 +8,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.senter.demo.uhf.App;
-import com.senter.demo.uhf.R;
+import com.senter.demo.uhf2.R;
 import com.senter.demo.uhf.common.Activity_Abstract;
 import com.senter.support.openapi.StUhf.InterrogatorModel;
 import com.senter.support.openapi.StUhf.InterrogatorModelE.UmeOutputPower;

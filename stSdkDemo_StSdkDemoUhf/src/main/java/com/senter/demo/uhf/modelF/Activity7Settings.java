@@ -9,7 +9,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.senter.demo.uhf.App;
-import com.senter.demo.uhf.R;
+import com.senter.demo.uhf2.R;
 import com.senter.support.openapi.StUhf.InterrogatorModelF;
 import com.senter.support.openapi.StUhf.InterrogatorModelF.UmfAntennaConfig;
 import com.senter.support.openapi.StUhf.InterrogatorModelF.UmfQueryTagGroup;

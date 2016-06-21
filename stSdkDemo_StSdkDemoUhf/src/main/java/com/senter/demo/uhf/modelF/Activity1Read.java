@@ -3,7 +3,7 @@ package com.senter.demo.uhf.modelF;
 import android.widget.Toast;
 
 import com.senter.demo.uhf.App;
-import com.senter.demo.uhf.R;
+import com.senter.demo.uhf2.R;
 import com.senter.demo.uhf.common.DestinationTagSpecifics;
 import com.senter.demo.uhf.common.DestinationTagSpecifics.TargetTagType;
 import com.senter.demo.uhf.common.ExceptionForToast;
@@ -54,11 +54,9 @@ public final class Activity1Read extends com.senter.demo.uhf.common.Activity1Rea
 					if (rr == null || rr.isSuccessful() == false)
 					{
 						showToast(getString(R.string.ReadDataFailure), Toast.LENGTH_SHORT);
-						sendResultBroadCast(null);
 					} else
 					{
 						addNewMassageToListview(rr.getUii(), rr.getData());
-						sendResultBroadCast(rr.getData());
 					}
 				}
 				catch (ExceptionForToast e)

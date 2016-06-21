@@ -12,7 +12,7 @@ import android.widget.Toast;
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
 import com.senter.demo.uhf.App;
-import com.senter.demo.uhf.R;
+import com.senter.demo.uhf2.R;
 import com.senter.demo.uhf.util.DataTransfer;
 import com.senter.support.openapi.StUhf.Function;
 import com.senter.support.openapi.StUhf.InterrogatorModelC.UmcLockParamter;

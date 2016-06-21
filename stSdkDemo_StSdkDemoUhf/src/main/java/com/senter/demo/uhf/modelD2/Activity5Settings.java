@@ -10,7 +10,7 @@ import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
 
 import com.senter.demo.uhf.App;
-import com.senter.demo.uhf.R;
+import com.senter.demo.uhf2.R;
 import com.senter.demo.uhf.common.Activity_Abstract;
 import com.senter.demo.uhf.modelD2.ConfigurationSettingsOfModelD2.Protocol;
 import com.senter.support.openapi.StUhf.InterrogatorModel;

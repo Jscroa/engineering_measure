@@ -39,7 +39,6 @@ public class Activity1Read extends Activity1ReadCommonAbstract
 		if (data!=null)
 		{
 			addNewMassageToListview(getDestinationTagSpecifics().getDstTagUiiIfOrdered(), data);
-			sendResultBroadCast(data);
 		}else {
 			showToast("failed");
 		}

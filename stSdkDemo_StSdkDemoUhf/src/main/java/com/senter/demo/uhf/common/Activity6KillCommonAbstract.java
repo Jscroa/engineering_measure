@@ -8,7 +8,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.senter.demo.uhf.App;
-import com.senter.demo.uhf.R;
+import com.senter.demo.uhf2.R;
 import com.senter.demo.uhf.common.DestinationTagSpecifics.ProtocolType;
 import com.senter.demo.uhf.common.DestinationTagSpecifics.PasswordType;
 
