@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
@@ -28,7 +27,6 @@ public class MeasureByLocationActivity extends AppCompatActivity implements Meas
     BDLocationListener bdLocationListener = new BDLocationListener() {
         @Override
         public void onReceiveLocation(final BDLocation bdLocation) {
-            Toast.makeText(MeasureByLocationActivity.this,"定位成功:("+bdLocation.getLongitude()+":"+bdLocation.getLatitude()+")，"+bdLocation.getAddrStr(),Toast.LENGTH_SHORT).show();
             locationTask.unregisterListener(bdLocationListener);
             locationTask.stop();
             new AsyncTask<Void,Void,Void>(){

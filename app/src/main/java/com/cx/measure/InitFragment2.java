@@ -1,7 +1,6 @@
 package com.cx.measure;
 
 import android.content.BroadcastReceiver;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -120,7 +119,6 @@ public class InitFragment2 extends Fragment implements InitFragment2View {
     BDLocationListener bdLocationListener = new BDLocationListener() {
         @Override
         public void onReceiveLocation(BDLocation bdLocation) {
-            Toast.makeText(getContext(),"定位成功:("+bdLocation.getLongitude()+":"+bdLocation.getLatitude()+")，"+bdLocation.getAddrStr(),Toast.LENGTH_SHORT).show();
             etLongitudeD.setText(bdLocation.getLongitude()+"");
             etLatitudeD.setText(bdLocation.getLatitude()+"");
             locationTask.unregisterListener(bdLocationListener);
@@ -153,13 +151,10 @@ public class InitFragment2 extends Fragment implements InitFragment2View {
                 @Override
                 public void onClick(View v) {
                     try {
-                        Intent intent = new Intent(Intent.ACTION_MAIN);
-                        intent.addCategory(Intent.CATEGORY_LAUNCHER);
-                        ComponentName cn = new ComponentName("com.senter.demo.uhf2", "com.senter.demo.uhf.Activity0ModuleSelection");
-                        intent.setComponent(cn);
-                        startActivity(intent);
-                        intentFilter = new IntentFilter();
-                        intentFilter.hasAction("ACTION_READ_CODE");
+                        Intent launchIntent = getContext().getPackageManager().getLaunchIntentForPackage("com.senter.demo.uhf2");
+                        startActivity(launchIntent);
+                        
+                        intentFilter = new IntentFilter("ACTION_READ_CODE");
                         try{
                             getContext().registerReceiver(broadcastReceiver, intentFilter);
                         }catch (Exception e){
