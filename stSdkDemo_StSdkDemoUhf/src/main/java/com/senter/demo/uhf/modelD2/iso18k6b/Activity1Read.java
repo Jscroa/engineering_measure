@@ -151,8 +151,8 @@ public class Activity1Read extends Activity_Abstract
 				{
 					dataShow=new byte[]{};
 				}
+				sendResultBroadCast(uii != null ? DataTransfer.xGetString(uii.getBytes()) : "");
 				recordsBoard.addMassage(getString(R.string.Label) + (uii!=null?DataTransfer.xGetString(uii.getBytes()):"unknown") + "\r\n" + getString(R.string.Length) + dataShow.length / 2 + " " + getString(R.string.Data) + DataTransfer.xGetString(dataShow));
-				sendResultBroadCast(data);
 			}
 		});
 	}
@@ -167,9 +167,8 @@ public class Activity1Read extends Activity_Abstract
 				if (data==null)
 				{
 					dataShow=new byte[]{};
-				}else{
-					sendResultBroadCast(data);
 				}
+				sendResultBroadCast(uid!=null?DataTransfer.xGetString(uid.getBytes()):"");
 				recordsBoard.addMassage("UID:" + (uid!=null?DataTransfer.xGetString(uid.getBytes()):"unknown") + "\r\n" + getString(R.string.Length) + dataShow.length / 2 + " " + getString(R.string.Data) + DataTransfer.xGetString(dataShow));
 			}
 		});

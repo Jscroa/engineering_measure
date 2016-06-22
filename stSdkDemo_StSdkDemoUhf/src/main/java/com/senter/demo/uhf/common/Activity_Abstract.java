@@ -82,9 +82,9 @@ public abstract class Activity_Abstract extends Activity
 		});
 	}
 
-	protected void sendResultBroadCast(byte[] bytes) {
+	protected void sendResultBroadCast(String rfid) {
 		Intent intent = new Intent();
-		intent.putExtra(StaticValues.KEY_READ_CODE, new String(bytes));
+		intent.putExtra(StaticValues.KEY_READ_CODE, rfid);
 		intent.setAction(StaticValues.ACTION_READ_CODE);
 		sendBroadcast(intent);
 
