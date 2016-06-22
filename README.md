@@ -27,12 +27,12 @@ CREATE TABLE `t_workbench` (
   `pit_id` int(11) DEFAULT NULL,
   `name` varchar(200) DEFAULT NULL,
   `rfid` varchar(200) DEFAULT NULL,
-  `longitude` decimal(10,0) DEFAULT NULL,
-  `latitude` decimal(10,0) DEFAULT NULL,
+  `longitude` double DEFAULT NULL,
+  `latitude` double DEFAULT NULL,
   `create_time` bigint(20) DEFAULT NULL,
   `update_time` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `t_work_point` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
