@@ -64,27 +64,14 @@ public class InitActivity extends AppCompatActivity implements InitActivityView 
 
         presenter = new InitActivityPresenter(this);
         initViews();
-        locationTask = new LocationTask(this);
-        locationTask.setCallBack(new LocationTask.OnLocationCallBack() {
+        locationTask = ((MyApplication)getApplication()).locationTask;
 
-            @Override
-            public void onGetLocation(double longitude, double latitude) {
-                presenter.setLongitude(longitude);
-                presenter.setLatitude(latitude);
-            }
-
-            @Override
-            public void onFailure(String msg) {
-                Log.i(TAG,"msg:"+msg);
-            }
-        });
-        locationTask.startLocation();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        locationTask.stopLocation();
+        locationTask.stop();
     }
 
     @Override

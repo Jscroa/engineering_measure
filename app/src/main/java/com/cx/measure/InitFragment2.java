@@ -1,28 +1,5 @@
 package com.cx.measure;
 
-//import android.support.v7.app.AlertDialog;
-//import android.content.DialogInterface;
-//import android.os.Bundle;
-//import android.support.v4.app.Fragment;
-//import android.util.Log;
-//import android.view.LayoutInflater;
-//import android.view.MotionEvent;
-//import android.view.View;
-//import android.view.ViewGroup;
-//import android.widget.AdapterView;
-//import android.widget.Button;
-//import android.widget.EditText;
-//import android.widget.ListView;
-//
-//import com.cx.measure.adapter.WorkbenchAdapter;
-//import com.cx.measure.bean.Workbench;
-//import com.cx.measure.mvp.presenter.InitActivityPresenter;
-//import com.cx.measure.mvp.presenter.InitFragment2Presenter;
-//import com.cx.measure.mvp.view.InitActivityView;
-//import com.cx.measure.mvp.view.InitFragment2View;
-//
-//import java.util.List;
-
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
@@ -45,8 +22,11 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.baidu.location.BDLocation;
+import com.baidu.location.BDLocationListener;
 import com.cx.measure.adapter.WorkbenchAdapter;
 import com.cx.measure.bean.Workbench;
+import com.cx.measure.comments.LocationTask;
 import com.cx.measure.mvp.presenter.InitActivityPresenter;
 import com.cx.measure.mvp.presenter.InitFragment2Presenter;
 import com.cx.measure.mvp.view.InitActivityView;
@@ -62,6 +42,9 @@ public class InitFragment2 extends Fragment implements InitFragment2View {
     private static final String TAG = "InitFragment2";
 
     private InitFragment2Presenter presenter;
+
+    private LocationTask locationTask;
+
     IntentFilter intentFilter;
     private View contentView;
 
@@ -134,6 +117,17 @@ public class InitFragment2 extends Fragment implements InitFragment2View {
         }
     };
 
+    BDLocationListener bdLocationListener = new BDLocationListener() {
+        @Override
+        public void onReceiveLocation(BDLocation bdLocation) {
+            Toast.makeText(getContext(),"定位成功:("+bdLocation.getLongitude()+":"+bdLocation.getLatitude()+")，"+bdLocation.getAddrStr(),Toast.LENGTH_SHORT).show();
+            etLongitudeD.setText(bdLocation.getLongitude()+"");
+            etLatitudeD.setText(bdLocation.getLatitude()+"");
+            locationTask.unregisterListener(bdLocationListener);
+            locationTask.stop();
+        }
+    };
+
     EditText etNameD;
     EditText etRfidD;
     ImageView ivRfidD;
@@ -182,10 +176,8 @@ public class InitFragment2 extends Fragment implements InitFragment2View {
             ivLocationD.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (getActivity() instanceof InitActivity){
-                        etLongitudeD.setText(getActivityPresenter().getLongitude()+"");
-                        etLatitudeD.setText(getActivityPresenter().getLatitude()+"");
-                    }
+                    locationTask.registerListener(bdLocationListener);
+                    locationTask.start();
                 }
             });
 
@@ -243,7 +235,7 @@ public class InitFragment2 extends Fragment implements InitFragment2View {
         });
         presenter = new InitFragment2Presenter(this);
         initViews(contentView);
-
+        locationTask = ((MyApplication)getActivity().getApplication()).locationTask;
         return contentView;
     }
 

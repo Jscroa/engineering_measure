@@ -2,8 +2,6 @@ package com.cx.measure;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -13,11 +11,11 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.cx.measure.mvp.presenter.SelectWorkPointPresenter;
-import com.cx.measure.mvp.view.HomeAsUpEnabledView;
 import com.cx.measure.mvp.view.SelectWorkPointView;
 
 public class SelectWorkPointActivity extends AppCompatActivity implements SelectWorkPointView{
     public static final String ARG_RFID = "arg_rfid";
+    public static final String ARG_WORK_POINT_ID = "arg_work_point_id";
     private SelectWorkPointPresenter presenter;
 
 
@@ -40,7 +38,12 @@ public class SelectWorkPointActivity extends AppCompatActivity implements Select
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         String rfid = getIntent().getStringExtra(ARG_RFID);
-        presenter = new SelectWorkPointPresenter(this,this,rfid);
+        int workPointId = getIntent().getIntExtra(ARG_WORK_POINT_ID,0);
+        if(rfid!=null && !"".equals(rfid)){
+            presenter = new SelectWorkPointPresenter(this,this,rfid);
+        }else if(workPointId!=0){
+            presenter = new SelectWorkPointPresenter(this,this,workPointId);
+        }
         initViews();
     }
 
