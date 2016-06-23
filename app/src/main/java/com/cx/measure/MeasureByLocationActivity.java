@@ -16,10 +16,12 @@ import com.baidu.location.BDLocationListener;
 import com.cx.measure.comments.LocationTask;
 import com.cx.measure.mvp.presenter.MeasureByLocationActivityPresenter;
 import com.cx.measure.mvp.view.MeasureByLocationActivityView;
+import com.cx.measure.view.MyProgressDialog;
 
 public class MeasureByLocationActivity extends AppCompatActivity implements MeasureByLocationActivityView {
 
     MeasureByLocationActivityPresenter presenter;
+    private MyProgressDialog myProgressDialog;
     private LocationTask locationTask;
     private ListView lvWorkbenches;
     private ArrayAdapter<String> workbenchNamesAdapter;
@@ -29,6 +31,8 @@ public class MeasureByLocationActivity extends AppCompatActivity implements Meas
         public void onReceiveLocation(final BDLocation bdLocation) {
             locationTask.unregisterListener(bdLocationListener);
             locationTask.stop();
+            myProgressDialog.setMessage("正在加载");
+            myProgressDialog.show();
             new AsyncTask<Void,Void,Void>(){
 
                 @Override
@@ -40,6 +44,7 @@ public class MeasureByLocationActivity extends AppCompatActivity implements Meas
                 @Override
                 protected void onPostExecute(Void aVoid) {
                     super.onPostExecute(aVoid);
+                    myProgressDialog.dismiss();
                     lvWorkbenches.setAdapter(workbenchNamesAdapter);
                 }
             }.execute();
@@ -79,6 +84,7 @@ public class MeasureByLocationActivity extends AppCompatActivity implements Meas
     }
 
     private void initViews() {
+        myProgressDialog = new MyProgressDialog(this);
         lvWorkbenches = (ListView) findViewById(R.id.lv_workbenches);
 //        workbenchNamesAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,presenter.getWorkbenchNames());
         lvWorkbenches.setOnItemClickListener(new AdapterView.OnItemClickListener() {

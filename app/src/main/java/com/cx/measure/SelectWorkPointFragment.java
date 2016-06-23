@@ -12,6 +12,7 @@ import android.widget.ListView;
 
 import com.cx.measure.mvp.presenter.SelectWorkPointPresenter;
 import com.cx.measure.mvp.view.SelectWorkPointView;
+import com.cx.measure.view.MyProgressDialog;
 
 /**
  * Created by yyao on 2016/6/7.
@@ -21,6 +22,7 @@ public class SelectWorkPointFragment extends Fragment implements SelectWorkPoint
     public static final String ARG_WORKBENCH_ID = "arg_workbench_id";
 
     private SelectWorkPointPresenter presenter;
+    private MyProgressDialog myProgressDialog;
     private View contentView;
 
     private ListView lvWorkPoints;
@@ -46,8 +48,9 @@ public class SelectWorkPointFragment extends Fragment implements SelectWorkPoint
     }
 
     private void initViews(){
+        myProgressDialog = new MyProgressDialog(getContext());
         lvWorkPoints = (ListView) contentView.findViewById(R.id.lv_work_points);
-        presenter.reqPoints();
+        presenter.reqPoints(myProgressDialog);
 
         lvWorkPoints.setOnItemClickListener(itemClickListener);
     }

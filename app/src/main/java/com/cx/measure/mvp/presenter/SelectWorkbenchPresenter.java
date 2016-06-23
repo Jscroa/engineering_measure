@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 
 import com.cx.measure.bean.Pit;
 import com.cx.measure.mvp.view.SelectWorkbenchView;
+import com.cx.measure.view.MyProgressDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +27,9 @@ public class SelectWorkbenchPresenter {
 
     }
 
-    public void reqPits(){
+    public void reqPits(final MyProgressDialog myProgressDialog){
+        myProgressDialog.setMessage("正在加载");
+        myProgressDialog.show();
         new AsyncTask<Void,Void,Void>(){
 
             @Override
@@ -47,18 +50,14 @@ public class SelectWorkbenchPresenter {
             @Override
             protected void onPostExecute(Void aVoid) {
                 super.onPostExecute(aVoid);
+                myProgressDialog.dismiss();
                 view.refresh();
-
             }
         }.execute();
     }
 
     public List<Pit> getPits() {
-        for (int i = 0; i < pits.size(); i++) {
-            Pit pit = pits.get(i);
-//            pit.setWorkbenches(getWorkbenches(pit.getId()));
-            pits.set(i,pit);
-        }
+
         return pits;
     }
 

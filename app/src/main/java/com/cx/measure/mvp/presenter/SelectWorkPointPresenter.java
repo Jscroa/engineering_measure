@@ -5,11 +5,8 @@ import android.os.AsyncTask;
 
 import com.cx.measure.bean.WorkPoint;
 import com.cx.measure.bean.Workbench;
-import com.cx.measure.dao.WorkPointDao;
-import com.cx.measure.dao.mysql.WorkbenchDao;
 import com.cx.measure.mvp.view.SelectWorkPointView;
-
-import org.xutils.ex.DbException;
+import com.cx.measure.view.MyProgressDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +39,9 @@ public class SelectWorkPointPresenter {
 
     }
 
-    public void reqPoints() {
+    public void reqPoints(final MyProgressDialog myProgressDialog) {
+        myProgressDialog.setMessage("正在加载");
+        myProgressDialog.show();
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... params) {
@@ -67,6 +66,7 @@ public class SelectWorkPointPresenter {
             @Override
             protected void onPostExecute(Void aVoid) {
                 super.onPostExecute(aVoid);
+                myProgressDialog.dismiss();
                 view.refresh();
             }
         }.execute();

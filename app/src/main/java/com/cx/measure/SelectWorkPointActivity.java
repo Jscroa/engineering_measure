@@ -12,12 +12,14 @@ import android.widget.ListView;
 
 import com.cx.measure.mvp.presenter.SelectWorkPointPresenter;
 import com.cx.measure.mvp.view.SelectWorkPointView;
+import com.cx.measure.view.MyProgressDialog;
 
 public class SelectWorkPointActivity extends AppCompatActivity implements SelectWorkPointView{
     public static final String ARG_RFID = "arg_rfid";
     public static final String ARG_WORK_POINT_ID = "arg_work_point_id";
     private SelectWorkPointPresenter presenter;
 
+    private MyProgressDialog myProgressDialog;
 
     private ListView lvWorkPoints;
     private ArrayAdapter<String> workPointsAdapter;
@@ -59,8 +61,9 @@ public class SelectWorkPointActivity extends AppCompatActivity implements Select
         return super.onOptionsItemSelected(item);
     }
     private void initViews(){
+        myProgressDialog = new MyProgressDialog(this);
         lvWorkPoints = (ListView) findViewById(R.id.lv_work_points);
-        presenter.reqPoints();
+        presenter.reqPoints(myProgressDialog);
 
         lvWorkPoints.setOnItemClickListener(itemClickListener);
     }

@@ -2,7 +2,6 @@ package com.cx.measure;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,12 +11,14 @@ import com.cx.measure.adapter.PitWorkbenchAdapter;
 import com.cx.measure.mvp.presenter.SelectWorkbenchPresenter;
 import com.cx.measure.mvp.view.MeasureBySelectActivityView;
 import com.cx.measure.mvp.view.SelectWorkbenchView;
+import com.cx.measure.view.MyProgressDialog;
 
 /**
  * Created by yyao on 2016/6/7.
  */
 public class SelectWorkbenchFragment extends Fragment implements SelectWorkbenchView {
     private SelectWorkbenchPresenter presenter;
+    private MyProgressDialog myProgressDialog;
     private View contentView;
     private ExpandableListView lvPitsWorkbenches;
     private PitWorkbenchAdapter pitWorkbenchAdapter;
@@ -40,9 +41,10 @@ public class SelectWorkbenchFragment extends Fragment implements SelectWorkbench
     }
 
     private void initViews(){
+        myProgressDialog = new MyProgressDialog(getContext());
         lvPitsWorkbenches = (ExpandableListView) contentView.findViewById(R.id.lv_pits_workbenches);
         pitWorkbenchAdapter = new PitWorkbenchAdapter(getContext());
-        presenter.reqPits();
+        presenter.reqPits(myProgressDialog);
 
         lvPitsWorkbenches.setOnChildClickListener(childClickListener);
     }
