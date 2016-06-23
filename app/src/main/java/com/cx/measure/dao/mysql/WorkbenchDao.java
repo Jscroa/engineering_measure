@@ -2,6 +2,7 @@ package com.cx.measure.dao.mysql;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.cx.measure.bean.WorkPoint;
 import com.cx.measure.bean.Workbench;
@@ -96,6 +97,7 @@ public class WorkbenchDao {
             }
         } catch (Exception e) {
             e.printStackTrace();
+            Toast.makeText(context,"数据库发生错误，"+e.getMessage(),Toast.LENGTH_SHORT).show();
             throw new Exception("数据库错误", e);
         } finally {
             MysqlUtil.close(conn, pst, rs);
@@ -132,6 +134,7 @@ public class WorkbenchDao {
             }
         } catch (Exception e) {
             e.printStackTrace();
+            Toast.makeText(context,"数据库发生错误，"+e.getMessage(),Toast.LENGTH_SHORT).show();
             throw new Exception("数据库错误", e);
         } finally {
             MysqlUtil.close(conn, pst, rs);
@@ -158,7 +161,6 @@ public class WorkbenchDao {
             }
 
             while (rs.next()) {
-                Log.i("TAG","--------------- rs has next");
                 Workbench workbench = new Workbench();
                 workbench.setId(rs.getInt("id"));
                 workbench.setUuid(rs.getString("uuid"));
@@ -171,9 +173,9 @@ public class WorkbenchDao {
                 workbench.setUpdateTime(rs.getLong("update_time"));
                 workbenches.add(workbench);
             }
-            Log.i("TAG","--------------- rs has not next any more");
         } catch (Exception e) {
             e.printStackTrace();
+            Toast.makeText(context,"数据库发生错误，"+e.getMessage(),Toast.LENGTH_SHORT).show();
             throw new Exception("数据库错误", e);
         } finally {
             MysqlUtil.close(conn, pst, rs);

@@ -1,9 +1,9 @@
 package com.cx.measure.dao.mysql;
 
 import android.content.Context;
+import android.widget.Toast;
 
 import com.cx.measure.bean.MeasureData;
-import com.cx.measure.bean.Pit;
 import com.cx.measure.comments.UUIDUtil;
 
 import java.sql.Connection;
@@ -39,6 +39,7 @@ public class MeasureDataDao {
             }
 
             e.printStackTrace();
+            Toast.makeText(context,"数据库发生错误，"+e.getMessage(),Toast.LENGTH_SHORT).show();
             throw new Exception("数据库错误", e);
         } finally {
             if (conn != null) {
@@ -93,6 +94,7 @@ public class MeasureDataDao {
             pst.executeUpdate();
         }catch (Exception e) {
             e.printStackTrace();
+            Toast.makeText(context,"数据库发生错误，"+e.getMessage(),Toast.LENGTH_SHORT).show();
             throw new Exception("数据库错误", e);
         } finally {
             MysqlUtil.close(conn,pst);
@@ -125,6 +127,7 @@ public class MeasureDataDao {
             }
         } catch (Exception e) {
             e.printStackTrace();
+            Toast.makeText(context,"数据库发生错误，"+e.getMessage(),Toast.LENGTH_SHORT).show();
             throw new Exception("数据库错误",e);
         }finally {
             MysqlUtil.close(conn,pst,rs);
