@@ -5,11 +5,7 @@ import android.os.AsyncTask;
 
 import com.cx.measure.bean.MeasureData;
 import com.cx.measure.bean.WorkPoint;
-import com.cx.measure.dao.MeasureDataDao;
-import com.cx.measure.dao.WorkPointDao;
 import com.cx.measure.mvp.view.MeasureActivityView;
-
-import org.xutils.ex.DbException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,7 +67,7 @@ public class MeasureActivityPresenter implements HomeAsUpEnabledPresenter {
 
         try {
             com.cx.measure.dao.mysql.MeasureDataDao measureDataDao = new com.cx.measure.dao.mysql.MeasureDataDao();
-            measureDataDao.deleteByPoint(context, workPointId);
+//            measureDataDao.deleteByPoint(context, workPointId);
             long now = System.currentTimeMillis();
             List<MeasureData> measureDatas = new ArrayList<>();
             for (double value : values) {
@@ -107,33 +103,33 @@ public class MeasureActivityPresenter implements HomeAsUpEnabledPresenter {
 
     }
 
-    public void restore() {
-        new AsyncTask<Void,Void,Void>(){
-
-            @Override
-            protected Void doInBackground(Void... params) {
-                try{
-                    com.cx.measure.dao.mysql.MeasureDataDao measureDataDao = new com.cx.measure.dao.mysql.MeasureDataDao();
-                    values = new ArrayList<>();
-                    List<MeasureData> datas = measureDataDao.getByPoint(context,workPointId);
-                    if (datas == null) {
-                        return null;
-                    }
-                    for (MeasureData data : datas) {
-                        values.add(data.getData());
-                    }
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
-                return null;
-            }
-
-            @Override
-            protected void onPostExecute(Void aVoid) {
-                super.onPostExecute(aVoid);
-                view.setValues(values);
-            }
-        }.execute();
-
-    }
+//    public void restore() {
+//        new AsyncTask<Void,Void,Void>(){
+//
+//            @Override
+//            protected Void doInBackground(Void... params) {
+//                try{
+//                    com.cx.measure.dao.mysql.MeasureDataDao measureDataDao = new com.cx.measure.dao.mysql.MeasureDataDao();
+//                    values = new ArrayList<>();
+//                    List<MeasureData> datas = measureDataDao.getByPoint(context,workPointId);
+//                    if (datas == null) {
+//                        return null;
+//                    }
+//                    for (MeasureData data : datas) {
+//                        values.add(data.getData());
+//                    }
+//                }catch (Exception e){
+//                    e.printStackTrace();
+//                }
+//                return null;
+//            }
+//
+//            @Override
+//            protected void onPostExecute(Void aVoid) {
+//                super.onPostExecute(aVoid);
+//                view.setValues(values);
+//            }
+//        }.execute();
+//
+//    }
 }

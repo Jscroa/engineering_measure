@@ -23,8 +23,6 @@ import com.cx.measure.comments.MeasureType;
 import com.cx.measure.mvp.presenter.MeasureActivityPresenter;
 import com.cx.measure.mvp.view.MeasureActivityView;
 
-import org.xutils.ex.DbException;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -79,7 +77,7 @@ public class MeasureActivity extends AppCompatActivity implements MeasureActivit
     @Override
     protected void onResume() {
         super.onResume();
-        presenter.restore();
+//        presenter.restore();
     }
 
     private void initViews() {
