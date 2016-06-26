@@ -51,7 +51,7 @@ CREATE TABLE `t_measure_data` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `uuid` varchar(200) NOT NULL,
   `point_id` int(11) DEFAULT NULL,
-  `data` decimal(10,0) DEFAULT NULL,
+  `data` double DEFAULT NULL,
   `create_time` bigint(20) DEFAULT NULL,
   `update_time` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
