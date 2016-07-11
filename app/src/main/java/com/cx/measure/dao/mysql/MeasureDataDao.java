@@ -62,13 +62,13 @@ public class MeasureDataDao {
         PreparedStatement pst = null;
         ResultSet rs = null;
         try {
-            String sql = "insert into t_measure_data(uuid,point_id,data,create_time,update_time) values(?,?,?,?,?)";
+            String sql = "insert into t_measure_data(uuid,point_id,data,create_time,update_time) values(?,?,?,UNIX_TIMESTAMP(NOW()) * 1000,UNIX_TIMESTAMP(NOW()) * 1000)";
             pst = conn.prepareStatement(sql);
             pst.setString(1, measureData.getUuid());
             pst.setInt(2, measureData.getPointId());
             pst.setDouble(3, measureData.getData());
-            pst.setLong(4, measureData.getCreateTime());
-            pst.setLong(5, measureData.getUpdateTime());
+//            pst.setLong(4, measureData.getCreateTime());
+//            pst.setLong(5, measureData.getUpdateTime());
             pst.executeUpdate();
 
             rs = pst.getGeneratedKeys();

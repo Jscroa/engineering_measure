@@ -31,7 +31,7 @@ public class WorkPointDao {
         PreparedStatement pst = null;
         ResultSet rs = null;
         try {
-            String sql = "insert into t_work_point(uuid,workbench_id,name,measure_type,measure_count,deviation_percent,create_time,update_time) values(?,?,?,?,?,?,?,?)";
+            String sql = "insert into t_work_point(uuid,workbench_id,name,measure_type,measure_count,deviation_percent,create_time,update_time) values(?,?,?,?,?,?,UNIX_TIMESTAMP(NOW()) * 1000,UNIX_TIMESTAMP(NOW()) * 1000)";
             pst = conn.prepareStatement(sql);
             pst.setString(1,workPoint.getUuid());
             pst.setInt(2,workPoint.getWorkbenchId());
@@ -39,8 +39,8 @@ public class WorkPointDao {
             pst.setInt(4,workPoint.getMeasureType());
             pst.setInt(5,workPoint.getMeasureCount());
             pst.setInt(6,workPoint.getDeviationPercent());
-            pst.setLong(7,workPoint.getCreateTime());
-            pst.setLong(8,workPoint.getUpdateTime());
+//            pst.setLong(7,workPoint.getCreateTime());
+//            pst.setLong(8,workPoint.getUpdateTime());
             pst.executeUpdate();
 
             rs = pst.getGeneratedKeys();

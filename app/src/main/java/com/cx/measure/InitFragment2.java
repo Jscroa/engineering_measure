@@ -19,7 +19,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
@@ -105,7 +104,7 @@ public class InitFragment2 extends Fragment implements InitFragment2View {
         @Override
         public void onReceive(Context context, Intent intent) {
             String rfid = intent.getStringExtra("KEY_READ_CODE");
-            Toast.makeText(context,"aaaa - "+rfid,Toast.LENGTH_SHORT).show();
+//            Toast.makeText(context,"aaaa - "+rfid,Toast.LENGTH_SHORT).show();
             etRfidD.setText(rfid);
             try {
                 getContext().unregisterReceiver(this);

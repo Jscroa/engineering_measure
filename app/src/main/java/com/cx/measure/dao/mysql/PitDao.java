@@ -62,12 +62,12 @@ public class PitDao {
         PreparedStatement pst = null;
         ResultSet rs = null;
         try {
-            String sql = "insert into t_pit(uuid,name,create_time,update_time) values(?,?,?,?)";
+            String sql = "insert into t_pit(uuid,name,create_time,update_time) values(?,?,UNIX_TIMESTAMP(NOW()) * 1000,UNIX_TIMESTAMP(NOW()) * 1000)";
             pst = conn.prepareStatement(sql);
             pst.setString(1, pit.getUuid());
             pst.setString(2, pit.getName());
-            pst.setLong(3, pit.getCreateTime());
-            pst.setLong(4, pit.getUpdateTime());
+//            pst.setLong(3, pit.getCreateTime());
+//            pst.setLong(4, pit.getUpdateTime());
             pst.executeUpdate();
 
             rs = pst.getGeneratedKeys();

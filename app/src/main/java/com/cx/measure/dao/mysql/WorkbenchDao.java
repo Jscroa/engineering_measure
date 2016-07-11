@@ -1,7 +1,6 @@
 package com.cx.measure.dao.mysql;
 
 import android.content.Context;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.cx.measure.bean.WorkPoint;
@@ -33,7 +32,7 @@ public class WorkbenchDao {
         PreparedStatement pst = null;
         ResultSet rs = null;
         try {
-            String sql = "insert into t_workbench(uuid,pit_id,name,rfid,longitude,latitude,create_time,update_time) values(?,?,?,?,?,?,?,?)";
+            String sql = "insert into t_workbench(uuid,pit_id,name,rfid,longitude,latitude,create_time,update_time) values(?,?,?,?,?,?,UNIX_TIMESTAMP(NOW()) * 1000,UNIX_TIMESTAMP(NOW()) * 1000)";
             pst = conn.prepareStatement(sql);
             pst.setString(1, workbench.getUuid());
             pst.setInt(2, workbench.getPitId());
@@ -41,8 +40,8 @@ public class WorkbenchDao {
             pst.setString(4, workbench.getRFID());
             pst.setDouble(5, workbench.getLongitude());
             pst.setDouble(6, workbench.getLatitude());
-            pst.setLong(7, workbench.getCreateTime());
-            pst.setLong(8, workbench.getUpdateTime());
+//            pst.setLong(7, workbench.getCreateTime());
+//            pst.setLong(8, workbench.getUpdateTime());
             pst.executeUpdate();
 
             rs = pst.getGeneratedKeys();

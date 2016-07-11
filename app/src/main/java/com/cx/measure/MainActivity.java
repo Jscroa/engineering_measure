@@ -62,6 +62,11 @@ public class MainActivity extends AppCompatActivity implements MainActivityView 
 
     IntentFilter intentFilter;
 
+    /**
+     * 扫描到的rfid临时存放处
+     */
+    String targetRfid;
+
     private View.OnClickListener btnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -87,15 +92,12 @@ public class MainActivity extends AppCompatActivity implements MainActivityView 
     BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            String rfid = intent.getStringExtra("KEY_READ_CODE");
-            Intent intent1 = new Intent(MainActivity.this,SelectWorkPointActivity.class);
-            intent1.putExtra(SelectWorkPointActivity.ARG_RFID,rfid);
-            startActivity(intent1);
-            try {
-                unregisterReceiver(this);
-            } catch (IllegalArgumentException e) {
-                e.printStackTrace();
-            }
+            targetRfid = intent.getStringExtra("KEY_READ_CODE");
+
+//            Intent intent1 = new Intent(MainActivity.this,SelectWorkPointActivity.class);
+//            intent1.putExtra(SelectWorkPointActivity.ARG_RFID,rfid);
+//            startActivity(intent1);
+
 
         }
     };
@@ -118,6 +120,18 @@ public class MainActivity extends AppCompatActivity implements MainActivityView 
     protected void onResume() {
         super.onResume();
         updateComment1();
+        if (targetRfid == null || "".equals(targetRfid)) {
+            return;
+        }
+        Intent intent1 = new Intent(MainActivity.this, SelectWorkPointActivity.class);
+        intent1.putExtra(SelectWorkPointActivity.ARG_RFID, targetRfid);
+        startActivity(intent1);
+        targetRfid = "";
+        try {
+            unregisterReceiver(broadcastReceiver);
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -175,13 +189,13 @@ public class MainActivity extends AppCompatActivity implements MainActivityView 
              * 定位权限为必须权限，用户如果禁止，则每次进入都会申请
              */
             // 定位精确位置
-            if(checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+            if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 permissions.add(Manifest.permission.ACCESS_FINE_LOCATION);
             }
-            if(checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+            if (checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 permissions.add(Manifest.permission.ACCESS_COARSE_LOCATION);
             }
-			/*
+            /*
 			 * 读写权限和电话状态权限非必要权限(建议授予)只会申请一次，用户同意或者禁止，只会弹一次
 			 */
             // 读写权限
@@ -198,14 +212,14 @@ public class MainActivity extends AppCompatActivity implements MainActivityView 
     @TargetApi(23)
     private boolean addPermission(ArrayList<String> permissionsList, String permission) {
         if (checkSelfPermission(permission) != PackageManager.PERMISSION_GRANTED) { // 如果应用没有获得对应权限,则添加到列表中,准备批量申请
-            if (shouldShowRequestPermissionRationale(permission)){
+            if (shouldShowRequestPermissionRationale(permission)) {
                 return true;
-            }else{
+            } else {
                 permissionsList.add(permission);
                 return false;
             }
 
-        }else{
+        } else {
             return true;
         }
     }
@@ -233,9 +247,9 @@ public class MainActivity extends AppCompatActivity implements MainActivityView 
             ComponentName cn = new ComponentName("com.senter.demo.uhf2", "com.senter.demo.uhf.Activity0ModuleSelection");
             intent.setComponent(cn);
             startActivity(intent);
-            try{
+            try {
                 registerReceiver(broadcastReceiver, intentFilter);
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 
