@@ -24,6 +24,7 @@ import android.widget.TextView;
 
 import com.cx.measure.mvp.presenter.MainActivityPresenter;
 import com.cx.measure.mvp.view.MainActivityView;
+import com.cx.measure.task.ReadRfidTask;
 import com.cx.measure.view.MyProgressDialog;
 
 import java.util.ArrayList;
@@ -54,6 +55,8 @@ public class MainActivity extends AppCompatActivity implements MainActivityView 
      */
     Button mainBtnMeasureWithSelect;
 
+    Button mainBtnTest;
+
     /**
      * 基本信息文本（富文本）
      */
@@ -83,6 +86,9 @@ public class MainActivity extends AppCompatActivity implements MainActivityView 
                 case R.id.main_btn_measure_with_select:
                     presenter.clickToSelect();
                     break;
+                case R.id.main_btn_test:
+                    new ReadRfidTask(MainActivity.this).execute();
+                    break;
                 default:
                     break;
             }
@@ -93,12 +99,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityView 
         @Override
         public void onReceive(Context context, Intent intent) {
             targetRfid = intent.getStringExtra("KEY_READ_CODE");
-
-//            Intent intent1 = new Intent(MainActivity.this,SelectWorkPointActivity.class);
-//            intent1.putExtra(SelectWorkPointActivity.ARG_RFID,rfid);
-//            startActivity(intent1);
-
-
         }
     };
 
@@ -171,6 +171,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityView 
         btnMeasureWithExplain = (Button) findViewById(R.id.main_btn_measure_with_explain);
         btnMeasureWithLocation = (Button) findViewById(R.id.main_btn_measure_with_location);
         mainBtnMeasureWithSelect = (Button) findViewById(R.id.main_btn_measure_with_select);
+        mainBtnTest = (Button) findViewById(R.id.main_btn_test);
         tvComment1 = (TextView) findViewById(R.id.tv_comment1);
         tvComment2 = (TextView) findViewById(R.id.tv_comment2);
 
@@ -178,6 +179,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityView 
         btnMeasureWithExplain.setOnClickListener(btnClickListener);
         btnMeasureWithLocation.setOnClickListener(btnClickListener);
         mainBtnMeasureWithSelect.setOnClickListener(btnClickListener);
+        mainBtnTest.setOnClickListener(btnClickListener);
 
     }
 

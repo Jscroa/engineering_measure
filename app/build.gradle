@@ -36,4 +36,6 @@ dependencies {
     compile 'org.xutils:xutils:3.3.34'
     compile files('src/main/libs/mysql-connector-java-3.1.14-bin.jar')
     compile files('src/main/libs/BaiduLBS_Android.jar')
+    compile files('src/main/libs/jdom.jar')
+    compile files('src/main/libs/SenterOpenApi_1.1.2.59.jar')
 }

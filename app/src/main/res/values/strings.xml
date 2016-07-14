@@ -51,4 +51,6 @@
     <string name="host_example">例：192.168.1.123</string>
     <string name="clear_host">清除host</string>
     <string name="title_activity_select_work_point">请选择一个点位</string>
+
+    <string name="ReadDataFailure">读取数据失败</string>
 </resources>
